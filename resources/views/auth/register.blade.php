@@ -25,15 +25,17 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="text" class="form-control" name="password" value="{{ old('password') }}">
+                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">パスワード確認</label>
-                    <input id="password_confirmation" type="text" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-2">新規登録</button>
             </form>
+
+            <div class="mt-2"><a href="{{ route('login') }}">登録済みの方はこちら</a></div>
         </div>
     </div>
 
