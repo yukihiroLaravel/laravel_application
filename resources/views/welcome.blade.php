@@ -7,6 +7,11 @@
             <h1 class="matome">× コミュニケーション</h1>
         </div>
     </div>
+    <p class="text-right">
+        @if(Auth::check())
+            ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
+        @endif
+    </p>
 
     <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
 @endsection
