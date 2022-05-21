@@ -1,3 +1,11 @@
 .user-name {
   font-weight: bold;
 }
+
+.movie > p{
+  height: 72px;
+}
+
+.button{
+  width: 290px;
+}
