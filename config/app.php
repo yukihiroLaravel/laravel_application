@@ -228,4 +228,7 @@ return [
 
     ],
 
+    // API_KEY
+    'key_name' => env('API_KEY'),
+
 ];

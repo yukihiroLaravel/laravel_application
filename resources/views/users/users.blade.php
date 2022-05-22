@@ -9,6 +9,22 @@
             }
 
             $movie = $user->movies->last();
+
+            $videoTitle="※動画が未登録です";
+            if ($movie) {
+                $keyName = config('app.key_name');
+                $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key=$keyName&part=snippet";
+                $jsonData = file_get_contents($apiUrl);
+                if ($jsonData) {
+                    $decodedData = json_decode($jsonData, true);
+
+                    if ($decodedData['pageInfo']['totalResults'] !== 0){
+                        $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                    }
+                } else {
+                    $videoTitle="※一時的な情報制限中です";
+                }
+            }
         @endphp
 
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
@@ -31,6 +47,8 @@
                     <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
+                        @else
+                            {{ $videoTitle }}
                         @endif
                     </p>
                 </div>
