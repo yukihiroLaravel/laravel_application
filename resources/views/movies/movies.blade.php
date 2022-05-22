@@ -27,15 +27,18 @@
                             {{ $movie->title }}
                         @endif
                     </p>
-                            @if (!isset($favoriteFlag) && Auth::id() === $movie->user_id)
+                        @if (!isset($favoriteFlag) && Auth::id() === $movie->user_id)
+                            <div class="d-flex justify-content-between">
                                 <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">この動画を削除する</button>
+                                    <button type="submit" class="btn btn-danger">削除する</button>
                                 </form>
-                            @elseif (Auth::id() !== $movie->user_id)
-                                @include('favorite.favorite_button', ['movie' => $movie])
-                            @endif
+                                <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">編集する</a>
+                            </div>
+                        @elseif (Auth::id() !== $movie->user_id)
+                            @include('favorite.favorite_button', ['movie' => $movie])
+                        @endif
                 </div>
             </div>
     @endforeach
