@@ -18,7 +18,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
         $data=[
             'user' => $user,
@@ -32,7 +32,7 @@ class UsersController extends Controller
     public function favorites($id)
     {
         $favoriteFlag = true;
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $movies = $user->favorites()->paginate(9);
         $data=[
             'favoriteFlag' => $favoriteFlag,

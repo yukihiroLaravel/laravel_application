@@ -35,7 +35,7 @@ class MoviesController extends Controller
 
     public function destroy($id)
     {
-        $movie = Movie::find($id);
+        $movie = Movie::findOrFail($id);
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
@@ -46,7 +46,7 @@ class MoviesController extends Controller
     public function edit($id)
     {
         $user = \Auth::user();
-        $movie = Movie::find($id);
+        $movie = Movie::findOrFail($id);
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
         $data=[
             'user' => $user,
@@ -59,7 +59,7 @@ class MoviesController extends Controller
 
     public function update(MovieRequest $request, $id)
     {
-        $movie = Movie::find($id);
+        $movie = Movie::findOrFail($id);
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
