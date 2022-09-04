@@ -21,3 +21,15 @@ Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/','UsersController@index');
 
+//ログイン後
+Route::group(['middleware' =>'auth'],function(){
+    //動画
+    Route::prefix('movies')->group(function(){
+        Route::get('crate','MoviesController@create')->name
+        ('movie.create');
+        Route::post('','MoviesController@store')->name
+        ('movie.store');
+        Route::delete('{id}','MoviesController@destroy')->name
+        ('movie.delete');
+    });
+});
