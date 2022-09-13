@@ -2,6 +2,11 @@
 <div class="movies row mt-5 text-cneter">
     @foreach ($users as $user)
         @php
+            $movies = $user->movies()->get();
+            $totalFavorites = 0;
+            foreach ($movies as $movie){
+                $totalFavorites += $movie->favoriteUsers()->count();
+            }
             $movie = $user->movies->last();
         @endphp
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
@@ -10,7 +15,11 @@
         @endif
         <div class="col-lg-4 mb-5">
              <div class="movie text-left d-inline-block">
-             ＠{{ $user->name}}
+                <div class="text-right">
+                    <span class="bage badge-pill badge-success">{{ $totalFavorites }}いいね！</span>
+                </div>
+                <a href="{{ route('user.show', $user->id) }}">
+             ＠{{ $user->name}}</a>
                 <div>
                     @if ($movie)
                     <iframe width="290"height="163.125" 
