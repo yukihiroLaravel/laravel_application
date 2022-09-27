@@ -7,6 +7,7 @@
         <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
         integraity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOHcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
+        <link rel="stylsheet" href="{{ asset('/css/styles.css') }}">
     </head>
     <body>
         @include('commons.header')
