@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/'; //RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -47,7 +47,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data)  //バリデーションは検証のこと。
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
