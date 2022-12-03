@@ -31,5 +31,13 @@ class UsersTableSeeder extends Seeder
             'email' => 'test4@test.com',
             'password' => bcrypt('test4')
         ]);
+
+        for ($i = 5; $i < 11; $i++) {
+            DB::table('users')->insert([
+                'name' => 'test$i',
+                'email' => 'test$i@test.com',
+                'password' => bcrypt('test$i')
+            ]);    
+        }
     }
 }
