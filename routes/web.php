@@ -21,6 +21,9 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function(){
+    Route::get('{id}','UsersController@show')->name('user.show');
+});
 
 //ログイン後にしか見れないという条件を記述している。midleware =>authでログイン後にしか見れないという条件を追加したことになる
 Route::group(['middleware' => 'auth'],function(){
