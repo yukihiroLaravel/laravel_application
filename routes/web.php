@@ -19,3 +19,12 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+Route::group(['middleware' => 'auto'], function() {
+  Route::prefix('movies')->group(function() {
+    Route::get('create', 'MoviesController@create')->name('movie.create');
+    Route::post('', 'MovieController@store')->name('movie.store');
+    Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+  });
+
+});
