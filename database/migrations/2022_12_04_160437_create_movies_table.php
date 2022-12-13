@@ -22,7 +22,7 @@ class CreateMoviesTable extends Migration
             $table ->softDeletes();
 
             //外部キー
-            $table ->foreign('user_id')->refarences('id')->on('users')->onDelete('cascade');
+            $table ->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
               });
     }
 
