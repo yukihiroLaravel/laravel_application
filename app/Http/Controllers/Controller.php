@@ -10,4 +10,26 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+
+    public function userCounts($user)
+    {
+        $countMovies = $user->movies()->count();
+        return [
+            'countMovies' => $countMovies,
+        ];
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
+    }
+    
 }
