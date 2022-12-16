@@ -23,12 +23,25 @@ Route::prefix('users')->group(function() {
   Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
+Route::get('/', 'UsersController@index')->name('users');
+Route::group(['prefix' => 'users/{id}'],function() {
+  Route::get('', 'UsersController@show')->name('user.show');
+  Route::get('favorites', 'UsersController@favorites')->name('user.favorites');
+});
 
-Route::group(['middleware' => 'auto'], function() {
+
+
+
+Route::group(['middleware' => 'auth'], function() {
   Route::prefix('movies')->group(function() {
     Route::get('create', 'MoviesController@create')->name('movie.create');
     Route::post('', 'MovieController@store')->name('movie.store');
     Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
   });
+
+Route::group(['prefix' => 'movies/{id}'],function() {
+  Route::post('favorite', 'FavoriteController@store')->name('favorite');
+  Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+});  
 
 });
