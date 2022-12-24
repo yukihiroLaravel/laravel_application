@@ -1,4 +1,4 @@
-@if (Auth::check() && Auth::id() !== $movie->user_id)
+@if (Auth::check() && Auth::id() !== $movie->user_id && $movie->favorite_flag)
   @if (Auth::user()->isFavorite($movie->id))
       <form method="post" action="{{ route('unfavorite', $movie->id) }}">
         @csrf

@@ -24,11 +24,14 @@
       </p>
       @include('favorite.favorite_button',['movie' => $movie])
       @if (Auto::id() === $movie->user_id)
-          <form method="post" action="{{ route('movie.delete', $movie->id) }}">
-            @csrf 
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">この動画は削除する</button>
-          </form>
+        <div class="d-flex justify-content-between">
+            <form method="post" action="{{ route('movie.delete', $movie->id) }}">
+              @csrf 
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">この動画は削除する</button>
+            </form>
+            <a href= "{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">編集する</a>
+          </div>    
       @endif
     </div>
   </div>

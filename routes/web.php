@@ -37,6 +37,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('create', 'MoviesController@create')->name('movie.create');
     Route::post('', 'MovieController@store')->name('movie.store');
     Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    Route::get('{id})/edit', 'MoviesController@edit')->name('movie.edit');
+    Route::put('{id}','MoviesController@update')->name('movie.update');
+    
   });
 
 Route::group(['prefix' => 'movies/{id}'],function() {
