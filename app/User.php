@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Datebase\Eloquent\SoftDeletes;//追記
+use Illuminate\Database\Eloquent\SoftDeletes;//追記
 
 class User extends Authenticatable
 {
