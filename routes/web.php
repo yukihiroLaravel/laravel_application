@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// ブラウザ上の/にアクセスした場合にUsersControllerの＠indexメソッドを呼び出すという意味（トップページ）
+// ゲットリクエスト、ポストリクエストもある
+Route::get('/','UsersController@index');
