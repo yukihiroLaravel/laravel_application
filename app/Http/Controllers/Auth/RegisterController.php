@@ -21,7 +21,8 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    // ↓トレイトと呼ばれるもの　よく使うメソッドをいれこんで提供されている
+    // 
     use RegistersUsers;
 
     /**
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
