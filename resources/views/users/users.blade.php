@@ -8,9 +8,9 @@
             </div>
             <div class="row text-center mt-3">
         @endif
-            <div class="col-lg-4 mb-5">
+        <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
-                    ＠{{ $user->name }}
+                    <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
                     <div>
                         @if ($movie)
                             <iframe width="290" height="163.125" 
