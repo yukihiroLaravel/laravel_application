@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route; //Routeエラーを修正
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +12,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@index');
