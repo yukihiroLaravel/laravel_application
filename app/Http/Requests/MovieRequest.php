@@ -32,8 +32,8 @@ class MovieRequest extends FormRequest
     public function attributes()
     {
         return [
-            'youtube_id' => 'required|max:11',
-            'title' => 'max:36',
+            'youtube_id' => 'YouTube動画ID',
+            'title' => '動画タイトル',
         ];
     }
 }
