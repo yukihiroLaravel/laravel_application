@@ -20,6 +20,8 @@ class CreateMoviesTable extends Migration
             $table->string('youtube_id');
             $table->softDeletes();
             $table->timestamps();
+            // 外部キー制約
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -9,8 +9,10 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        unset($users);
-        return view('welcome', ['user' => $users]);
+        $users = User::orderBy('id', 'desc')->paginate(9);
+        //unset($users);
+        return view('welcome', [
+            'users' => $users,
+        ]);
     }
 }
