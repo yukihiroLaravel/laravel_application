@@ -8,6 +8,19 @@
             <div class="movie text-left d-inline-block">
                 @php 
                 $countFavoriteUsers = $movie->favoriteUsers()->count();
+                $videoTitle="※動画がも未登録です";
+                if ($movie) {
+                    $keyName = config ('app.YouTubeDataApiKey');
+                    $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+                    $jsonData = file_get_contents($apiUrl);
+                    if ($jsonData) {$decodedData = json_decode($jsonData, true);
+                    if ($decodedData['pageInfo']['totalResults'] !== 0){
+                        $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                    }    
+                } else {
+                    $videoTitle="※一時的な情報制限中です";
+                    }
+                }
                 @endphp
                 <div class="text-right mb-2">いいね！ 
                     <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
@@ -21,9 +34,11 @@
                     </div>
                     <p>
                         @if (isset($movie->title))
-                  {{ $movie->title }}
+                            {{ $movie->title }}
+                        @else
+                            {{ $videoTitle }}    
                         @endif
-              </p>
+                    </p>
               @include('favorite.favorite_button', ['movie' => $movie])
               @if (Auth::id() === $movie->user_id)
               <div class="d-flex justify-content-between">
