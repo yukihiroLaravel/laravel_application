@@ -15,7 +15,11 @@
                     <label for="title" class="mt-3">動画タイトル(※任意)</label> 
                     <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
                 </div>
-            <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>            
+                <div class="form-group">
+                    <label for="favorite_flag" class="mt-3">
+                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>いいね！を許可する</label>
+                </div>    
+                <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>            
             </div>
     </form>
     <h2 class="mt-5">あなたの登録済み動画</h2>
