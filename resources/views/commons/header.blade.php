@@ -7,7 +7,6 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-<<<<<<< HEAD
             @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                     <li class="nav-item"><a href="" class="nav-link">マイページ</a></li>
@@ -24,11 +23,9 @@
         ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
     </p>
 @endif
-=======
                 <li class="nav-item"><a href="" class="nav-link">新規ユーザ登録</a></li>
                 <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
             </ul>
         </div>
     </nav>
 </header>
->>>>>>> feature/jyunpei/user_register_login
