@@ -11,11 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "UsersController@index");
 
 
+//　練習
 Route::get("hello/{msg?}",function($msg="no massage") {
 
     $html =<<< EOM
