@@ -71,4 +71,10 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('movie_id', $movieId)->exists();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MovieRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,6 +15,7 @@ class MovieRequest extends FormRequest
     {
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,15 +24,15 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'youtube_id' => 'required|max:11',
-            'title' => 'max:36',
+            'comment' => 'required|max:300',
         ];
     }
+
     public function attributes()
     {
         return [
-            'youtube_id' => 'YouTube動画ID',
-            'title' => '動画タイトル',
+            'comment' => 'コメント',
         ];
     }
+
 }

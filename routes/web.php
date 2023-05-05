@@ -44,4 +44,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
+
+    // コメント
+    Route::prefix('comments')->group(function () {
+
+        //コメント投稿処理
+        Route::post('','CommentsController@store')->name('comment.store');
+
+        //コメント取消処理
+        Route::get('{comment_id}', 'CommentsController@destroy')->name('comment.delete');
+
+    });
+
 });
