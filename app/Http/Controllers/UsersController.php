@@ -9,7 +9,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id','desc')->paginate(9);
+        $users = User::orderBy('id', 'desc')->paginate(9);
         return view('welcome', [
             'users' => $users,
         ]);
@@ -24,7 +24,7 @@ class UsersController extends Controller
             'movies' => $movies,
         ];
         $data += $this->userCounts($user);
-        return view('users.show',$data);
+        return view('users.show', $data);
     }
 
     public function favorites($id)

@@ -24,9 +24,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
 Route::get('/', 'UsersController@index')->name('users');
-Route::group(['prefix' => 'users/{id}'],function(){
+Route::group(['prefix' => 'users/{id}'], function () {
     Route::get('', 'UsersController@show')->name('user.show');
-    Route::get('favorites','UsersController@favorites')->name('user.favorites');
+    Route::get('favorites', 'UsersController@favorites')->name('user.favorites');
 });
 
 // ログイン後
@@ -40,20 +40,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
     });
     // いいね
-    Route::group(['prefix' => 'movies/{id}'],function(){
-        Route::post('favorite','FavoriteController@store')->name('favorite');
-        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    Route::group(['prefix' => 'movies/{id}'], function () {
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
 
     // コメント
     Route::prefix('comments')->group(function () {
-
         //コメント投稿処理
-        Route::post('','CommentsController@store')->name('comment.store');
-
+        Route::post('', 'CommentsController@store')->name('comment.store');
         //コメント取消処理
         Route::get('{comment_id}', 'CommentsController@destroy')->name('comment.delete');
-
     });
 
 });
