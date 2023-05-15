@@ -38,4 +38,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    {
+        return $this->hasMany(Movie::class);
+    }
+
 }
+
+
+
