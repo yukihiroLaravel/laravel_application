@@ -25,7 +25,8 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
-// ログイン後
+
+// ログイン後にしか以下、新規登録や削除にアクセス出来ない
 Route::group(['middleware' => 'auth'], function () {
     // 動画
     Route::prefix('movies')->group(function () {
