@@ -11,6 +11,7 @@ class UsersController extends Controller
     {
         
            $users = User::orderBy('id','desc')->paginate(9);
+           
     return view('welcome', [
         'users' => $users,
     ]);
