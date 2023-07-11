@@ -10,9 +10,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::orderBy('id','desc')->paginate(9);
-        return view('welcome', [
-            'users' => $users,
-        ]);
+        return view('welcome', ['users' => $users,]);
     }
     //fungsi show untuk menampilkan movie di user sendiri
     public function show($id)
