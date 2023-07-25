@@ -10,5 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//ユーザー新規登録
+//ユーザー登録画面表示
+Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
+//ユーザー登録の実行
+Route::post('signup','Auth\RegisterController@register')->name('signup.post');
+
 
 Route::get('/','UsersController@index');
+
