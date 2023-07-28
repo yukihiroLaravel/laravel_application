@@ -16,10 +16,6 @@
                 <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
             </div>
             <div class="form-group">
-                <label for="title" class="mt-3">動画タイトル(※任意)</label>
-                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
-            </div>
-            <div class="form-group">
                 <label for="favorite_flag" class="mt-3">
                     <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
                     いいね！を許可する
