@@ -26,6 +26,7 @@ class MoviesController extends Controller
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0; // 追記
         $movie->save();
         return back();
     }
