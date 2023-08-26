@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Original Source
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'UsersController@index');
