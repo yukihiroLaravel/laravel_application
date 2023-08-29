@@ -16,3 +16,7 @@
 // });
 
 Route::get('/', 'UsersController@index');
+
+// ユーザ新規登録
+Route::get('singup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('singup', 'Auth\RegisterController@register')->name('signup.post');
