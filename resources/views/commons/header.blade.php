@@ -7,6 +7,7 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+            <li class="nav-item"><a href="{{ route('search.create') }}" class="nav-link">検索</a></li>
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>

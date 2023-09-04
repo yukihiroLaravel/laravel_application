@@ -42,3 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 });
+
+// 検索
+Route::group(['prefix' => 'search' ],function(){
+    Route::get('create', 'SearchController@create')->name('search.create');
+    Route::post('search', 'SearchController@search')->name('search.search');
+});
