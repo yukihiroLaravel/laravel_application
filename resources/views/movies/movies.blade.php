@@ -51,6 +51,23 @@
                             <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">編集する</a>
                         </div>
                     @endif
+                    @if (Auth::check() && Auth::id() !== $movie->user_id && $movie->favorite_flag)
+                        <div class="pt-2">
+                            <a href="{{ route('comments.create', $movie->id ) }}">コメントを見る</a>
+                        </div>
+                        <!-- @if (Auth::user()->isFavorite($movie->id))
+                            <form method="POST" action="{{ route('unfavorite', $movie->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">いいね！を外す</button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('favorite', $movie->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-success">いいね！を押す</button>
+                            </form>
+                        @endif -->
+                    @endif
                 </div>
             </div>
     @endforeach

@@ -41,6 +41,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
+    // コメント画面
+    Route::group(['prefix' => 'comments' ],function(){
+        Route::get('{id}/create', 'CommentsController@create')->name('comments.create');
+        Route::post('{id}/comment', 'CommentsController@comment')->name('comments.comment');
+    });
 });
 
 // 検索
@@ -48,3 +53,4 @@ Route::group(['prefix' => 'search' ],function(){
     Route::get('create', 'SearchController@create')->name('search.create');
     Route::post('search', 'SearchController@search')->name('search.search');
 });
+

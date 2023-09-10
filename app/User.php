@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations;
 
 class User extends Authenticatable
 {
@@ -39,11 +40,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 多対多設定
     public function movies()
     {
         return $this->hasMany(Movie::class);
     }
 
+    // favoritesテーブル
     public function favorites()
     {
         return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
@@ -75,4 +78,13 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('movie_id', $movieId)->exists();
     }
+
+    // commentsテーブル
+    public function comments()
+    {
+
+        return $this->hasMany(Comment::class);
+
+    }
+
 }

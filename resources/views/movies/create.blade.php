@@ -20,7 +20,7 @@
                     <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
                     いいね！を許可する
                 </label>
-            </div>            
+            </div>
             <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>
         </div>
     </form>

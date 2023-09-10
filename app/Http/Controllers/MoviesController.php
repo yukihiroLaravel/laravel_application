@@ -54,7 +54,7 @@ class MoviesController extends Controller
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
-        
+
         return back();
     }
 
@@ -68,7 +68,7 @@ class MoviesController extends Controller
             'movie' => $movie,
             'movies' => $movies,
         ];
-        
+
         return view('movies.edit', $data);
     }
 
