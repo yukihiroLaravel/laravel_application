@@ -12,3 +12,8 @@
 */
 
 Route::get('/', 'UsersController@index');
+//  ユーザ新規登録
+Route::get('signup','Auth\RegisterController@showRegistrationForm')-
+>name('signup');
+Route::post('signup','Autn\RegisterController@register')-
+>name('signup.post');
