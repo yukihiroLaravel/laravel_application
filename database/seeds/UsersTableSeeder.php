@@ -9,6 +9,7 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
+    //追加　2023.09.23
     public function run()
     {
         DB::table('users')->insert([
