@@ -20,12 +20,21 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::get('/', 'UsersController@index');  
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('movies')->group(function () {
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
+});
+
+/*
 Route::get('/', 
 function(){
     return view('welcome');
 }); 
-
-Route::get('/', 'UsersController@index');  //追加　2023.09.23
-
-Route::get('hello','HelloController@index'); 
-//Route::get('hello/view','HelloController@view'); 
+*/
