@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index()  //追加　2023.09.23
+    public function index() 
     {
         return view('welcome');
     }
