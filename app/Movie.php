@@ -1,16 +1,16 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-use illuminate\Database\Eloquent\softDeletes;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Movie extends Model
 {
-    use softDeletes;
-
+    use SoftDeletes;
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
     }
 }
