@@ -10,4 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function UserCounts($user)
+    {
+        $countMovies = $user->movies()->count();
+        return[
+            'countMovies' => $countMovies,
+        ];
+    }
 }

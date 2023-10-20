@@ -5,6 +5,7 @@
         <title>YouTubeまとめ×コミュ二ケーション</title>
         <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" interity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link="stylesheet" href="{{ asset('/css/styles.css') }}">
     </head>
     <body>
         @include('commons.header')
