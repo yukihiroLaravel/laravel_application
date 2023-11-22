@@ -1,0 +1,10 @@
+/*動画部分の表示*/
+.movie > p{
+    height: 72px;
+    width: 290px;
+}
+
+/*ボタン幅*/
+.button{
+    width: 290px;
+}
