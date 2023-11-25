@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -12,7 +10,6 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
     'accepted' => ':attributeを承認してください。',
     'active_url' => ':attributeは、有効なURLではありません。',
     'after' => ':attributeには、:dateより後の日付を指定してください。',
@@ -147,5 +144,4 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
     ],
-
 ];
