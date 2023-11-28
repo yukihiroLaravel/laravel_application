@@ -25,6 +25,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // トップページ表示
 Route::get('/', 'UsersController@index');
+// ユーザー詳細ページ
+Route::prefix('users')->group(function () {
+  Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 
 // ログイン後
