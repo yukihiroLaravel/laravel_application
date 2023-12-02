@@ -19,7 +19,12 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+//ユーザー詳細のルーティング
 Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function (){
+    Route::get('{id}', 'usersController@show')->name('user.show');
+});
+
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function (){
