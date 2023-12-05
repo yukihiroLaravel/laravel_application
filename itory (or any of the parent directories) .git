@@ -1,0 +1,54 @@
+[33mcommit 7e1bdda17df48f67770810329a973d021cc01db2[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop_seiji[m[33m, [m[1;31morigin/feature/seiji/movie_create_user_show[m[33m, [m[1;32mfeature/seiji/movie_create_user_show[m[33m)[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Mon Dec 4 10:26:49 2023 +0900
+
+    4章 ユーザ一覧、動画投稿・削除・動画登録・ユーザ詳細
+
+[33mcommit 7a789603e778e269a9f709d419a171f5cdafa530[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Mon Nov 27 21:24:50 2023 +0900
+
+    4章 動画マイグレーションとモデル
+
+[33mcommit b6286fc283007b659fe9f0bd93bd0487e53f2e7c[m[33m ([m[1;31morigin/feature/seiji/user_register_login[m[33m, [m[1;32mfeature/seiji/user_register_login[m[33m)[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Mon Nov 27 15:18:59 2023 +0900
+
+    3章 ログイン機能
+
+[33mcommit 17af03593e37a1eabd129fda4c84f90a6c9d3a09[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Mon Nov 27 14:19:49 2023 +0900
+
+    3章 ユーザ登録機能
+
+[33mcommit 37f94b7f6849efc7f436b9359e5a704522b0571a[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Mon Nov 27 11:56:59 2023 +0900
+
+    3章 トップページの表示
+
+[33mcommit df9d3a32550321bddb263551001b99d541e08d8a[m
+Merge: a439d15 4615840
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Tue Nov 21 21:15:21 2023 +0900
+
+    Merge branch 'feature/seiji/migration_seeder' into develop_seiji
+
+[33mcommit a439d159b2b428dc0c0744dcb320c15f65dc35f1[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Tue Nov 21 21:13:48 2023 +0900
+
+    artisan
+
+[33mcommit 4615840a54cca8bf4994d743205ea55588cae202[m[33m ([m[1;31morigin/feature/seiji/migration_seeder[m[33m, [m[1;32mfeature/seiji/migration_seeder[m[33m)[m
+Author: seiji kobayashi <se06.program@gmail.com>
+Date:   Tue Nov 21 09:42:53 2023 +0900
+
+    2章 データベース・マイグレーション・シーダー実装
+
+[33mcommit fe252007e6b2078fbb0f19cae98d8be1130d0bdf[m[33m ([m[1;31morigin/yuuya[m[33m, [m[1;31morigin/yokoi[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/ka2ki[m[33m, [m[1;31morigin/feature/yukihiro/laravel_app_1[m[33m, [m[1;31morigin/feature/yokoi/migration_seeder2[m[33m, [m[1;31morigin/feature/jyunpei/migration_seeder[m[33m, [m[1;31morigin/feature/junya/user_register_login2[m[33m, [m[1;31morigin/feature/junya/migration_seeder4[m[33m, [m[1;31morigin/develop_yuyakondo[m[33m, [m[1;31morigin/develop_yuuya[m[33m, [m[1;31morigin/develop_yusuke2[m[33m, [m[1;31morigin/develop_yusuke[m[33m, [m[1;31morigin/develop_yukihiro[m[33m, [m[1;31morigin/develop_yuki_o_2[m[33m, [m[1;31morigin/develop_yuki_o[m[33m, [m[1;31morigin/develop_yuki[m[33m, [m[1;31morigin/develop_youzousobata[m[33m, [m[1;31morigin/develop_yokoi[m[33m, [m[1;31morigin/develop_yasuyuki[m[33m, [m[1;31morigin/develop_yamada2[m[33m, [m[1;31morigin/develop_yamada[m[33m, [m[1;31morigin/develop_tomoki2[m[33m, [m[1;31morigin/develop_tomoki[m[33m, [m[1;31morigin/develop_terashima[m[33m, [m[1;31morigin/develop_tatsuhiro[m[33m, [m[1;31morigin/develop_takahito[m[33m, [m[1;31morigin/develop_sugihara[m[33m, [m[1;31morigin/develop_sorato[m[33m, [m[1;31morigin/develop_shunya[m[33m, [m[1;31morigin/develop_shunsuke[m[33m, [m[1;31morigin/develop_shogo[m[33m, [m[1;31morigin/develop_shinsuke[m[33m, [m[1;31morigin/develop_seiya[m[33m, [m[1;31morigin/develop_seiji[m[33m, [m[1;31morigin/develop_seiichi[m[33m, [m[1;31morigin/develop_sakizono2[m[33m, [m[1;31morigin/develop_sakizono[m[33m, [m[1;31morigin/develop_sachi2[m[33m, [m[1;31morigin/develop_rahmatramdani[m[33m, [m[1;31morigin/develop_rahmat[m[33m, [m[1;31morigin/develop_ota[m[33m, [m[1;31morigin/develop_nidasi[m[33m, [m[1;31morigin/develop_murai3[m[33m, [m[1;31morigin/develop_murai2[m[33m, [m[1;31morigin/develop_murai[m[33m, [m[1;31morigin/develop_morishima[m[33m, [m[1;31morigin/develop_mitamura[m[33m, [m[1;31morigin/develop_mera[m[33m, [m[1;31morigin/develop_masaki[m[33m, [m[1;31morigin/develop_mao-f-2[m[33m, [m[1;31morigin/develop_mao-f[m[33m, [m[1;31morigin/develop_makino[m[33m, [m[1;31morigin/develop_kumiko[m[33m, [m[1;31morigin/develop_kouji[m[33m, [m[1;31morigin/develop_kisio[m[33m, [m[1;31morigin/develop_kishio[m[33m, [m[1;31morigin/develop_kiichi[m[33m, [m[1;31morigin/develop_kenta[m[33m, [m[1;31morigin/develop_kazuya[m[33m, [m[1;31morigin/develop_kazufumi[m[33m, [m[1;31morigin/develop_kazue[m[33m, [m[1;31morigin/develop_ka2ki2[m[33m, [m[1;31morigin/develop_jyunpei[m[33m, [m[1;31morigin/develop_junya2[m[33m, [m[1;31morigin/develop_junya[m[33m, [m[1;31morigin/develop_jono[m[33m, [m[1;31morigin/develop_inoue[m[33m, [m[1;31morigin/develop_ide[m[33m, [m[1;31morigin/develop_horigome[m[33m, [m[1;31morigin/develop_hirofumi[m[33m, [m[1;31morigin/develop_hikaru[m[33m, [m[1;31morigin/develop_haishima[m[33m, [m[1;31morigin/develop_goto[m[33m, [m[1;31morigin/develop_furusawa2[m[33m, [m[1;31morigin/develop_furusawa[m[33m, [m[1;31morigin/develop_fujioka[m[33m, [m[1;31morigin/develop_daisuke[m[33m, [m[1;31morigin/develop_bucchi[m[33m, [m[1;31morigin/develop_X[m[33m, [m[1;31morigin/develop_A[m[33m, [m[1;31morigin/Inoue[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: SekiYukihiro <shiba920sof@yahoo.co.jp>
+Date:   Sat May 14 10:45:40 2022 +0900
+
+    first commit
