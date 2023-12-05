@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Movie extends Model
 {
-    use softDeletes;
+    use SoftDeletes;
 
     public function user() {
         return $this->belongsTo(User::class);
