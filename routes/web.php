@@ -11,8 +11,11 @@
 |
 */
 
-// インデックス表示
+// インデックス表示,ユーザー
 Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+  Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // ユーザー登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
