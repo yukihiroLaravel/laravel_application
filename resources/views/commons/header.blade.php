@@ -7,9 +7,19 @@
     <div class="collapse navbar-collapse" id="nav-bar">
       <ul class="navbar-nav mr-auto"></ul>
       <ul class="navbar-nav">
-        <li class="nav-item"><a href="{{route('signup') }}" class="nav-link">新規ユーザ登録</a></li>
-        <li class="nav-item"><a href="" class="nav-link">ログイン<a></li>
+        @if (Auth::check())
+          <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link"><font color=blue>ログアウト</font></a></li>
+          <li class="nav-item"><a href="" class="nav-link"><font color=blue>マイページ</font></a></li>
+        @else
+          <li class="nav-item"><a href="{{ route('login') }}" class="nav-link"><font color=blue>ログイン</font></a></li>
+          <li class="nav-link"><a href="{{ route('signup') }}" class="nav-link"><font color=blue>新規ユーザ登録</font></a></li>  
+        @endif
       </ul>
     </div>
   </nav>
 </header>
+@if(Auth::check())
+  <p class="text-right mr-3 pb-3">
+    ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
+  </p>
+@endif
