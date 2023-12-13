@@ -8,10 +8,10 @@
                 <div class="badge badge-secondary">{{ $countMovies }}</div>
             </a>
         </li>
-        <li class="nav-item nav-link">
-            <a href="">
+        <li class="nav-item nav-link {{ Request::is('users/' . $user->id . '/favorites') ? 'active' : '' }}">
+            <a href="{{ route('user.favorites', $user->id) }}">
                 お気に入り<br>
-                <div class="badge badge-secondary"></div>
+                <div class="badge badge-secondary">{{ $countFavorites }}</div>
             </a>
         </li>
     </ul>
