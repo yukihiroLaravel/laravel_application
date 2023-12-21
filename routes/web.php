@@ -19,16 +19,13 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-
-
-Route::get('/', 'UsersController@index');
-
 // ユーザ
-Route::get('/', 'UsersController@index')->name('users');
-Route::group(['prefix' => 'users/{id}'],function(){
-    Route::get('', 'UsersController@show')->name('user.show');
-    Route::get('favorites','UsersController@favorites')->name('user.favorites');
+Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 動画
