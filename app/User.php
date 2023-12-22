@@ -61,6 +61,7 @@ class User extends Authenticatable
             return false;
         } else {
             $this->favorites()->attach($movieId);
+            return true;
         }
     }
 
