@@ -28,12 +28,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Movie::class);
     }
-
     public function favorites()
     {
         return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
     }
-
     public function favorite($movieId)
     {
         $exist = $this->isFavorite($movieId);
@@ -44,7 +42,6 @@ class User extends Authenticatable
             return true;
         }
     }
-
     public function unfavorite($movieId)
     {
         $exist = $this->isFavorite($movieId);
@@ -55,7 +52,6 @@ class User extends Authenticatable
             return false;
         }
     }
-
     public function isFavorite($movieId)
     {
         return $this->favorites()->where('movie_id', $movieId)->exists();
