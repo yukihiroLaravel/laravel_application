@@ -2,6 +2,12 @@
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
+        $movies = $user->movies()->get();
+            $totalFavorites = 0;
+            foreach ($movies as $movie){
+                $totalFavorites += $movie->favoriteUsers()->count();
+            }
+
             $movie = $user->movies->last();
         @endphp
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
