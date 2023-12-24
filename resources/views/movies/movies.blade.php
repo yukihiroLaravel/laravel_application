@@ -19,6 +19,10 @@
                         @endif
                     </p>
 
+
+                    @include('favorite.favorite_button', ['movie' => $movie])
+
+                    
                     @if (Auth::id() === $movie->user_id)
                         <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
                             @csrf
