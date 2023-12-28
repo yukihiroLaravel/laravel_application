@@ -9,6 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
 */
 
 // ユーザ新規登録
@@ -22,3 +23,15 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後にのみ下記の３つにアクセスできる
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('movies')->group(function () {//prefixはmoviesを省略している。
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
+});
+
+
