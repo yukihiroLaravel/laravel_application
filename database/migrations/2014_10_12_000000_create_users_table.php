@@ -22,10 +22,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/kiyoharu/migration_seeder
         });
     }
 
