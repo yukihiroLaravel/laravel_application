@@ -16,7 +16,7 @@
                     value="{{ old('youtube_id', $movie->youtube_id) }}">
             </div>
             <div class="form-group">
-                <label for="title" class="mt-3">動画タイトル(※任意)</label>
+                <label for="title" class="mt-3">動画タイトル（＊空欄の場合はyoutubeのタイトルが登録されます）</label>
                 <input id="title" type="text" class="form-control" name="title"
                     value="{{ old('title', $movie->title) }}">
             </div>

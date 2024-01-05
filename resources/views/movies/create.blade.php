@@ -13,7 +13,7 @@
                 <input type="text" name="youtube_id" id="youtube_id" value="{{ old('youtube_id') }}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="title" class="mt-3">動画タイトル（＊任意）</label>
+                <label for="title" class="mt-3">動画タイトル（＊空欄の場合はyoutubeのタイトルが登録されます）</label>
                 <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control">
             </div>
             <div class="form-group">

@@ -25,7 +25,22 @@ class MoviesController extends Controller
     {
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
-        $movie->title = $request->title;
+
+        // $movie->title = $request->title;
+        if ($request->title) {
+            $movie->title = $request->title;
+        } else {
+            $keyName = config('app.YouTubeDataApiKey');
+            $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+            $jsonData = file_get_contents($apiUrl);
+            if ($jsonData) {
+                $decodedData = json_decode($jsonData, true);
+                if ($decodedData['pageInfo']['totalResults'] !== 0) {
+                    $movie->title = $decodedData['items']['0']['snippet']['title'];
+                }
+            }
+        }
+
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
@@ -59,8 +74,22 @@ class MoviesController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $movie->youtube_id = $request->youtube_id;
-        $movie->title = $request->title;
-        $movie->user_id = $request->user_id;
+
+        if ($request->title) {
+            $movie->title = $request->title;
+        } else {
+            $keyName = config('app.YouTubeDataApiKey');
+            $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+            $jsonData = file_get_contents($apiUrl);
+            if ($jsonData) {
+                $decodedData = json_decode($jsonData, true);
+                if ($decodedData['pageInfo']['totalResults'] !== 0) {
+                    $movie->title = $decodedData['items']['0']['snippet']['title'];
+                }
+            }
+        }
+
+        $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
         return back();

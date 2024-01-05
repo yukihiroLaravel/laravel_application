@@ -1,7 +1,95 @@
 .movie > p {
-    height: 72px;
     width: 290px;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+p {
+    line-height: 1.2em;
+    margin-bottom: 0.5em;
 }
 .button {
     width: 290px;
+}
+
+/* ボタンデザインのリセット */
+button {
+    border: 0;
+    background-color: transparent;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+}
+
+/* トップページタブ */
+.top-tab {
+    color: #007bff;
+}
+.top-tab:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+.top-tab:focus {
+    outline: none;
+}
+
+.favorite_btn {
+    padding: 0 0.5rem;
+    height: 1.8rem;
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+.anchor {
+    padding-top: 80px;
+    margin-top: -80px;
+}
+
+/* インデックスユーザーアイコン */
+.user-icon {
+    width: 2.5em;
+    height: 2.5em;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* 画像アップロード部分 */
+#preview-icon {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.upload-icon {
+    position: relative;
+    margin: 0;
+    font-size: 0.8rem;
+    padding: 2px 0.5em;
+    border: 1px solid;
+    border-radius: 1em;
+}
+.upload-icon:hover {
+    opacity: 0.6;
+}
+#reset-icon {
+    font-size: 0.8rem;
+    padding: 2px 0.5em;
+    border: 1px solid;
+    border-radius: 1em;
+}
+#reset-icon:hover {
+    opacity: 0.6;
+}
+#user_icon {
+    display: none;
+}
+.flex-gap-1 {
+    gap: 1rem;
 }

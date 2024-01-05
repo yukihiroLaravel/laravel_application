@@ -51,8 +51,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'icon' => ['image', 'mimes:png,jpg,jpeg'],
         ]);
     }
 
@@ -64,10 +65,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (request()->file('icon')) {
+            $icon = request()->file('icon')->store('public/images');
+            $icon = str_replace('public/images', '', $icon);
+        } else {
+            $icon = 'user_icon_default.png';
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'icon' => $icon,
         ]);
     }
 }

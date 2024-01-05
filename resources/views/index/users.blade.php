@@ -1,4 +1,3 @@
-<h2 class="mt-5 mb-5">チャンネル一覧</h2>
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
@@ -31,12 +30,16 @@
     @endif
     <div class="col-lg-4 mb-5">
         <div class="movie text-left d-inline-block">
-            <div class="text-right">
-                <span class="badge badge-pill badge-success">
-                    {{ $totalFavorites }} いいね！
-                </span>
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+                <a href="{{ route('user.show', $user->id) }}">
+                    <img src="{{ asset('storage/images/' . $user->icon) }}" alt="user-icon" class="user-icon">
+                    {{ $user->name }}
+                </a>
+                <div class="badge badge-primary favorite_btn">
+                    <i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>
+                    {{ $totalFavorites }}
+                </div>
             </div>
-            <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
             <div>
                 @if ($movie)
                     <iframe width="290" height="163.125"
@@ -58,4 +61,3 @@
     </div>
     @endforeach
 </div>
-{{ $users->links('pagination::bootstrap-4') }}

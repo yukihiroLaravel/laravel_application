@@ -24,7 +24,8 @@
                     }
                 }
             @endphp
-            <div class="text-right mb-1">
+
+            <div class="d-flex justify-content-end mb-1">
                 @include('favorite.favorite_button', ['movie' => $movie])
             </div>
             <div>
@@ -44,18 +45,11 @@
                     {{ $videoTitle }}
                 @endif
             </p>
-            @if (Auth::id() === $movie->user_id)
-                <div class="d-flex justify-content-between">
-                    <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">この動画を削除する</button>
-                    </form>
-                    <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">編集する</a>
-                </div>
-            @endif
+            <a href="{{ route('user.show', $movie->user->id) }}">＠{{ $movie->user->name }}</a>
+
+
+
         </div>
     </div>
     @endforeach
 </div>
-{{ $movies->links('pagination::bootstrap-4') }}

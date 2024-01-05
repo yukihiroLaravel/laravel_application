@@ -1,15 +1,20 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-primary">
+            {{ session('status') }}
+        </div>
+    @endif
     <h1>{{ $user->name }}</h1>
     <ul class="nav nav-tabs nav-justified mt-5 mb-2">
-        <li class="nav-item nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">
-            <a href="{{ route('user.show', $user->id) }}">
+        <li class="nav-item nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">
+            <a href="{{ route('user.show') }}">
                 動画<br>
                 <div class="badge badge-secondary">{{ $countMovies }}</div>
             </a>
         </li>
-        <li class="nav-item nav-link {{ Request::is('users/' . $user->id . '/favorites') ? 'active' : '' }}">
-            <a href="{{ route('user.favorites', $user->id) }}">
+        <li class="nav-item nav-link {{ Request::routeIs('user.favorites') ? 'active' : '' }}">
+            <a href="{{ route('user.favorites') }}">
                 お気に入り<br>
                 <div class="badge badge-secondary">{{ $countFavorites }}</div>
             </a>
