@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('create', 'MoviesController@create')->name('movie.create');
     Route::post('', 'MoviesController@store')->name('movie.store');
     Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
-    Route::get('{id}', 'moviesController@edit')->name('movie.edit');
+    Route::get('{id}', 'MoviesController@edit')->name('movie.edit');
     Route::put('{id}', 'MoviesController@update')->name('movie.update');
   });
   // いいね
@@ -46,4 +46,3 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
   });
 });
-
