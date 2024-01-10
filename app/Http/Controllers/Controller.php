@@ -13,8 +13,10 @@ class Controller extends BaseController
     public function userCounts($user)
     {
         $countMovies = $user->movies()->count();
+        $countfavorites = $user->favorites()->count();
         return [
             'countMovies' => $countMovies,
+            'countFavorites' => $countfavorites,
         ];
     }
 }
