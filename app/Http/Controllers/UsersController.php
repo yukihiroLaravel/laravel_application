@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    return view('welcom');
+    public function index()
+    {
+        return view('welcome');
+    }
 }
