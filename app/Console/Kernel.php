@@ -1,5 +1,5 @@
 <?php
-
+//API_KEY=AIzaSyBS91U6dr8V8wpFV75nOjqZ-GUKwAnZ9lQ
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
