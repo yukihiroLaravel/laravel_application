@@ -228,4 +228,10 @@ return [
 
     ],
 
+    'Validator' => Illuminate\Support\Facades\Validator::class,
+    'View' => Illuminate\Support\Facades\View::class,
+
+ // API_KEY
+ 'YouTubeDataApiKey' => env('API_KEY'),
+
 ];
