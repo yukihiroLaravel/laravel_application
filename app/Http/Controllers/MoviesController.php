@@ -34,7 +34,7 @@ class MoviesController extends Controller
     {
         $movie = Movie::findOrFail($id);
         if (\Auth::id() === $movie->user_id) {
-            $movie->delete();
+            $movie->delete(); 
         }
         return back();
     }
