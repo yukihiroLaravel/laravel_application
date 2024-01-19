@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -12,7 +10,6 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
     'accepted' => ':attributeを承認してください。',
     'active_url' => ':attributeは、有効なURLではありません。',
     'after' => ':attributeには、:dateより後の日付を指定してください。',
@@ -147,25 +144,4 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
     ],
-];
-上記はバリデーションエラー全般関連の言語ファイルで、下記が認証（ログイン）関連の言語ファイルですので、下記ファイルも書き換えておきましょう！
-
-resources/lang/ja/auth.php
-
-auth.php
-
-<?php
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
-    'failed' => '認証に失敗しました。',
-    'throttle' => 'ログイン試行が規定回数を超えました。:seconds秒後に再開できます。',
 ];
