@@ -20,3 +20,5 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+
