@@ -12,7 +12,8 @@
         @endif
 
         <div class="movie text-left d-inline-block">
-            {{ $user->name }}
+            <a href= "{{route('user.show',$user->id)}}">＠{{
+                $user->name}}</a>
             <div>
                 @if($movie)
                     <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
