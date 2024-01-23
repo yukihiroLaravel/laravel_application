@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-dark">
         <div class="text-center text-white mt-2 pt-1">
@@ -8,4 +7,5 @@
         </div>
     </div>
     <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
+    @include('users.users', ['users' => $users])
 @endsection
