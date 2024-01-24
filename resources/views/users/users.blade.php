@@ -2,6 +2,11 @@
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
+            $movies = $user->movies()->get();
+            $totalFavorites = 0;
+            foreach ($movies as $movie){
+            $totalFavorites += $movie->favoriteUsers()->count();
+            }
             $movie = $user->movies->last();
         @endphp
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
@@ -10,6 +15,9 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
+                    <div class="text-right">
+                        <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
+                    </div>
                 <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
                     <div>
                         @if ($movie)
@@ -18,6 +26,7 @@
                             <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
                         @endif
                     </div>
+
                     <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
