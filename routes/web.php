@@ -51,5 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('favorite','FavoriteController@store')->name('favorite');
     Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
   });
+
+  Route::group(['prefix' => 'movies', 'namespace' => 'Api'], function () {
+    Route::get('', 'ApiController@index');
+    Route::get('{id}', 'ApiController@show');
+    Route::post('', 'ApiController@store');
+    Route::put('{id}', 'ApiController@update');
+    Route::delete('{id}', 'ApiController@destroy');
+  });
 });
 
