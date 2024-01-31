@@ -14,6 +14,17 @@
                         @endif
                     </div>
                     <p>
+                    @if (isset($movie->comment))
+                            {{ $movie->comment }}
+                        @endif
+                    </p>
+                    @if (Auth::id() === $movie->user_id)
+                        <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">この動画を削除する</button>
+                        </form>
+                    @endif   
                         @if (isset($movie->title))
                             {{ $movie->title }}
                         @endif
