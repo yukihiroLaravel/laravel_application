@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'movies', 'namespace' => 'Api'], function () {
+    Route::get('', 'ApiController@index');//一覧
+    Route::get('{id}', 'ApiController@show');//個別
+    Route::post('', 'ApiController@store');//登録
+    Route::put('{id}', 'ApiController@update');//更新
+    Route::delete('{id}', 'ApiController@destroy');//削除
 });
