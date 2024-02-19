@@ -46,11 +46,11 @@ class User extends Authenticatable
     }
 
     
-    public function favorites() 
+    public function favorites()
     {
-        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamp();
+        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
     }
-    public function favorite($movieId) 
+    public function favorite($movieId)
     {
         $exist = $this->isFavorite($movieId);
         if ($exist) {

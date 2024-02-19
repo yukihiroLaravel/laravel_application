@@ -16,6 +16,6 @@ class Movie extends Model
 
     public function favoriteUsers()
     {
-        return $this->belongsToMany(User::class, 'favorties', 'movie_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
     }
 }
