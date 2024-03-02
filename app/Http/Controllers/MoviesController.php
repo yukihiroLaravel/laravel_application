@@ -30,4 +30,14 @@ class MoviesController extends Controller
         $movie->save();
         return back();
     }
+
+    public function destroy($id)
+    {
+        $movie = Movie::findOrFail($id);
+        if (\Auth::id() === $movie->user_id) {
+            $movie->delete();
+        }
+        
+        return back();
+    }
 }
