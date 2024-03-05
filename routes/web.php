@@ -20,7 +20,6 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-
 Route::get('/', 'UsersController@index');
 
 //ログイン後
@@ -32,3 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
     });
 });
+
+//ユーザ
+Route::get('/', 'UsersController@index');
+Route::group(['prefix' => 'users/{id}'],function() {
+    Route::get('', 'UsersController@show')->name('user.show');
+});
+
