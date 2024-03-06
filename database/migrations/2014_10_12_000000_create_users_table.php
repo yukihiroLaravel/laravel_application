@@ -11,7 +11,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up()//テーブル新規作成する関数
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,7 +30,7 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down()//テーブルを消去する関数
     {
         Schema::dropIfExists('users');
     }
