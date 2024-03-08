@@ -1,11 +1,11 @@
 @if (Auth::check() && Auth::id() !== $movie->user_id && $movie->favorite_flag)
     @if (Auth::user()->isFavorite($movie->id))
-        <form method="POST" action="{{ route('unfavorite', $movie->id) }}" class="d-flex flex-row-reverse">
+        <form method="POST" action="{{ route('unfavorite', $movie->id) }}" class="d-flex">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-secondary favorite_btn">
                 <i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>
-                {{ $countFavoriteUsers }}
+                はずす
             </button>
         </form>
     @else
@@ -13,15 +13,8 @@
             @csrf
             <button type="submit" class="btn btn-success favorite_btn">
                 <i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>
-                {{ $countFavoriteUsers }}
+                いいね！
             </button>
         </form>
     @endif
-@else
-    <div class="d-flex justify-content-end">
-        <div class="badge badge-primary favorite_btn">
-            <i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>
-            {{ $countFavoriteUsers }}
-        </div>
-    </div>
 @endif

@@ -1,8 +1,8 @@
-<div class="movies row mt-5 text-center">
+<div class="movies row text-center mt-5">
     @foreach ($movies as $movie)
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
 </div>
-<div class="row text-center mt-3">
+<div class="movies row text-center">
     @endif
     <div class="col-lg-4 mb-5">
         <div class="movie text-left d-inline-block">
@@ -24,26 +24,34 @@
                     }
                 }
             @endphp
-            <div class="text-right mb-1">
-                @include('favorite.favorite_button', ['movie' => $movie])
-            </div>
+            <ul class="d-flex justify-content-end">
+                <li class="d-flex">
+                    <i class="fa fa-thumbs-up mr-1 text-primary" aria-hidden="true"></i>
+                    <p class="mr-3 text-secondary">{{ $countFavoriteUsers }}</p>
+                </li>
+                <li class="d-flex">
+                    <i class="fa fa-comment-alt mr-1 text-success" aria-hidden="true"></i>
+                    <p class="text-secondary">{{ $movie->comments->count() }}</p>
+                </li>
+            </ul>
             <div>
                 @if ($movie)
                     <iframe width="290" height="163.125"
                         src="{{ 'https://www.youtube.com/embed/' . $movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}"
                         frameborder="0"></iframe>
                 @else
-                    <iframe width="290" height="163.125" src="https://www.youtube.com/embed/"
-                        frameborder="0"></iframe>
+                    <p>まだ動画が登録されていません。</p>
                 @endif
             </div>
-            <p>
-                @if (isset($movie->title))
-                    {{ $movie->title }}
-                @else
-                    {{ $videoTitle }}
-                @endif
-            </p>
+            <div class="movie-title">
+                <p>{{ $movie->title }}</p>
+            </div>
+
+            <div class="d-flex justify-content-end mb-2">
+                @include('favorite.favorite_button', ['movie' => $movie])
+                @include('comment.comment_button', ['movie' => $movie])
+            </div>
+
             @if (Auth::id() === $movie->user_id)
                 <div class="d-flex justify-content-between">
                     <form method="POST" action="{{ route('movie.delete', $movie->id) }}">

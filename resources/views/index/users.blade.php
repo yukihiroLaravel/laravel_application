@@ -1,4 +1,4 @@
-<div class="movies row mt-5 text-center">
+<div class="movies row text-center mt-5">
     @foreach ($users as $user)
         @php
             $movies = $user->movies()->get();
@@ -26,20 +26,22 @@
         @endphp
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
 </div>
-<div class="row text-center mt-3">
+<div class="movies row text-center">
     @endif
     <div class="col-lg-4 mb-5">
         <div class="movie text-left d-inline-block">
-            <div class="mb-2 d-flex justify-content-between align-items-center">
+            <div class="mb-2 d-flex justify-content-between align-items-end mr-1">
                 <a href="{{ route('user.show', $user->id) }}">
-                    <img src="{{ asset('storage/images/' . $user->icon) }}" alt="user-icon" class="user-icon">
+                    <img src="{{ asset('storage/images' . $user->icon) }}" alt="user-icon" class="user-icon">
                     {{ $user->name }}
                 </a>
-                <div class="badge badge-primary favorite_btn">
-                    <i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>
-                    {{ $totalFavorites }}
+                <div class="d-flex">
+                    <p class="text-primary mr-1">総合</p>
+                    <i class="fa fa-thumbs-up mr-1 text-primary" aria-hidden="true"></i>
+                    <p class="text-secondary">{{ $totalFavorites }}</p>
                 </div>
             </div>
+
             <div>
                 @if ($movie)
                     <iframe width="290" height="163.125"
@@ -50,13 +52,13 @@
                         frameborder="0"></iframe>
                 @endif
             </div>
-            <p>
+            <div class="movie-title">
                 @if (@isset($movie->title))
-                    {{ $movie->title }}
+                    <p>{{ $movie->title }}</p>
                 @else
-                    {{ $videoTitle }}
+                    <p>{{ $videoTitle }}</p>
                 @endif
-            </p>
+            </div>
         </div>
     </div>
     @endforeach

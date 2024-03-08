@@ -9,19 +9,40 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group d-flex flex-column align-items-center">
-                    <p>
-                        アイコン画像
-                    </p>
-                    <img src="{{ asset('storage/images/' . Auth::user()->icon) }}" alt="ユーザーアイコン" id="preview-icon"
-                        class="mb-2">
+                    <p class="mb-2">アイコン画像</p>
+                    <div class="preview-box mb-2">
+                        <img src="{{ asset('storage/images' . $user->icon) }}" alt="ユーザーアイコン" id="preview-new_icon"
+                            class="preview-icon active">
+                        <img src="{{ asset('storage/images' . $user->icon) }}" alt="ユーザーアイコン" id="preview-current_icon"
+                            class="preview-icon">
+                        <img src="{{ asset('storage/images/user_icon_default.png') }}" alt="ユーザーアイコン"
+                            id="preview-default_icon" class="preview-icon">
+                    </div>
                     <div class="d-flex flex-gap-1">
                         <label class="upload-icon">
                             編集
-                            <input type="file" id="user_icon" name="icon" accept=".png, .jpg, .jpeg"
-                                value="{{ $user->icon }}">
+                            <input type="file" class="d-none" name="icon" accept=".png, .jpg, .jpeg">
                         </label>
-                        <button type="button" id="reset-icon">削除</button>
+                        <button type="button" id="reset-icon">リセット</button>
                     </div>
+
+                    <div class="d-none">
+                        <label>
+                            <input type="radio" name="icon_status" value="new_icon">
+                            new
+                        </label>
+
+                        <label>
+                            <input type="radio" name="icon_status" value="current_icon" checked>
+                            current
+                        </label>
+
+                        <label>
+                            <input type="radio" name="icon_status" value="default_icon">
+                            defo
+                        </label>
+                    </div>
+
                 </div>
 
                 <div class="form-group">

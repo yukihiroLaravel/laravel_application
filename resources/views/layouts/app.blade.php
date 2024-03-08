@@ -31,34 +31,13 @@
     </script>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
 
-    <script>
-        $(function() {
-            $(document).on('change', '#user_icon', function() {
-                let elem = this //操作された要素を取得
-                if (elem.files.length == 0) {
-                    document.getElementById('user_icon').value = "";
-                    $("#preview-icon").attr('src',
-                        '{{ asset('storage/images/user_icon_default.png') }}')
-                } else {
-                    let fileReader = new FileReader(); //ファイルを読み取るオブジェクトを生成
-                    fileReader.readAsDataURL(elem.files[0]); //ファイルを読み取る
-                    fileReader.onload = (function() { //ファイル読み取りが完了したら
-                        if (fileReader.result) {
-                            let imgSrc = fileReader.result //src要素を生成
-                            $("#preview-icon").attr('src', imgSrc) //画像をプレビュー
-                        }
-                    });
-                }
+    @if (Request::routeIs('user.edit'))
+        <script src="{{ asset('/js/user_edit.js') }}"></script>
+    @endif
+    @if (Request::routeIs('signup'))
+        <script src="{{ asset('/js/signup.js') }}"></script>
+    @endif
 
-            })
-
-            $('#reset-icon').click(function() {
-                document.getElementById('user_icon').value = "";
-                $("#preview-icon").attr('src',
-                    '{{ asset('storage/images/user_icon_default.png') }}')
-            })
-        });
-    </script>
 </body>
 
 </html>

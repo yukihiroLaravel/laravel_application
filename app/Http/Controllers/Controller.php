@@ -20,4 +20,12 @@ class Controller extends BaseController
             'countFavorites' => $countFavorites,
         ];
     }
+
+    public function movieCounts($movie)
+    {
+        $countComments = $movie->comments()->count();
+        return [
+            'countComments' => $countComments,
+        ];
+    }
 }

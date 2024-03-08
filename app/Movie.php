@@ -18,4 +18,13 @@ class Movie extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function hashtags()
+    {
+        return $this->belongsToMany(HashTag::class, 'movie_hashtag', 'movie_id', 'hashtag_id');
+    }
 }

@@ -21,6 +21,19 @@
                     value="{{ old('title', $movie->title) }}">
             </div>
             <div class="form-group">
+                <label for="hashtags">ハッシュタグ（#をつけてタグを入力してください）</label>
+                @php
+                    $hashtagNames = [];
+                    foreach ($movie->hashtags as $hashtag) {
+                        $hashtagName = '#' . $hashtag->name;
+                        $hashtagNames[] = $hashtagName;
+                    }
+                    $hashtags = implode('', $hashtagNames);
+                @endphp
+                <input type="text" name="hashtags" id="hashtags" value="{{ old('hashtags', $hashtags) }}"
+                    class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="favorite_flag" class="mt-3">
                     <input id="favorite_flag" type="checkbox" name="favorite_flag"
                         {{ old('favorite_flag', $movie->favorite_flag) == 1 ? 'checked' : '' }}>

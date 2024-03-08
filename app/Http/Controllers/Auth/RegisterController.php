@@ -69,7 +69,7 @@ class RegisterController extends Controller
             $icon = request()->file('icon')->store('public/images');
             $icon = str_replace('public/images', '', $icon);
         } else {
-            $icon = 'user_icon_default.png';
+            $icon = '/user_icon_default.png';
         }
 
         return User::create([

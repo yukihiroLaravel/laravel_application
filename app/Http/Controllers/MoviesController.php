@@ -6,9 +6,47 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Movie;
 use App\Http\Requests\MovieRequest;
+use App\Hashtag;
+use Illuminate\Support\Facades\DB;
 
 class MoviesController extends Controller
 {
+    public function index()
+    {
+        $movies = Movie::orderBy('id', 'desc')->paginate(9);
+
+        return view('welcome', [
+            'movies' => $movies,
+        ]);
+    }
+
+    public function indexMovies(Request $request)
+    {
+        if ($request->has('search_word')) {
+            $search_word = $request->search_word;
+            $query = Movie::query();
+            $spaceConversion = mb_convert_kana($search_word, 's');
+            $wordArraysearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+            foreach ($wordArraysearched as $value) {
+                $query->where('title', 'LIKE', '%' . $value . '%');
+            }
+
+            $movies = $query->orderBy('id', 'desc')->paginate(9);
+
+            return view('welcome', [
+                'movies' => $movies,
+                'search_word' => $search_word,
+            ]);
+        } else {
+            $movies = Movie::orderBy('id', 'desc')->paginate(9);
+
+            return view('welcome', [
+                'movies' => $movies,
+            ]);
+        }
+    }
+
     public function create()
     {
         $user = \Auth::user();
@@ -26,7 +64,6 @@ class MoviesController extends Controller
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
 
-        // $movie->title = $request->title;
         if ($request->title) {
             $movie->title = $request->title;
         } else {
@@ -40,10 +77,26 @@ class MoviesController extends Controller
                 }
             }
         }
-
-        $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
+        $movie->user_id = $request->user()->id;
         $movie->save();
+
+        if ($request->hashtags) {
+            $hashtags = str_replace('＃', '#', $request->hashtags);
+            preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/', $hashtags, $arrayTags);
+
+            foreach ($arrayTags[1] as $tag) {
+                if (DB::table('hashtags')->where('name', $tag)->exists()) {
+                    $hashtag = DB::table('hashtags')->where('name', $tag)->first();
+                } else {
+                    $hashtag = new Hashtag;
+                    $hashtag->name = $tag;
+                    $hashtag->save();
+                }
+                $movie->hashtags()->attach($hashtag->id);
+            };
+        }
+
         return back();
     }
 
@@ -92,6 +145,23 @@ class MoviesController extends Controller
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
+
+        if ($request->hashtags) {
+            $hashtags = str_replace('＃', '#', $request->hashtags);
+            preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/', $hashtags, $arrayTags);
+            $movie->hashtags()->detach();
+            foreach ($arrayTags[1] as $tag) {
+                if (DB::table('hashtags')->where('name', $tag)->exists()) {
+                    $hashtag = DB::table('hashtags')->where('name', $tag)->first();
+                } else {
+                    $hashtag = new Hashtag;
+                    $hashtag->name = $tag;
+                    $hashtag->save();
+                }
+                $movie->hashtags()->attach($hashtag->id);
+            }
+        }
+
         return back();
     }
 }

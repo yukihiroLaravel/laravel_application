@@ -1,4 +1,14 @@
-.movie > p {
+ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+.d-flex p {
+    margin-bottom: 3px;
+}
+.movie-title {
+    height: 2.5rem;
+}
+.movie-title p {
     width: 290px;
     margin-bottom: 0;
     display: -webkit-box;
@@ -13,6 +23,9 @@ p {
 .button {
     width: 290px;
 }
+.btn {
+    border: none;
+}
 
 /* ボタンデザインのリセット */
 button {
@@ -24,6 +37,9 @@ button {
     background: none;
     border: none;
     border-radius: 0;
+    outline: none;
+}
+button:focus {
     outline: none;
 }
 
@@ -46,10 +62,11 @@ button {
     line-height: 1;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 .anchor {
-    padding-top: 80px;
-    margin-top: -80px;
+    padding-top: 120px;
+    margin-top: -120px;
 }
 
 /* インデックスユーザーアイコン */
@@ -59,21 +76,21 @@ button {
     object-fit: cover;
     border-radius: 50%;
 }
-
-/* 画像アップロード部分 */
-#preview-icon {
-    width: 90px;
-    height: 90px;
+.user-page-icon {
+    width: 1em;
+    height: 1em;
     object-fit: cover;
     border-radius: 50%;
 }
+
+/* 画像アップロード部分 */
 .upload-icon {
     position: relative;
     margin: 0;
     font-size: 0.8rem;
     padding: 2px 0.5em;
     border: 1px solid;
-    border-radius: 1em;
+    border-radius: 3em;
 }
 .upload-icon:hover {
     opacity: 0.6;
@@ -82,14 +99,66 @@ button {
     font-size: 0.8rem;
     padding: 2px 0.5em;
     border: 1px solid;
-    border-radius: 1em;
+    border-radius: 3em;
 }
 #reset-icon:hover {
     opacity: 0.6;
 }
-#user_icon {
+.preview-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+.preview-icon {
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.active {
+    display: block;
 }
 .flex-gap-1 {
     gap: 1rem;
+}
+
+.movie_detail {
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.movie_detail iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+}
+
+.cmt_del {
+    height: 1em;
+    font-size: 0.7em;
+    margin-left: 1em;
+    display: flex;
+    align-items: center;
+}
+.cmt_del:hover {
+    opacity: 0.6;
+}
+.cmt_del p {
+    color: gray;
+    border-bottom: 1px solid silver;
+    line-height: 1.1em;
+}
+.comment {
+    display: flex;
+    align-items: center;
+}
+.comment p {
+    margin: 0;
+}
+.dropdown-menu {
+    left: -30%;
 }

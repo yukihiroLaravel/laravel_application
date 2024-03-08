@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'icon',
+        'name', 'email', 'password', 'icon', 'google_id',
     ];
 
     /**
@@ -74,5 +74,10 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

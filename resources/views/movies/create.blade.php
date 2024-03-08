@@ -13,8 +13,15 @@
                 <input type="text" name="youtube_id" id="youtube_id" value="{{ old('youtube_id') }}" class="form-control">
             </div>
             <div class="form-group">
-                <label for="title" class="mt-3">動画タイトル（＊空欄の場合はyoutubeのタイトルが登録されます）</label>
+                <label for="title" class="mt-3">動画タイトル（※空欄の場合はyoutubeのタイトルが登録されます）</label>
                 <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="hashtags">
+                    ハッシュタグ（#をつけてタグを入力してください　※空欄可）<br>
+                    例）#猫#ペット#癒し
+                </label>
+                <input type="text" name="hashtags" id="hashtags" value="{{ old('hashtags') }}" class="form-control">
             </div>
             <div class="form-group">
                 <label for="favorite_flag" class="mt-3">
