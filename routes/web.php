@@ -28,3 +28,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
     });
 });
+// ユーザ
+Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
