@@ -19,6 +19,11 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::get('/','UsersController@index');
 // getリクエスト（第1引数'/（というURL）'に対し、見たい・アクセスしたい。とのリクエスト）が出た際に、第2引数にある指示を実行させる。という意味。
 // ここでの第2引数：UsersControllerの中の（＠の後ろ）indexメソッド　に処理を送る。というもの。
