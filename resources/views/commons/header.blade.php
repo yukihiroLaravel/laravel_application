@@ -8,9 +8,9 @@ a<header class="mb-5">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
-                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
                     <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">Add Movie</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">MyPage</a></li>
+                    <li class="nav-item"><a href="{{ route('user.show', Auth::id() ) }}" class="nav-link">MyPage</a></li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
                 @else 
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">NewRegister</a></li>
