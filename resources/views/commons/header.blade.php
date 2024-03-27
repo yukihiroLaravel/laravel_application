@@ -7,9 +7,19 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="" class="nav-link">Legister</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Log in</a></li>
+                @if (Auth::check())
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">MyPage</a></li>
+                @else 
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">NewRegister</a></li>
+                @endif
             </ul>
         </div>
     </nav>
 </header>
+@if(Auth::check())
+    <p class="text-right mr-3 pb-3">
+         User : <span class="user-name">{{ Auth::user()->name }}</span>
+    </p>
+@endif
