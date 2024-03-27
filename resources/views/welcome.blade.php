@@ -7,4 +7,5 @@
         </div>
     </div>
     <h5 class="descriptiopn text-center"> Let's shear your reccomend movie!!</h5>
+    @include('users.users', ['users' => $users])
 @endsection

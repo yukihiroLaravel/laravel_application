@@ -28,17 +28,17 @@ class MoviesController extends Controller
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
-        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;  //三項演算子
         $movie->save();
         return back();
     }
 
-    public function destroy($id)
+    public function destroy($id) 
     {
         $movie = Movie::findOrFail($id);
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
+
         return back();
     }
 

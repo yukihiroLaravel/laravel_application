@@ -1,4 +1,4 @@
-<header class="mb-5">
+a<header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">YouTubeSummary<br>&ensp;×<br>Communication</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
@@ -9,6 +9,7 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">Add Movie</a></li>
                     <li class="nav-item"><a href="" class="nav-link">MyPage</a></li>
                 @else 
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
