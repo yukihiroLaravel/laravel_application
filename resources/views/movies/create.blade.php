@@ -15,6 +15,11 @@
                 <label for="title" class="mt-3">Movie title(※any)</label>
                 <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
             </div>
+            <div class="form-group">
+                <label for="favorite_flag" class="mt-3">
+                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>Permint Favorite!
+                </label>
+            </div>
             <button type="submit" class="btn btn-primary mt-5 mb-5">Submit</button>
         </div>
     </form>
