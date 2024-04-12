@@ -1,5 +1,18 @@
 <?php
 
+// 前半: 条件=こうしたら...
+//    → 送信形式 : 見たい(GET) or 伝えたい(POST)
+//    →　URL: 住所
+//    →　Route::get('/',
+
+// 後半 : 実行内容＝こうなる!
+//     →　ファイル名@アクション(関数): どのファイルのどんな結果？
+//     例）会えるのか、付き合えるのか、フラれるのか？
+//     → 'UsersController@index');
+Route::get('/', 'UsersController@index');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +24,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@index');
