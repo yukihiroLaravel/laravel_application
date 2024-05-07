@@ -14,8 +14,22 @@ class UsersController extends Controller
         return view('welcome',[
             'users' => $users,
         ]);
-   }   
+   }  
+   // viewファイル内のwelcomeなる名前のviewファイルを、return関数の返り値として返す。
+   // welcomeなるviewファイルのURL： welcome.blade.phpというファイル。
+
+   public function show($id)
+   {
+      $user = User::findOrFail($id);
+      $movies = $user->movies()->orderBy('id','desc')->paginate(9);
+      $data=[
+         'user' => $user,
+         'movies' => $movies,
+      ];
+      $data += $this->userCounts($user);
+
+      return view('users.show',$data);
+   }
 }
 
-// viewファイル内のwelcomeなる名前のviewファイルを、return関数の返り値として返す。
-   // welcomeなるviewファイルのURL： welcome.blade.phpというファイル。
+
