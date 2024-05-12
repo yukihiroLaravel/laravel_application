@@ -24,13 +24,18 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ユーザー
+// ユーザー(ログイン前ユーザーを含む、全ユーザーが対象)
 Route::get('/','UsersController@index');
 // getリクエスト（第1引数'/（というURL）'に対し、見たい・アクセスしたい。とのリクエスト）が出た際に、第2引数にある指示を実行させる。という意味。
 // ここでの第2引数：UsersControllerの中の（＠の後ろ）indexメソッド　に処理を送る。というもの。
-Route::prefix('users')->group(function(){
-    Route::get('{id}','UsersController@show')->name('user.show');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('','UsersController@show')->name('user.show');
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
+//5章を以って下記記述は上記に変更、要素追加された。
+//Route::prefix('users')->group(function(){
+//Route::get('{id}','UsersController@show')->name('user.show');
+//});
 
 
 // ログイン後
@@ -40,6 +45,14 @@ Route::group(['middleware' => 'auth'],function(){
         Route::get('create','MoviesController@create')->name('movie.create');
         Route::post('','MoviesController@store')->name('movie.store');
         Route::delete('{id}','MoviesController@destroy')->name('movie.delete');
+        Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
+        Route::put('{id}', 'MoviesController@update')->name('movie.update');
+    });
+
+// ログイン後でないと、「後」にしか上記３つのルーティングを行えないようにしている。
+// いいね
+    Route::group(['prefix' => 'movies/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 });
-// ログイン後でないと、「後」にしかこの３つのルーティングを行えないようにしている。
