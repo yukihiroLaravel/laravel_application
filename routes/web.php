@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
     });
+    
     // いいね
     Route::group(['prefix' => 'movies/{id}'],function(){
         Route::post('favorite','FavoriteController@store')->name('favorite');
