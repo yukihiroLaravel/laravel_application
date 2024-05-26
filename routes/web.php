@@ -24,4 +24,9 @@
 // 　　　　⇒ファイル名@アクション（関数）：どのファイルのどんな結果？
 // 　　　　　例）合えるのか、付き合えるのか、フラれるのか？
 // 　　　　⇒'UsersController@index');
+
+// ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 Route::get('/','UsersController@index');
