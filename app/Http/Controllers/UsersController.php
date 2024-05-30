@@ -15,4 +15,16 @@ class UsersController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->movies()->orderBy('id','desc')->paginate(9);
+        $deta = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $deta += $this->userCounts($user);
+        return View('Users.show', $deta);
+    }
 }
