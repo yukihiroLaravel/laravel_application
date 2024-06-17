@@ -228,4 +228,7 @@ return [
 
     ],
 
+    //　API_KEY
+    'YouTubeDataApiKey' => env('API_KEY'),
+    
 ];
