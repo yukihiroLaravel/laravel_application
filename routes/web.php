@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MoviesController;
 
 $kouzaflg = true;
 if ($kouzaflg) {
@@ -36,3 +37,22 @@ if ($kouzaflg) {
 }
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function() use($kouzaflg) {
+    // 動画
+    if ($kouzaflg) {
+        Route::prefix('movies')->group(function(){
+            Route::get('create', 'MoviesController@create')->name('movie.create');
+            Route::post('', 'MoviesController@store')->name('movie.store');
+            Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+        });
+    } else {
+        // 動画
+        Route::prefix('movies')->group(function(){
+            Route::get('create', [MoviesController::class, 'create'])->name('movie.create');
+            Route::post('', [MoviesController::class, 'store'])->name('movie.store');
+            Route::delete('{id}', [MoviesController::class, 'destroy'])->name('movie.delete');
+        });
+    }
+});

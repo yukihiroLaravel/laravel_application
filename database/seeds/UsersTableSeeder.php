@@ -12,8 +12,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $insertCount = 4;
-        for($index = 0 ; $index < 4 ; ++$index) {
+        // 2024/06/29
+        // paginateの確認をしたいから件数を増やす
+        $insertCount = 14;
+        for($index = 0 ; $index < $insertCount ; ++$index) {
 
             // 1はじまりindex の文字列
             $strIndexOneBase = strval($index + 1);
