@@ -14,6 +14,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MoviesController;
+use App\Http\Controllers\UsersController;
 
 $kouzaflg = true;
 if ($kouzaflg) {
@@ -37,6 +38,15 @@ if ($kouzaflg) {
 }
 
 Route::get('/', 'UsersController@index');
+if ($kouzaflg) {
+    Route::prefix('users')->group(function () {
+        Route::get('{id}', 'UsersController@show')->name('user.show');
+    });
+} else {
+    Route::prefix('users')->group(function() {
+        Route::get('{id}', [UsersController::class, 'show'])->name('user.show');
+    });
+}
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function() use($kouzaflg) {
