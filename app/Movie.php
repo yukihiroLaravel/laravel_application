@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Movie onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Movie withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Movie withoutTrashed()
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $favoriteUsers
+ * @property-read int|null $favorite_users_count
+ * @property int $favorite_flag
+ * @method static \Illuminate\Database\Eloquent\Builder|Movie whereFavoriteFlag($value)
  */
 class Movie extends Model
 {
@@ -37,5 +42,9 @@ class Movie extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
     }
 }

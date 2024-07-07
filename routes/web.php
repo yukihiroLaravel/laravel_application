@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\UsersController;
 
@@ -39,12 +40,14 @@ if ($kouzaflg) {
 
 Route::get('/', 'UsersController@index');
 if ($kouzaflg) {
-    Route::prefix('users')->group(function () {
-        Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::get('', 'UsersController@show')->name('user.show');
+        Route::get('favorites','UsersController@favorites')->name('user.favorites');
     });
 } else {
-    Route::prefix('users')->group(function() {
-        Route::get('{id}', [UsersController::class, 'show'])->name('user.show');
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::get('', [UsersController::class, 'show'])->name('user.show');
+        Route::get('favorites',[UsersController::class,'favorites'])->name('user.favorites');
     });
 }
 
@@ -56,6 +59,16 @@ Route::group(['middleware' => 'auth'], function() use($kouzaflg) {
             Route::get('create', 'MoviesController@create')->name('movie.create');
             Route::post('', 'MoviesController@store')->name('movie.store');
             Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+
+            // 動画の編集
+            Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
+            Route::put('{id}', 'MoviesController@update')->name('movie.update');
+        });
+
+        // いいね
+        Route::group(['prefix' => 'movies/{id}'],function(){
+            Route::post('favorite','FavoriteController@store')->name('favorite');
+            Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
         });
     } else {
         // 動画
@@ -63,6 +76,16 @@ Route::group(['middleware' => 'auth'], function() use($kouzaflg) {
             Route::get('create', [MoviesController::class, 'create'])->name('movie.create');
             Route::post('', [MoviesController::class, 'store'])->name('movie.store');
             Route::delete('{id}', [MoviesController::class, 'destroy'])->name('movie.delete');
+
+            // 動画の編集
+            Route::get('{id}/edit', [MoviesController::class, 'edit'])->name('movie.edit');
+            Route::put('{id}', [MoviesController::class, 'update'])->name('movie.update');
+        });
+
+        // いいね
+        Route::group(['prefix' => 'movies/{id}'],function(){
+            Route::post('favorite',[FavoriteController::class,'store'])->name('favorite');
+            Route::delete('unfavorite',[FavoriteController::class,'destroy'])->name('unfavorite');
         });
     }
 });
