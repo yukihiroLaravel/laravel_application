@@ -36,8 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
         Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
-
-
     });
     // いいね
     Route::group(['prefix' => 'movies/{id}'],function(){
