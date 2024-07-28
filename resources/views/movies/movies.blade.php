@@ -7,6 +7,7 @@
           <div class="col-lg-4 mb-5">
               <div class="movie text-left d-inline-block">
                   @php
+                  ini_set( 'allow_url_fopen' , 1 );
                   $countFavoriteUsers = $movie->favoriteUsers()->count();
                   $videoTitle="※動画が未登録です";
                   if ($movie) {

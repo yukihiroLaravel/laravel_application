@@ -2,6 +2,7 @@
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
+        ini_set( 'allow_url_fopen' , 1 );
         $movies = $user->movies()->get();
         $totalFavorites = 0;
         foreach ($movies as $movie){
