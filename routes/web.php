@@ -25,3 +25,15 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('movies')->group(function () {
+        //ログイン後にしかアクセスできない
+        //上から新規登録画面表示、動画登録機能、動画削除機能
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
+});
