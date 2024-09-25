@@ -13,14 +13,16 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-
-Route::get('/', 'UsersController@index');
-
-
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');//ログインへアクセスした際、showLoginFormを実行。ユーザーがログインする。
 Route::post('login', 'Auth\LoginController@login')->name('login.post');//ログインへpostリクエストを送信した際、loginメソッドを実行。ユーザーの認証。
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');//logoutへアクセスした際、logoutメソッドを実行。ユーザーがログアウトする。
+
+//ユーザー
+Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function(){
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 //ログイン後
 Route::group(['middleware' => 'auth' ], function(){ //ログインしているか確認し、ログインしている場合以下の内容を実行できる。
