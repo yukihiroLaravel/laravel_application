@@ -31,6 +31,36 @@ class UsersTableSeeder extends Seeder
             "email"=>"test4@test.com",
             "password"=>bcrypt("test4")
         ]);
+        DB::table("users")->insert([
+            "name"=>"test5",
+            "email"=>"test5@test.com",
+            "password"=>bcrypt("test5")
+        ]);
+        DB::table("users")->insert([
+            "name"=>"test6",
+            "email"=>"test6@test.com",
+            "password"=>bcrypt("test6")
+        ]);
+        DB::table("users")->insert([
+            "name"=>"test7",
+            "email"=>"test7@test.com",
+            "password"=>bcrypt("test7")
+        ]);
+        DB::table("users")->insert([
+            "name"=>"test8",
+            "email"=>"test8@test.com",
+            "password"=>bcrypt("test8")
+        ]);
+        DB::table("users")->insert([
+            "name"=>"test9",
+            "email"=>"test9@test.com",
+            "password"=>bcrypt("test9")
+        ]);
+        DB::table("users")->insert([
+            "name"=>"test10",
+            "email"=>"test10@test.com",
+            "password"=>bcrypt("test10")
+        ]);
 
     }
 }
