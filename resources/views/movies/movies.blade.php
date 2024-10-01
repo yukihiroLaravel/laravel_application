@@ -1,16 +1,33 @@
 <div class="movies row mt-5 text-center">
     @foreach ($movies as $movie)
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
-            </div>
-                <div class="row text-center mt-3">
+            <!-- 動画の一列目はここに入る -->
+                </div>
+                    <!-- 二列目以降はここに入る -->
+                            <div class="row text-center mt-3">
         @endif
         <div class="col-lg-4 mb-5">
             <div class="movie text-left d-inline-block">
                 <!-- 動画右上のいいね数 -->
                 @php
                     $countFavoriteUsers = $movie->favoriteUsers()->count();
-                @endphp
+                    $videoTitle="※動画が未登録です";
+                        if ($movie) {
+                            $keyName = config('app.YouTubeDataApiKey');
+                            $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+                            $jsonData = file_get_contents($apiUrl);
+                            if ($jsonData) {
+                                $decodedData = json_decode($jsonData, true);
+                                if ($decodedData['pageInfo']['totalResults'] !== 0){
+                                    $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                                }
+                            } else {
+                                $videoTitle="※一時的な情報制限中です";
+                            }
+                        }
+                @endphp 
                 <!-- いいねの位置 -->
+
                 <div class="text-right mb-2">いいね！
                     <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                 </div>    
@@ -28,6 +45,8 @@
                     <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
+                        @else
+                            {{ $videoTitle }}
                         @endif
                     </p>
                     
