@@ -24,7 +24,7 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'youtube_id' => 'required|max:11',
+            'youtube_id' => 'required|max:100',
             'title' => 'max:36',
         ];
     }

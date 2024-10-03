@@ -27,6 +27,7 @@ class MoviesController extends Controller
         $movie->youtube_id = $request->youtube_id; //バリデーション後のyoutube_idのをmovieクラスのyoutube_idの変数に渡している。
         $movie->title = $request->title; //バリデーション後のtitleをmovieクラスのtitleに渡している。
         $movie->user_id = $request->user()->id;
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
         return back();
     }
@@ -37,6 +38,31 @@ class MoviesController extends Controller
         if(\Auth::id() === $movie->user_id){
             $movie->delete();
         }
+        return back();
+    }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();//ユーザーがログインしているかチェック。
+        $movie = Movie::findOrFail($id);//Movieモデルにidがあるかチェック。ない場合４０４エラー。
+        $movies = $user->movies()->orderBy('id','desc')->paginate(9);//ユーザーが所有する動画をidの降順で１ページ９つまで表示する。
+        $data = [//viewへ渡す準備。
+            'user' => $user,
+            'movie' => $movie,
+            'movies' => $movies,
+        ];
+        return view('movies.edit',$data);//$dataをviewへ渡す。
+    }
+
+    public function update(MovieRequest $request,$id)//MovieRequestでバリデーションした情報が依存性の注入で生成された$requestに渡される。Routeから{id}が$idへ渡される。
+    {
+        $movie = MOvie::findOrFail($id);//Movieモデルにidが存在するかチェックする。
+        $movie->youtube_id = $request->youtube_id;
+        $movie->title = $request->title;
+        $movie->user_id = $request->user()->id;
+        $movie->favorite_flag = $request->favorite_flag ? 1:0;
+
+        $movie->save();
         return back();
     }
 
