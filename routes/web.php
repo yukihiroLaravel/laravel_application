@@ -11,6 +11,7 @@
 |
 */
 
+
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -21,7 +22,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::get('/', 'UsersController@index');
+Route::get('/', 'UsersController@index')->name('users.search');
 Route::group(['prefix' => 'users/{id}'], function () {
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('favorites', 'UsersController@favorites')->name('user.favorites');

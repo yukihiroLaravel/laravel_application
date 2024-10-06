@@ -7,13 +7,15 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id', 'desc')->paginate(9);
+        $keyword = $request->input('keyword');
+        $users = User::query()
+            ->where('name', 'LIKE', "%{$keyword}%")
+            ->orderBy('id', 'desc')
+            ->paginate(9);
 
-        return view('welcome', [
-            'users' => $users,
-        ]);
+        return view('welcome', ['users' => $users]);
     }
 
     public function show($id)
