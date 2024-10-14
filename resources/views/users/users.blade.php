@@ -6,7 +6,7 @@
 <!-- 追記ここから -->
     <div class="contents2">
         <div class="input-group" style="position: relative; top: 50px;">
-            <form action="{{ route('user.search') }}" method="post" style="display: flex; justify-content: right;">
+            <form action="{{ route('user.index') }}" style="display: flex; justify-content: right;">
             @csrf
             <input type="search" class="form-control rounded" name="search" value="{{ request('search') }}"placeholder="キーワードを入力" aria-label="検索..." aria-describedby="search-addon">
             <!-- <input type="submit" value="検索" class="btn btn-info"> どちらか消す -->
