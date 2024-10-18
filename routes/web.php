@@ -21,12 +21,11 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::get('/', 'UsersController@index')->name('user.index');
+Route::get('/', 'UsersController@index')->name('user.index'); // 検索
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
-//Route::get('/', 'UsersController@search')->name('user.search'); // 検索
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
