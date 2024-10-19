@@ -1,6 +1,6 @@
 <div class="main" style="display: flex; justify-content: space-between;"> <!-- 追記 -->
     <div class="contents1"> <!-- 追記 -->
-        <h2 class="mt-5 mb-5">チャンネル一覧</h2>
+        <h2 class="mt-5 mb-5">ユーザ一覧</h2>
         <!-- <div class="movies row mt-5 text-center"> 15行目に移動-->
     </div>
 <!-- 追記ここから -->

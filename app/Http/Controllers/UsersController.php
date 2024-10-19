@@ -8,24 +8,7 @@ use App\Movie;
 
 class UsersController extends Controller
 {
-    public function index(Request $request)
-    {
-        $users = User::orderBy('id','desc')->paginate(9);
-        $users = User::where('name', 'LIKE', "%{$request->search}%")
-                    //->orWhere('id', 'LIKE', "%{$request->search}%")
-                    ->paginate(9);
-
-        $movies = Movie::where('title', 'LIKE', "%{$request->search}%")
-                    ->orWhere('user_id', 'LIKE', "%{$request->search}%")
-                    ->orWhere('youtube_id', 'LIKE', "%{$request->search}%")
-                    ->paginate(9);
-
-        return view('welcome', [
-            'users' => $users, 'movies' => $movies,
-        ]);
-
-    }
-
+    
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -52,18 +35,4 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
-    //public function search(Request $request)
-    //{
-        
-        //$users = User::where('name', 'LIKE', "%{$request->search}%")
-                //->paginate(9);
-
-        //dd($user);
-
-        //return view('users.users', compact('users'));
-        
-        //return view('welcome', [
-          //  'users' => $users,
-        //]);
-    //}
 }
