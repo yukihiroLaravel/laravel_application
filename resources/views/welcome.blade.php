@@ -8,4 +8,6 @@
     </div>
     <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
     @include('users.users', ['users' => $users])
-@endSection
+    <h2>動画一覧</h2>
+    @include('movies.movies', ['movies' => $movies])
+    @endSection

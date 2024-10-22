@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="mt-5">動画を登録する</h2>
-    {{-- フォーム --}}
     <form method="POST" action="{{ route('movie.store') }}">
         @csrf
             <div class="form-group mt-5">
@@ -17,10 +16,6 @@
                         <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
                 </div>
             </div>
-    </form>
-
-
-
                 <div class="form-group">
                     <label for="favorite_flag" class="mt-3">
                         <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
@@ -28,6 +23,7 @@
                     </label>
                 </div>
                     <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>
+    </form>
     <h2 class="mt-5">あなたの登録済み動画</h2>
     @include('movies.movies', ['movies' => $movies])
 @endsection

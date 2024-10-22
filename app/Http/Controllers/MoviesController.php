@@ -9,6 +9,7 @@ use App\Http\Requests\MovieRequest;
 
 class MoviesController extends Controller
 {
+
     public function create()
     {
         $user = \Auth::user();

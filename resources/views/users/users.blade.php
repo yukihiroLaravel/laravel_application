@@ -1,4 +1,18 @@
-<h2 class="mt-5 mb-5">チャンネル一覧</h2>
+<form action="{{ route('search') }}" method="post" class="d-flex justify-content-between align-items-center">
+    @csrf
+        <div class="d-flex justify-content-between align-items-center">
+        <h2 class="mt-5 mb-5 mr-5 ml-5" style="width:400px">チャンネル一覧</h2>
+            <div class="input-group">
+            <div class="form-outline" data-mdb-input-init>
+                <input type="search" id="form1" class="form-control" name="search" placeholder="検索する"/>
+            </div>
+            <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
@@ -24,10 +38,7 @@
                     $videoTitle="※一時的な情報制限中です";
                 }
             }
-
-
         @endphp
-
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
             </div>
             <div class="row text-center mt-3">

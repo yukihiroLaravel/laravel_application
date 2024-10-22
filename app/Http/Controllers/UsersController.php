@@ -3,18 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MovieRequest;
 use App\User;
-    
+use App\Movie;
+
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy('id','desc')->paginate(9);
-        return view('welcome', [
-            'users' => $users,
-        ]);
+        // $users = User::orderBy('id','desc')->paginate(9);
+        // return view('welcome', [
+        //     'users' => $users,
+        // ]);
+
+        // public function search(Request $request)
+// {
+    $movies = Movie::where('title', $request->search)
+    ->orWhere('youtube_id', $request->search)
+    ->paginate(9);
+
+    $users = User::where('name', $request->search)
+    ->paginate(9);
+
+    return view('welcome', [
+        'movies' => $movies,
+        'users' => $users
+    ]);
+    // }
+
     }
+
 
     public function show($id)
     {
