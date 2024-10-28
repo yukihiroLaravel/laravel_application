@@ -12,6 +12,11 @@ class User extends Authenticatable
     use Notifiable;
     use softDeletes;
 
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
