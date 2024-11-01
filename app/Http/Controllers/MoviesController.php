@@ -37,7 +37,8 @@ class MoviesController extends Controller
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
-        
+
         return back();
     }
 }
+
