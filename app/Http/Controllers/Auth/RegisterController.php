@@ -22,14 +22,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers;//トレイト。よく使うメソッドをまとめて保管すること
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';//ユーザー登録後の遷移先を指定する
 
     /**
      * Create a new controller instance.
