@@ -38,4 +38,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * ユーザ情報のインスタンスから動画情報を取得する
+     */
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
 }
