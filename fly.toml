@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for laravelapp-6hara-1 on 2024-11-22T22:39:28+09:00
+# fly.toml app configuration file generated for laravelapp-6hara-2 on 2024-11-24T16:42:49+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'laravelapp-6hara-1'
+app = 'laravelapp-6hara-2'
 primary_region = 'nrt'
 console_command = 'php /var/www/html/artisan tinker'
 
