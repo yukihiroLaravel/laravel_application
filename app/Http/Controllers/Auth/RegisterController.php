@@ -29,7 +29,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
+    // ユーザー登録が正常に行われた場合、ログイン後の画面が表示されるメソッド
 
     /**
      * Create a new controller instance.
@@ -40,6 +41,9 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    // 最初に呼び出されるメソッド
+    //新規登録ページが未ログインのユーザーにだけ表示されるようにする
+    //ログイン済みのユーザーが不必要に新規登録ページにアクセスするのを防いでいる
 
     /**
      * Get a validator for an incoming registration request.
@@ -55,6 +59,12 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+    //バリデーション＝検証
+    //required=入力必須
+    //unique:users=他のメアドと重複していないか検証
+    //confirmed=パスワード確認 確認欄に記載のパスワードが、誤っていたらエラーを出す備え付けのバリデーション処理
+
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -70,4 +80,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    //新規ユーザーのデータをデータベースに保存するための処理を定義するメソッド
+    //「User」つまりモデルを通じてデータベースに接続している？
+    //でも「User」の中に、それらしい記述がないんだよな、、
+    //デーブルとカラムを作成した「Migration」に繋がっているのかな？？
+    //create関数を使用し、配列$dataの中に、名前を入れることにより、データベースに保存される仕組みかなぁ？？
+
 }
+
+//コントローラーからビューに返すと思うんだけど、「return view」がない。なぜ？
