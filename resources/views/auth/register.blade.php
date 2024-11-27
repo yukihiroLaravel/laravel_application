@@ -12,10 +12,10 @@
 <div class="row mt-5 mb-5">
   <div class="col-sm-6 offset-sm-3">
     <form method="POST" action="{{ route('signup.post') }}">
-      {{-- 'signup.post'のルーティングに新規登録ボタンが押されたら、遷移(せんい)する --}}
+      {{--新規登録ボタンが押されたら、'signup.post'のルーティングに遷移(せんい)する --}}
       {{--遷移するまでは分かるが、route('signup.post')にいったら、今度Register Controllerにいくと思うのだが
       そこから、viewに返ってくる「return view」の記述がない。
-      なぜ？？ --}}
+      なぜ？ --}}
 
       @csrf
       {{-- POSTメソッド実行の時によく使われる ハッキングの手口から守るために必須 外部のサイトから新規登録をされないようにするため 新規登録はこのサイトからのみにするための設定
