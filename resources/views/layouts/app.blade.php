@@ -14,7 +14,7 @@
 <!-- セキュリティに関連する属性 -->
 
 <body>
-  @include('commons.header')
+  @include('commons.header') <!--このファイルではincludeが重要 -->
   <div class="container">
     <!-- BootstrapなどのCSSフレームワークでよく使われるクラスcontainer指定
      ページ全体のレイアウトを中央に整えるためのコンテナ要素 -->
