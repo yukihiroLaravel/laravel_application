@@ -4,7 +4,7 @@
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>YouTubeまとめ×コミュニケーション</h1>
     </div>
     <div class="text-center mt-3">
-        <p class="text-left d-inline-block">ログインすると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
+        <p class="text-left d-inline-block">ログインすると、あなたのチャンネル作成／動画登録等ができるようになります。</p>
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
