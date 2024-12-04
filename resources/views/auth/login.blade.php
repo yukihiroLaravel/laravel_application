@@ -1,4 +1,4 @@
-@extends('layouts.app')
+table->@extends('layouts.app')
 @section('content')
     <div class="text-center">
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>YouTubeまとめ×コミュニケーション</h1>
