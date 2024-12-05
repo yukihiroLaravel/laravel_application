@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','UsersController@index');
+// '/'のurlへgetリクエストがおくられた場合、'UserController@index'に処理を送る
