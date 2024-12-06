@@ -1,0 +1,11 @@
+.movie > p {
+    height: 72px;
+    width: 290px;
+}
+/* 動画のタイトルの幅や高さを表す */
+/*「.movie > p は、class="movie" を持つ要素の直下にある <p> 要素に適用される。」*/
+
+.button {
+    width: 290px;
+}
+/* ボタンの幅を表す */

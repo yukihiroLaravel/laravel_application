@@ -12,7 +12,7 @@
 <div class="row mt-5 mb-5">
   <div class="col-sm-6 offset-sm-3">
     <form method="POST" action="{{ route('login.post') }}">
-      {{-- ログインボタンが押されたら、'login.post'のルーティングに遷移(せんい)する --}}
+      {{-- ログインボタンが押されたら、'login.post'のルーティングに遷移(せんい)する   --}}
 
       @csrf
       {{-- POSTメソッド実行の時によく使われる ハッキングの手口から守るために必須 外部のサイトから新規登録をされないようにするため 新規登録はこのサイトからのみにするための設定

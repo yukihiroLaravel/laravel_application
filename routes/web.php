@@ -33,3 +33,30 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
 // トップページを表示させるためのルート
+
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+  //ログイン後にしか3つのルートにアクセスできない
+  //'middleware'= 各コントローラーに行く前に必ず通る処理
+  // 'auth'と指定することで、ログインしているかしていないかを判断
+  //ログインしていたら表示する、未ログインだったら表示しない、条件分岐のように表示の切り分けができる
+
+
+  // 動画
+  Route::prefix('movies')->group(function () {
+    //prefix= ルーティングのアドレスを省略できる
+
+
+    Route::get('create', 'MoviesController@create')->name('movie.create');
+    // 動画の新規登録画面の表示のルート
+
+
+    Route::post('', 'MoviesController@store')->name('movie.store');
+    // 動画の登録機能のルート
+
+
+    Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    // 動画の削除機能
+  });
+});
