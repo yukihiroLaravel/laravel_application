@@ -11,5 +11,11 @@
 |
 */
 
+// ユーザー登録
+Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup','Auth\RegisterController@register')->name('signup.post');
+
 Route::get('/','UsersController@index');
-// '/'のurlへgetリクエストがおくられた場合、'UserController@index'に処理を送る
+// "/"の取得メソッド処理実行時に第2引数のコントローラメソッドへ処理を送る
+
+// ブラウザで"/"を開くと　UsersController.php の indexメソッドを実行
