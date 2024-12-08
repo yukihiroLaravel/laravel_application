@@ -21,6 +21,14 @@ Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/','UsersController@index');
-// "/"の取得メソッド処理実行時に第2引数のコントローラメソッドへ処理を送る
 
-// ブラウザで"/"を開くと　UsersController.php の indexメソッドを実行
+//ログイン後
+Route::group(['middleware' => 'auth'],
+function(){
+    //動画
+    Route::prefix('movies')->group(function(){
+        Route::get('create','MoviesController@create')->name('movie.create');
+        Route::post('','MoviesController@store')->name('movie.store');
+        Route::delete('{id}','MovieController@destroy')->name('movie.delete');
+    });
+});
