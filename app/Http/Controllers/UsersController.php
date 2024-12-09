@@ -22,4 +22,16 @@ class UsersController extends Controller
         ]);
         // UsersControllerからviewのwelcome.blade.phpでにいくんだけど、と第２引数に ['users' => $users,]と入れることにより、welcome.blade.phpでも、$usersの変数(中身を含めたもの)が使用できる、という意味
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
+        $data = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
 }
