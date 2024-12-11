@@ -43,3 +43,6 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
+
+//検索
+Route::get('movies/search', 'MoviesController@search')->name('movies.search');
