@@ -24,7 +24,16 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         return view('users.show', $data);
     }
-}
 
-// 関数indexを返すコントローラー
-// viewフォルダ内のwelcome.blade.phpファイルの内容をHTML生成する
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->favorites()->paginate(9);
+        $data = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+}
