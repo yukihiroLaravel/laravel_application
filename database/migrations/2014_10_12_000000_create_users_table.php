@@ -11,16 +11,17 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() //up テーブル新規作成
+    { //Schema データベースを管理のクラス
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email')->unique(); //unique 重複を許さない
+            $table->timestamp('email_verified_at')->nullable(); // nullable nullを許可
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes(); //コード追加
         });
     }
 
@@ -29,8 +30,8 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() //down 削除
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('users'); // マイグレーションで誤って更新した際の操作を戻す（ロールバック）コード
     }
 }
