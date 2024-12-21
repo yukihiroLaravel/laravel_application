@@ -16,9 +16,10 @@ class MoviesController extends Controller
         $movies = $user->movies()->orderBy('id','desc')->paginate(9);
         $data = [
             'user' => $user,
+            'movie' => $movie,
             'movies' => $movies,
         ];
-        return view('movies.cerate',$data);
+        return view('movies.create',$data);
     }
 
     public function store(MovieRequest $request)
@@ -27,6 +28,7 @@ class MoviesController extends Controller
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
         return back();
     }
@@ -37,6 +39,18 @@ class MoviesController extends Controller
         if(\Auth::id() === $movie->user_id){
             $movie->delete();
         }
+        return back();
+    }
+
+    public function update(MovieRequest $request,$id)
+    {
+        $movie = Movie::findOrFail($id);
+        $movie->youtube_id = $request->youtube_id;
+        $movie->title = $request->title;
+        $movie->user_id = $request->user()->id;
+        $movie->favorite_flag = $request->favorite_flag ? 1: 0;
+
+        $movie->save();
         return back();
     }
 }

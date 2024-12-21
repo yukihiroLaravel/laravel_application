@@ -13,7 +13,7 @@ class MovieRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'youtube_id' => 'required|max11',
+            'youtube_id' => 'required|max:11',
+
+
+
+            
             'title' => 'max:36',
         ];
     }

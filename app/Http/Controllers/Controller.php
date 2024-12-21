@@ -11,11 +11,13 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function userCount($user)
+    public function userCounts($user)
     {
-        $countMovies = $user->movie()->count();
+        $countMovies = $user->movies()->count();
+        $countFavorite = $user->favorites()->count();
         return[
-            'countMovies' = $countMovies,
+            'countMovies' => $countMovies,
+            'countFavorites' => $countFavorite,
         ];
     }
 }

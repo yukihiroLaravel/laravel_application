@@ -19,7 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -28,7 +30,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -40,8 +43,41 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function movies()
+    public function movies() //ムービークラスと1対多でリレーションを設定（１）->動画投稿処理
     {
         return $this->hasMany(Movie::class);
+    }
+
+
+    public function favorites() //お気に入り処理 多対多の関係の中間テーブルの設定->お気に入り処理
+    {
+        return $this->belongsToMany(Movie::class,'favorites','user_id','movie_id')->withTimestamps();
+    }
+
+    public function isFavorite($movieId) //お気に入り済か否かの判定
+    {
+        return $this->Favorites()->where('movie_id', $movieId)->exists();
+    }
+
+    public function favorite($movieId) //お気に入り処理
+    {
+        $exist = $this->isFavorite($movieId);
+        if($exist){
+            return false;
+        }else{
+            $this->favorites()->attach($movieId);
+            return true;
+        }
+    }
+
+    public function unfavorite($movieId) //お気に入り外す処理
+    {
+        $exist = $this->isFavorite($movieId);
+        if($exist){
+            $this->favorites()->detach($movieId);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
