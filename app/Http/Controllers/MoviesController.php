@@ -77,12 +77,14 @@ class MoviesController extends Controller
     ]);
 
     // 検索クエリ作成
-    $movies = Movie::query()
-        ->when($keyword, function ($query, $keyword) {
-            return $query->where('title', 'LIKE', "%{$keyword}%");
-        })
+    $query = Movie::query();
+        //->when($keyword, function ($query, $keyword) {
+            //return 
+            $movies = $query->where('title', 'LIKE', "%{$keyword}%")
+        
+        //})
         ->paginate(10); // ページネーション
-
+         
     return view('movies.search', compact('movies', 'keyword'));
     }
 }

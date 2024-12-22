@@ -29,7 +29,7 @@
             検索
         </button>
     </div>
-</form>
+    </form>
 
 
     @include('users.users', ['users' => $users])

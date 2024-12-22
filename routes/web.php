@@ -44,5 +44,21 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
+// ユーザプロファイル
+Route::middleware(['auth'])->group(function () {
+    Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
+    Route::put('profile/update', 'UsersController@update')->name('profile.update');
+});
+Route::get('profile/{id}', 'UsersController@showProfile')->name('profile.showProfile');
+
+//プロファイル写真削除
+use App\Http\Controllers\UsersController;
+
+Route::delete('/profile/delete-picture', [UsersController::class, 'deletePicture'])->name('profile.deletePicture');
+
+//プロファイル写真更新と即表示
+Route::post('/profile/upload-picture', [UsersController::class, 'uploadPicture'])->name('profile.uploadPicture');
+
+
 //検索
 Route::get('movies/search', 'MoviesController@search')->name('movies.search');

@@ -1,5 +1,5 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-warning">
         <a class="navbar-brand" href="/">YouTubeまとめ<br>&ensp;×コミュニケーション</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
@@ -13,6 +13,7 @@
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li> 
+                    <li class="nav-item"><a href="{{ route('profile.edit', Auth::id()) }}" class="nav-link">情報更新</a></li> 
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                 @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
