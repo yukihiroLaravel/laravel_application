@@ -77,6 +77,8 @@ Route::delete('/profile/delete-picture', [UsersController::class, 'deletePicture
 //プロファイル写真更新と即表示
 Route::post('/profile/upload-picture', [UsersController::class, 'uploadPicture'])->name('profile.uploadPicture');
 
+//ユーザー退会
+Route::delete('/users/{id}', 'UsersController@destroy')->name('users.destroy')->middleware('auth');
 
 //検索
 Route::get('movies/search', 'MoviesController@search')->name('movies.search');

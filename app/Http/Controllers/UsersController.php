@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
@@ -124,5 +125,17 @@ class UsersController extends Controller
             'success' => true,
             'url' => asset('storage/' . $path),
         ]);
+    }
+
+    public function destroy()
+    {
+        $user = Auth::user(); // 現在の認証ユーザーを取得
+
+        // 必要であれば関連データの削除処理も追加
+        // $user->posts()->delete();  // 例: ユーザーの投稿データ削除
+
+        $user->delete(); // ユーザー削除
+
+        return redirect('/')->with('status', '退会が完了しました。ご利用ありがとうございました。');
     }
 }

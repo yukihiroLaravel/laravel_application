@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @include('components.status')
     <div class="center jumbotron bg-warning">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>YouTubeまとめ</h1>

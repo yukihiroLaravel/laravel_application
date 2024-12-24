@@ -4,12 +4,7 @@
 <h1>{{ $user->name }}</h1>
 @include('components.userTab')
 
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+@include('components.success')
 
 <div class="container text-center" my-5> <!-- style="height: 100vh;"を削除、my-5を追加（上下に余白）-->
   <!-- ユーザープロフィールタイトル -->
@@ -40,5 +35,15 @@
     <h5 class="card-title">自己紹介:</h5>
     <p>{{ $user->self_introduction ?? '自己紹介はまだありません。' }}</p>
   </div>
+</div>
+<div class="container text-center" my-5>
+{{-- profile.blade.php --}}
+@if (auth()->id() === $user->id)
+    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に退会しますか？');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">退会</button>
+    </form>
+@endif
 </div>
 @endsection
