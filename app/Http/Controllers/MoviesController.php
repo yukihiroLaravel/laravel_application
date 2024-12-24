@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Movie;
-use App\Http\Requests\MovieRequest; 
+use App\Http\Requests\MovieRequest;
 
 class MoviesController extends Controller
 {
@@ -39,7 +39,7 @@ class MoviesController extends Controller
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
-        
+
         return back();
     }
 
@@ -48,14 +48,14 @@ class MoviesController extends Controller
         $user = \Auth::user();
         $movie = Movie::findOrFail($id);
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
-        $data=[
+        $data = [
             'user' => $user,
             'movie' => $movie,
             'movies' => $movies,
         ];
         return view('movies.edit', $data);
     }
-    
+
     public function update(MovieRequest $request, $id)
     {
         $movie = Movie::findOrFail($id);
@@ -69,23 +69,22 @@ class MoviesController extends Controller
 
     public function search(Request $request)
     {
-    $keyword = $request->input('keyword');
+        $keyword = $request->input('keyword');
 
-    // バリデーション (空文字チェック)
-    $request->validate([
-        'keyword' => 'nullable|string|max:255',
-    ]);
+        // バリデーション (空文字チェック)
+        $request->validate([
+            'keyword' => 'nullable|string|max:255',
+        ]);
 
-    // 検索クエリ作成
-    $query = Movie::query();
+        // 検索クエリ作成
+        $query = Movie::query();
         //->when($keyword, function ($query, $keyword) {
-            //return 
-            $movies = $query->where('title', 'LIKE', "%{$keyword}%")
-        
-        //})
-        ->paginate(10); // ページネーション
-         
-    return view('movies.search', compact('movies', 'keyword'));
+        //return 
+        $movies = $query->where('title', 'LIKE', "%{$keyword}%")
+
+            //})
+            ->paginate(10); // ページネーション
+
+        return view('movies.search', compact('movies', 'keyword'));
     }
 }
-

@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->favorites()->where('movie_id', $movieId)->exists();
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -53,7 +57,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -62,7 +68,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**

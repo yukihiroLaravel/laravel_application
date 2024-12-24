@@ -37,6 +37,24 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+// コメント関連のルートを定義
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('movies/{id}')->group(function () {
+        // コメント一覧表示
+        Route::get('comments', 'CommentsController@index')->name('movie.comment');
+        // コメント投稿
+        Route::post('comments', 'CommentsController@store')->name('comment.store');
+        // コメント編集
+        Route::put('comments/{comment_id}', 'CommentsController@update')->name('comment.update');
+        // コメント削除
+        Route::delete('comments/{comment_id}', 'CommentsController@destroy')->name('comment.delete');
+    });
+});
+
+// コメント一覧はログイン不要で表示
+Route::get('movies/{id}/comments', 'CommentsController@index')->name('movies.comments');
+
+
 // ユーザ
 Route::get('/', 'UsersController@index')->name('users');
 Route::group(['prefix' => 'users/{id}'],function(){

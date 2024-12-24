@@ -26,7 +26,10 @@
                     <div class="text-right mb-2">いいね！
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                     </div>
-                    <div>
+                    <div class="text-right mb-2"> <a href="{{ route('movies.comments', $movie->id) }}">コメント数
+                        <span class="badge badge-pill badge-success">{{ $countComments ?? '0' }}</span></a>
+                    </div>
+                    <div> 
                         @if ($movie)
                             <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
                         @else
