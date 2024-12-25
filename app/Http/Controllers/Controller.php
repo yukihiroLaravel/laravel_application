@@ -11,13 +11,13 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function userCounts($user)
+    public function userCounts($user) //userCountメソッド(引数、対象のuser)
     {
-        $countMovies = $user->movies()->count();
-        $countFavorite = $user->favorites()->count();
+        $countMovies = $user->movies()->count(); //対象のユーザー動画数を取得
+        $countFavorite = $user->favorites()->count(); //対象のユーザーのお気に入り数を取得
         return[
-            'countMovies' => $countMovies,
-            'countFavorites' => $countFavorite,
+            'countMovies' => $countMovies, //カウントした動画数を返却
+            'countFavorites' => $countFavorite, //カウントしたお気に入り数を返却
         ];
     }
 }

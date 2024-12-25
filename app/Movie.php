@@ -8,13 +8,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Movie extends Model
 {
     use SoftDeletes;
-    public function user() // ユーザークラスとの1対多の関係を宣言（多）->動画投稿処理
+    //動画登録
+    public function user() //userメソッド
         {
-            return $this->belongsTo(User::class);
+            return $this->belongsTo(User::class);//userクラスとの1対多のリレーションシップを設定（多側）
         }
 
-    public function favoriteUsers() //ユーザークラスとの多対多の関係の中間テーブルの設定->お気に入り処理
+    //お気に入り処理
+    public function favoriteUsers() //favoriteUsersメソッド
     {
         return $this->belongsToMany(User::class,'favorites','movie_id','user_id')->withTimestamps();
+        //userクラスと多対多のリレーションを設定
+        //中間テーブルにfavoritesを設定
+        //movie_id、usr_idをリレーション
+        //作成、更新のカラムを追加
     }
 }

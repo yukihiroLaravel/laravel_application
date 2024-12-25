@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\MoviesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodosController;
 
 Route::get('/', 'UsersController@index');
 Route::get('/practice', 'PracticesController@index');
@@ -52,3 +53,9 @@ Route::get('/', 'UsersController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+//todo
+Route::get('/todos','TodosController@index')->name('todos.index');
+Route::post('/todos','TodosController@store')->name('todos.store');
+Route::patch('/todos/{todo}','TodosController@update')->name('todos.update');
+Route::delete('/todos/{todo}','TodosController@destroy')->name('todos.destroy');

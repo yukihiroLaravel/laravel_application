@@ -124,30 +124,30 @@ class ApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) //削除メソッド
     {
-        $movie = Movie::find($id);
-        if(is_null($id)){
-            return response()->json([
+        $movie = Movie::find($id); //Movieクラスから対象のidを検索して取得
+        if(is_null($id)){ //idが存在しなかったら
+            return response()->json([ //クライアントにエラーjsonを返却
                 'status' => 200,
                 'message' => '対象動画が存在しません',
             ]);
         }
-        $user = User::find(self::API_MOVIE_STORE_USER_ID);
-        if(is_null($user)){
-            return response()->json([
+        $user = User::find(self::API_MOVIE_STORE_USER_ID); //Userクラスから対象のIDを検索して取得
+        if(is_null($user)){ //idが存在しなかったら
+            return response()->json([ //クライアントにエラーjsonを返却
                 'status' => 200,
                 'message' => 'ユーザーが存在しません',
             ]);
-        }
-        if($movie->user_id !== self::API_MOVIE_STORE_USER_ID){
-            return response()->json([
+        } //以下、対象のidが存在した際の処理
+        if($movie->user_id !== self::API_MOVIE_STORE_USER_ID){ //movieテーブルのuser_idと対象idが違うなら
+            return response()->json([ //クライアントにえらーjsonを返却
                 'status' => 200,
                 'message' => '権限のあるユーザーでありません',
             ]);
-        }
-        $movie->delete();
-        return response()->json([
+        } //以下、対象idとuser_idが同様の際の処理
+        $movie->delete(); //対象の動画を削除
+        return response()->json([ //クライアントに成功のjsonを返却
             'status' => 400,
             'message' => '削除完了',
         ]);
