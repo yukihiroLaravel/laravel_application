@@ -8,6 +8,7 @@
                 <div class="movie text-left d-inline-block">
                     @php
                         $countFavoriteUsers = $movie->favoriteUsers()->count();
+                        $totalComments = $movie->comments()->count();
                         $videoTitle="※動画が未登録です";
                         if ($movie) {
                             $keyName = config('app.YouTubeDataApiKey');
@@ -27,7 +28,8 @@
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                     </div>
                     <div class="text-right mb-2"> <a href="{{ route('movies.comments', $movie->id) }}">コメント数
-                        <span class="badge badge-pill badge-success">{{ $countComments ?? '0' }}</span></a>
+                        <span class="badge badge-pill badge-success">{{ $totalComments ?? '0' }}</span>
+                    </a>
                     </div>
                     <div> 
                         @if ($movie)
