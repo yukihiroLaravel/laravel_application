@@ -1,13 +1,15 @@
-<h2 class="mt-5 mb-5">チャンネル一覧</h2>
+<h2 class="mt-5 mb-5">チャンネル一覧</h2><!--$totalComments = $movie ? $movie->comments()->count() : 0;-->
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
             $movies = $user->movies()->get();
             $totalFavorites = 0;
+            $totalComments = 0;
             foreach ($movies as $movie){
                 $totalFavorites += $movie->favoriteUsers()->count();
+                $totalComments = $movie->comments()->count();
             }
-            $movie = $user->movies->last();
+            $movie = $user->movies->last();            
             $videoTitle="※動画が未登録です";
             if ($movie) {
                 $keyName = config('app.YouTubeDataApiKey');
@@ -40,7 +42,16 @@
                             <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
                         @endif
                     </div>
-                    <p>
+                    <div class="text-left mb-1" >
+                    @if($movie)                   
+                    <a href="{{ route('movies.comments', $movie->id) }}">
+                        <span class="badge badge-pill badge-info">{{ $totalComments ?? '77' }}コメント</span>
+                    </a>
+                    @else 
+                        <span class="badge badge-pill badge-secondary">{{ $totalComments ?? '77' }}コメント</span>
+                    @endif
+                    </div>
+                        <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
                         @else
