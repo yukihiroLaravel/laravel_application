@@ -123,5 +123,21 @@
         });
     });
 </script>
+<!-- パスワード変更 -->
+<div class="container text-center my-2" >
+  <a href="{{ route('auth.changePassword') }}" class="btn btn-secondary">パスワードを変更する</a>
+</div>
+
+<!-- 退会 -->
+<div class="container text-center my-2">
+  {{-- profile.blade.php --}}
+  @if (auth()->id() === $user->id)
+  <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に退会しますか？');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">退会</button>
+  </form>
+  @endif
+</div>
 
 @endsection

@@ -27,9 +27,10 @@
                     <div class="text-right mb-2">いいね！
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                     </div>
-                    <div class="text-right mb-2"> <a href="{{ route('movies.comments', $movie->id) }}">コメント数
+                    <div class="text-right mb-2"> 
+                        <a href="{{ route('movies.comments', $movie->id) }}">コメント数
                         <span class="badge badge-pill badge-success">{{ $totalComments ?? '0' }}</span>
-                    </a>
+                        </a>
                     </div>
                     <div> 
                         @if ($movie)
