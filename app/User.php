@@ -51,6 +51,12 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function getDisplayNameAttribute()
+    {
+        return $this->name . ($this->hasVerifiedEmail() ? '✅認証済' : '');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

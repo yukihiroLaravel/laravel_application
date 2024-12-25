@@ -25,6 +25,6 @@
 </header>
 @if(Auth::check())
     <p class="text-right mr-3 pb-3">
-        ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
+    ユーザー：<span class="user-name">{{ Auth::user()->name }}{{ Auth::user()->email_verified_at ? '✅認証' : '（未認証）' }}</span>
     </p>
 @endif

@@ -81,12 +81,14 @@ Route::post('/profile/upload-picture', [UsersController::class, 'uploadPicture']
 Route::delete('/users/{id}', 'UsersController@destroy')->name('users.destroy')->middleware('auth');
 
 //パスワード変更
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/change-password', 'PasswordController@showChangePasswordForm')->name('auth.changePassword');
     Route::post('/change-password', 'PasswordController@updatePassword')->name('password.update');
 });
 
+//E-mail認証
+Route::post('/user/send-verification', 'VerificationController@send')->name('user.sendVerification');
+Route::get('/user/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 
 //検索
 Route::get('movies/search', 'MoviesController@search')->name('movies.search');

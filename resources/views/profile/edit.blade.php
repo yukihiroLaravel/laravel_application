@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@include('components.success')
 <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div class="container" style="max-width: 500px; margin-top: 50px;">
+    <div class="container" style="max-width: 600px; margin-top: 50px;">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title text-center mb-4">プロフィール更新</h5>
@@ -85,7 +86,7 @@
 <div class="mt-3">
     <img id="profile-picture-preview" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : '' }}" 
          alt="現在のプロファイル写真" style="max-width: 150px; max-height: 150px; display: {{ $user->profile_picture ? 'block' : 'none' }};">
-</div>-->
+</div>　-->
 
 <!-- JavaScriptでアップロード処理とプレビュー更新 -->
 <script>
@@ -124,20 +125,31 @@
     });
 </script>
 <!-- パスワード変更 -->
-<div class="container text-center my-2" >
-  <a href="{{ route('auth.changePassword') }}" class="btn btn-secondary">パスワードを変更する</a>
+<div class="container text-center my-3">
+  <a href="{{ route('auth.changePassword') }}" class="btn btn-secondary w-50 py-2">パスワードを変更する</a>
+</div>
+
+<!-- E-mail認証 -->
+<div class="container text-center my-3">
+  @if (!auth()->user()->hasVerifiedEmail()) <!-- Eメール未認証の場合に表示 -->
+  <form method="POST" action="{{ route('user.sendVerification') }}">
+    @csrf
+    <button type="submit" class="btn btn-primary w-50 py-2">email認証</button>
+  </form>
+  @endif
 </div>
 
 <!-- 退会 -->
-<div class="container text-center my-2">
+<div class="container text-center my-3">
   {{-- profile.blade.php --}}
   @if (auth()->id() === $user->id)
   <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に退会しますか？');">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-danger">退会</button>
+    <button type="submit" class="btn btn-danger w-50 py-2">退会</button>
   </form>
   @endif
 </div>
+
 
 @endsection
