@@ -86,6 +86,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/change-password', 'PasswordController@updatePassword')->name('password.update');
 });
 
+//パスワード忘れた
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
 //E-mail認証
 Route::post('/user/send-verification', 'VerificationController@send')->name('user.sendVerification');
 Route::get('/user/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
