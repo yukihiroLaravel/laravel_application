@@ -26,6 +26,7 @@ class MoviesController extends Controller
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
+        $movie->description = $request->description; // descriptionを追加
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0; // 追記
         $movie->save();
@@ -61,6 +62,7 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($id);
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
+        $movie->description = $request->description; // descriptionを追加
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();

@@ -12,8 +12,11 @@ class CommentsController extends Controller
     public function index($id)
     {
         $movie = Movie::findOrFail($id);
-        $comments = $movie->comments()->with('user')->get();
-
+        $comments = $movie->comments()
+                          ->with('user')
+                          ->orderBy('created_at', 'desc') // created_atの降順にソート
+                          ->get();
+    
         return view('movies.comments', [
             'movie' => $movie,
             'comments' => $comments,

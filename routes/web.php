@@ -62,6 +62,10 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
+//ユーザータイムライン
+Route::get('{id}/timeline', 'TimelineController@index')->name('user.timeline');
+
+
 // ユーザプロファイル
 Route::middleware(['auth'])->group(function () {
     Route::get('profile/edit', 'UsersController@edit')->name('profile.edit');
@@ -87,8 +91,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 //パスワード忘れた
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request'); 
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email'); 
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 

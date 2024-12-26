@@ -16,6 +16,10 @@
                 <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
             </div>
             <div class="form-group">
+                <label for="description" class="mt-3">動画説明 (最大500文字)</label>
+                <textarea id="description" class="form-control" name="description" rows="4" maxlength="500">{{ old('description') }}</textarea>
+            </div>
+            <div class="form-group">
                 <label for="favorite_flag" class="mt-3">
                     <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
                     いいね！を許可する
