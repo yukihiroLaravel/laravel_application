@@ -20,4 +20,9 @@ class Movie extends Model
     //「belongsTo」= 所属する 
     //Eloquent ORM で使われるメソッドで、データベースのリレーションシップを定義するためのもの
     //「belongsTo」は、「このモデルが他のモデルに属している」という関係を表します。具体的には、「多対1（Many-to-One）」の関係を定義するために使われる
+
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
+    }
 }

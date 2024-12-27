@@ -13,16 +13,22 @@
   @endif
   <div class="col-lg-4 mb-5">
     <div class="movie text-left d-inline-block">
-      <div>
-        @if ($movie)
-        <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
-        {{-- $movie が存在する場合、$movie->youtube_id: $movie の中に保存されている youtube_id（YouTube 動画の ID）を取得 --}}
+      @php
+        $countFavoriteUsers = $movie->favoriteUsers()->count();
+        @endphp
+        <div class="text-right mb-2">いいね!
+          <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+        </div>
+        <div>
+          @if ($movie)
+            <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
+          {{-- $movie が存在する場合、$movie->youtube_id: $movie の中に保存されている youtube_id（YouTube 動画の ID）を取得 --}}
 
-        @else
-        <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
-        @endif
-      </div>
-      {{-- $movie が存在しない場合、空の埋め込み YouTube プレイヤーを表示 --}}
+          @else
+            <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
+          @endif
+        </div>
+        {{-- $movie が存在しない場合、空の埋め込み YouTube プレイヤーを表示 --}}
 
       <p>
         @if (isset($movie->title))
@@ -36,22 +42,24 @@
       {{ $movie->comment }}
       @endif
       </p>
+      @include('favorite.favorite_button', ['movie' => $movie])
       @if (Auth::id() === $movie->user_id)
       {{-- ログインしたユーザーと動画の所有者のidが一致した場合のみ、削除できる --}}
-      <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
-        {{-- $movie->id はweb.php(ルート)の中の'{id}'に指定されるid --}}
-        @csrf
-        {{-- postの時は、必ず@csrfが必要 --}}
+        <div class="d-flex justify-content-between">
+          <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
+          {{-- $movie->id はweb.php(ルート)の中の'{id}'に指定されるid --}}
+            @csrf
+            {{-- postの時は、必ず@csrfが必要 --}}
 
-        @method('DELETE')
-        {{-- 上ではPOSTメソットだったから、そこからDELETEメソットの上書き
-          @method('DELETE')は、formタグの中にいれておく。 
+            @method('DELETE')
+            {{-- 上ではPOSTメソットだったから、そこからDELETEメソットの上書き
+            @method('DELETE')は、formタグの中にいれておく。 
           ララベルではPOSTとgetしかmethod="POST"のように書けない。DELETEとか更新はPostの一種。それ以外のDELETEや更新は、自分で@method('DELETE')のように書く--}}
 
-        <button type="submit" class="btn btn-danger">この動画を削除する</button>
-      </form>
-      {{-- 動画の削除ボタン --}}
-
+            <button type="submit" class="btn btn-danger">この動画を削除する</button>
+          </form>
+          <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-primary">編集する</a>
+        </div>
       @endif
     </div>
   </div>

@@ -52,4 +52,43 @@ class User extends Authenticatable
 
     //「hasMany」は、Eloquent ORM で使われるメソッドで、データベースのリレーションシップを定義するため関数
     //具体的には、「あるモデルが複数の関連するモデルを持っている」という関係を定義する
+
+
+    //ユーザー情報から「いいね」した映画の情報を取得するためのメソッド
+    public function favorites() 
+    {
+        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
+    }
+    
+
+    //ログインユーザーが動画をいいね！、お気に入りに追加する処理
+    public function favorite($movieId)
+    {
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($movieId);
+            return true;
+        }
+    }
+
+    //ログインユーザーが動画をいいね！お気に入りから外す処理
+    public function unfavorite($movieId)
+    {
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            $this->favorites()->detach($movieId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //動画がすでにいいね！お気に入りにあるが確認する処理
+    public function isFavorite($movieId) 
+    {
+        return $this->favorites()->where('movie_id',$movieId)->exists();
+    }
+
 }

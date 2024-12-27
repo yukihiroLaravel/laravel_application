@@ -31,13 +31,19 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //しかし、セキュリティ上の観点から推奨されない方法。
 //Laravelの標準的なログアウト処理は通常 POSTリクエストを使用して実装される
 
-Route::get('/', 'UsersController@index');
 // トップページを表示させるためのルート
+Route::get('/', 'UsersController@index');
 
-Route::prefix('users')->group(function () {
-  Route::get('{id}', 'UsersController@show')->name('user.show');
+//ユーザー
+Route::group(['prefix' => 'users/{id}'], function () {
+  
+  //ユーザー詳細のルート
+  Route::get('', 'UsersController@show')->name('user.show');
+
+  //ユーザーがいいねしている一覧が見れるルート
+  Route::get('favorites', 'UsersController@favorites')->name('user.favorites');
 });
-//ユーザー詳細のルート
+
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -62,5 +68,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
     // 動画の削除機能
+
+    Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
+    Route::put('{id}', 'MoviesController@update')->name('movie.update');
   });
+
+  // いいね
+    Route::group(['prefix' => 'movies/{id}'], function() {
+      Route::post('favorite', 'FavoriteController@store')->name('favorite');
+      //いいねを実行するルート
+
+      Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
+    });
 });
