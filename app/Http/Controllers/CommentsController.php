@@ -13,10 +13,10 @@ class CommentsController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $comments = $movie->comments()
-                          ->with('user')
-                          ->orderBy('created_at', 'desc') // created_atの降順にソート
-                          ->get();
-    
+            ->with('user')
+            ->orderBy('created_at', 'desc') // created_atの降順にソート
+            ->get();
+
         return view('movies.comments', [
             'movie' => $movie,
             'comments' => $comments,
@@ -24,20 +24,24 @@ class CommentsController extends Controller
     }
 
     // コメント投稿
-    public function store(Request $request, $id)
+
+    public function store(Request $request, $movieId)
     {
         $request->validate([
-            'content' => 'required|string|max:500',
+            'content' => 'required|string|max:1000',
+            'parent_id' => 'nullable|exists:comments,id',
         ]);
 
-        $movie = Movie::findOrFail($id);
-        $movie->comments()->create([
-            'user_id' => auth()->id(),
-            'content' => $request->content,
-        ]);
+        $comment = new Comment();
+        $comment->movie_id = $movieId;
+        $comment->user_id = auth()->id();
+        $comment->content = $request->content;
+        $comment->parent_id = $request->parent_id; // parent_id を設定
+        $comment->save();
 
-        return redirect()->route('movies.comments', $id)->with('success', 'コメントを投稿しました！');
+        return redirect()->route('movies.comments', $movieId)->with('success', 'コメントを投稿しました。');
     }
+
 
     // コメント編集
     public function update(Request $request, $id, $comment_id)
