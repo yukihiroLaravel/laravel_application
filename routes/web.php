@@ -73,13 +73,10 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('profile/{id}', 'UsersController@showProfile')->name('profile.showProfile');
 
-//プロファイル写真削除
-use App\Http\Controllers\UsersController;
-
-Route::delete('/profile/delete-picture', [UsersController::class, 'deletePicture'])->name('profile.deletePicture');
-
 //プロファイル写真更新と即表示
-Route::post('/profile/upload-picture', [UsersController::class, 'uploadPicture'])->name('profile.uploadPicture');
+Route::delete('/profile/delete-temp', 'UsersController@deleteTemp')->name('profile.deleteTemp');
+Route::post('/profile/upload-temp', 'UsersController@uploadTemp')->name('profile.uploadTemp');
+
 
 //ユーザー退会
 Route::delete('/users/{id}', 'UsersController@destroy')->name('users.destroy')->middleware('auth');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -66,13 +67,10 @@ class UsersController extends Controller
         return view('profile.edit', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(UserEditRequest $request)
     {
         $request->validate([
-            'nickname' => 'required|string|max:255|unique:users,nickname,' . auth()->id(),
-            'gender' => 'required|in:male,female,other,unknown',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 2MB以下の画像
-            'self_introduction' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $user = auth()->user();
@@ -80,56 +78,74 @@ class UsersController extends Controller
         $user->gender = $request->gender;
         $user->self_introduction = $request->self_introduction;
 
-        if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->profile_picture = $path;
+        $deleteFlag = session()->pull("delete_picture_{$user->id}", false);
+
+        if ($deleteFlag) {
+            // 現在のプロファイル写真を削除
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
+            }
+            // データベースのフィールドをクリア
+            $user->profile_picture = null;
+        } else {
+            // 一時ファイルが存在する場合は最終保存場所に移動
+            $tempFiles = Storage::disk('public')->files("temp/{$user->id}");
+            if (!empty($tempFiles)) {
+                $tempFile = $tempFiles[0]; // 1つのファイルだけを扱うと仮定
+                $finalPath = "profile_pictures/{$user->id}/" . basename($tempFile);
+                Storage::disk('public')->move($tempFile, $finalPath);
+
+                // データベースにパスを保存
+                $user->profile_picture = $finalPath;
+            }
         }
 
         $user->save();
 
-        return redirect()->route('profile.showProfile',  ['id' => $user->id])->with('success', 'プロフィールが更新されました');
+        //return redirect()->back()->with('success', 'プロフィールが更新されました。');
+        return redirect()->route('profile.showProfile', ['id' => $user->id])
+            ->with('success', 'プロフィールが更新されました');
     }
 
-    public function deletePicture(Request $request)
+    public function uploadTemp(Request $request)
     {
+        // 認証されたユーザーを取得
         $user = auth()->user();
 
-        if ($user->profile_picture) {
-            // ストレージからファイルを削除
-            Storage::delete('public/' . $user->profile_picture);
-
-            // データベースのエントリを更新
-            $user->profile_picture = null;
-            $user->save();
-
-            return redirect()->back()->with('success', 'プロファイル写真が削除されました。');
-        }
-
-        return redirect()->back()->with('error', '写真が見つかりませんでした。');
-    }
-
-    public function uploadPicture(Request $request)
-    {
+        // バリデーション
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = auth()->user();
+        if ($request->hasFile('profile_picture')) {
+            // 仮削除フラグをリセット
+            session()->forget("delete_picture_{$user->id}");
+            // ファイルをユーザーごとの一時ディレクトリに保存
+            $file = $request->file('profile_picture');
+            $path = $file->store("temp/{$user->id}", 'public');
 
-        // 古い画像を削除
-        if ($user->profile_picture) {
-            Storage::delete('public/' . $user->profile_picture);
+            return response()->json([
+                'success' => true,
+                'imageUrl' => Storage::url($path),
+            ]);
         }
 
-        // 新しい画像を保存
-        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-        $user->profile_picture = $path;
-        $user->save();
+        return response()->json(['success' => false, 'error' => 'ファイルのアップロードに失敗しました。']);
+    }
 
-        return response()->json([
-            'success' => true,
-            'url' => asset('storage/' . $path),
-        ]);
+    public function deleteTemp()
+    {
+        $user = auth()->user();
+
+        // ユーザーの一時ディレクトリ内のファイルを削除
+        $tempFiles = Storage::disk('public')->files("temp/{$user->id}");
+        foreach ($tempFiles as $file) {
+            Storage::disk('public')->delete($file);
+        }
+        // セッションに削除フラグを設定
+        session()->put("delete_picture_{$user->id}", true);
+
+        return response()->json(['success' => true]);
     }
 
     public function destroy()

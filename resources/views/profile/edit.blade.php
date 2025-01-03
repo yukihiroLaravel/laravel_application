@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
 @include('components.success')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -34,13 +43,13 @@
                     <input type="file" name="profile_picture" id="profile_picture" class="form-control">
                     @error('profile_picture')<p class="text-danger mt-2">{{ $message }}</p>@enderror
 
-                    @if($user->profile_picture)
-                    <div class="mt-3">
+                    <div id="profile-picture-preview" class="mt-3">
+                        @if($user->profile_picture)
                         <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="現在のプロファイル写真" style="max-width: 150px; max-height: 150px;">
                         <!-- 削除ボタン -->
                         <button type="button" class="btn btn-danger mt-2" onclick="deletePicture()">写真を削除</button>
+                        @endif
                     </div>
-                    @endif
                 </div>
 
                 <!-- 自己紹介 -->
@@ -57,98 +66,78 @@
     </div>
 </form>
 
-<!-- 外部に作成した DELETE フォーム -->
-<form id="delete-profile-picture-form" action="{{ route('profile.deletePicture') }}" method="POST" style="display: none;">
-    @csrf
-    @method('DELETE')
-</form>
-
-<!-- JavaScriptでDELETEフォームを送信 -->
 <script>
-    function deletePicture() {
-        if (confirm('本当にプロファイル写真を削除しますか？')) {
-            document.getElementById('delete-profile-picture-form').submit();
-        }
-    }
-</script>
+document.getElementById('profile_picture').addEventListener('change', function (event) {
+    const formData = new FormData();
+    formData.append('profile_picture', event.target.files[0]);
 
-
-<!-- フォームの構造を調整 
-<form id="profile-picture-form" action="{{ route('profile.uploadPicture') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="mb-3">
-        <label for="profile_picture" class="form-label">プロファイル写真:</label>
-        <input type="file" name="profile_picture" id="profile_picture" class="form-control">
-        <p class="text-danger mt-2" id="error-message" style="display: none;"></p>
-    </div>
-</form>
-
-<div class="mt-3">
-    <img id="profile-picture-preview" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : '' }}" 
-         alt="現在のプロファイル写真" style="max-width: 150px; max-height: 150px; display: {{ $user->profile_picture ? 'block' : 'none' }};">
-</div>　-->
-
-<!-- JavaScriptでアップロード処理とプレビュー更新 -->
-<script>
-    document.getElementById('profile_picture').addEventListener('change', function () {
-        const fileInput = this;
-        const formData = new FormData();
-        formData.append('profile_picture', fileInput.files[0]);
-
-        // CSRFトークンをヘッダーに追加
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        // AJAXリクエスト
-        fetch("{{ route('profile.uploadPicture') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': token
-            },
-            body: formData
-        })
+    fetch("{{ route('profile.uploadTemp') }}", {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: formData
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // プレビューの画像を更新
-                const preview = document.getElementById('profile-picture-preview');
-                preview.src = data.url; // サーバーから返された新しい画像のURL
-                preview.style.display = 'block';
+                const previewDiv = document.getElementById('profile-picture-preview');
+                previewDiv.innerHTML = `
+    <img src="${data.imageUrl}" alt="アップロードされたプロファイル写真" style="max-width: 150px; max-height: 150px;">
+        <button type="button" class="btn btn-danger mt-2" onclick="deletePicture()">写真を削除</button>
+        `;
             } else {
-                // エラーメッセージを表示
-                document.getElementById('error-message').innerText = data.error;
-                document.getElementById('error-message').style.display = 'block';
+                alert(data.error || 'アップロードに失敗しました');
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
+        .catch(error => console.error('Error:', error));
+});
+
+function deletePicture() {
+    fetch("{{ route('profile.deleteTemp') }}", {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const previewDiv = document.getElementById('profile-picture-preview');
+                previewDiv.innerHTML = ''; // プレビューをクリア
+            } else {
+                alert(data.error || '削除に失敗しました');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 </script>
+
 <!-- パスワード変更 -->
 <div class="container text-center my-3">
-  <a href="{{ route('auth.changePassword') }}" class="btn btn-secondary w-50 py-2">パスワードを変更する</a>
+    <a href="{{ route('auth.changePassword') }}" class="btn btn-secondary w-50 py-2">パスワードを変更する</a>
 </div>
 
 <!-- E-mail認証 -->
 <div class="container text-center my-3">
-  @if (!auth()->user()->hasVerifiedEmail()) <!-- Eメール未認証の場合に表示 -->
-  <form method="POST" action="{{ route('user.sendVerification') }}">
-    @csrf
-    <button type="submit" class="btn btn-primary w-50 py-2">email認証</button>
-  </form>
-  @endif
+    @if (!auth()->user()->hasVerifiedEmail()) <!-- Eメール未認証の場合に表示 -->
+    <form method="POST" action="{{ route('user.sendVerification') }}">
+        @csrf
+        <button type="submit" class="btn btn-primary w-50 py-2">email認証</button>
+    </form>
+    @endif
 </div>
 
 <!-- 退会 -->
 <div class="container text-center my-3">
-  {{-- profile.blade.php --}}
-  @if (auth()->id() === $user->id)
-  <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に退会しますか？');">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-danger w-50 py-2">退会</button>
-  </form>
-  @endif
+    {{-- profile.blade.php --}}
+    @if (auth()->id() === $user->id)
+    <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に退会しますか？');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger w-50 py-2">退会</button>
+    </form>
+    @endif
 </div>
 
 
