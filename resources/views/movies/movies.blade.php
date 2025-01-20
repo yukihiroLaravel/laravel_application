@@ -15,6 +15,20 @@
     <div class="movie text-left d-inline-block">
       @php
         $countFavoriteUsers = $movie->favoriteUsers()->count();
+        $videoTitle = "動画が未登録です";
+        if ($movie) {
+          $keyName = config('app.YouTubeDataApiKey');
+          $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+          $jsonData = file_get_contents($apiUrl);
+          if ($jsonData) {
+            $decodeData = json_decode($jsonData, true);
+            if ($decodeData['pageInfo']['totalResults'] !== 0) {
+              $videoTitle = $decodeData['items']['0']['snippet']['title'];
+            }
+          } else {
+              $videoTitle = "一時的な情報制限中です";
+            }
+        }
         @endphp
         <div class="text-right mb-2">いいね!
           <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
@@ -32,7 +46,9 @@
 
       <p>
         @if (isset($movie->title))
-        {{ $movie->title }}
+          {{ $movie->title }}
+        @else
+          {{ $videoTitle }}
         @endif
       </p>
       {{-- 動画のtitleプロパティが存在する場合のみ、動画タイトルを表示するという意味 --}}
