@@ -10,5 +10,9 @@ class UsersController extends Controller
     {
         return view('welcome');
     }
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> feature/mitsunobu2/user_register_login
