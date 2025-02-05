@@ -23,7 +23,7 @@ class MoviesController extends Controller
     public function store(MovieRequest $request)
     {
         $movie = new Movie;
-        $movie->youtube_id = $request->youtube_id;
+        $movie->youtube_id = $request->youtube_id; // viewのformタグのname属性と一致させる様に書く
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0; // 追記
