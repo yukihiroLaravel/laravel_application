@@ -30,12 +30,13 @@ class UsersController extends Controller
     public function favorites($id)
     {
         $user = User::findOrFail($id);
-        $movies = $user->favorites()->paginate(9);
+        $movies = $user->favorites()->paginate(9); //$user->favorites()で、ユーザーがお気に入り登録した動画を取得。９つの動画がサムネイルで表示されるのは、viewでyoutube embeded機能を使ってるから。paginate関数の機能ではない。この関数は９つのデータをリストで取得してるだけ。
         $data=[
             'user' => $user,
             'movies' => $movies,
         ];
         $data += $this->userCounts($user);
+
         return view('users.show', $data);
     }
 

@@ -43,4 +43,10 @@ Route::group(['prefix' => 'movies/{id}'],function(){
     Route::post('favorite','FavoriteController@store')->name('favorite');
     Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
+    
+});
+
+//postmanテスト用１
+Route::get('/hello', function () {
+    return 'Hello, this is a web route!';
 });

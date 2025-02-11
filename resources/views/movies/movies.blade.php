@@ -18,7 +18,8 @@
                                 if ($decodedData['pageInfo']['totalResults'] !== 0){
                                     $videoTitle = $decodedData['items']['0']['snippet']['title'];
                                 }
-                            } else {
+                            } 
+                            else {
                                 $videoTitle="※一時的な情報制限中です";
                             }
                         }

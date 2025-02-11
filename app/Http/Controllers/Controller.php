@@ -15,7 +15,8 @@ class Controller extends BaseController
     {
         $countMovies = $user->movies()->count();
         $countFavorites = $user->favorites()->count();
-                return [
+        
+        return [
             'countMovies' => $countMovies,
             'countFavorites' => $countFavorites,
         ];

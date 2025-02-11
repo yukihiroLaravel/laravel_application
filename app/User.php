@@ -54,7 +54,8 @@ class User extends Authenticatable
         $exist = $this->isFavorite($movieId);
         if ($exist) {
             return false;
-        } else {
+        } 
+        else {
             $this->favorites()->attach($movieId);
             return true;
         }

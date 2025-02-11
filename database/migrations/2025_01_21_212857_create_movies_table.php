@@ -20,7 +20,7 @@ class CreateMoviesTable extends Migration
             $table->string('youtube_id');
             $table->timestamps();
             $table->softDeletes();
-            // 外部キー制約
+            // 外部キー制約。moviesテーブルのuser_idカラムは、usersテーブルのidカラムが所有する属性情報となる。
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
