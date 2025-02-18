@@ -26,4 +26,16 @@ class UsersController extends Controller
         $date += $this->userCounts($user);
         return view('users.show', $date);
     }
+
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->favorites()->paginate(9);
+        $date = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $date += $this->userCounts($user);
+        return view('users.show', $date);
+    }
 }
