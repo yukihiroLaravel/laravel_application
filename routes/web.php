@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('tasks', 'TaskController@index')->name('tasks.index');
+Route::post('tasks', 'TaskController@store')->name('tasks.store');
+Route::delete('tasks/{id}', 'TaskController@destroy')->name('tasks.destroy');
+
+
+//動画では下記となっていた
+//Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+//Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+//Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');

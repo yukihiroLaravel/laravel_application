@@ -13,9 +13,16 @@
         "axios": "^0.19",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
+        "laravel-vite-plugin": "^1.2.0",
         "lodash": "^4.17.19",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
-        "sass-loader": "^8.0.0"
+        "sass-loader": "^8.0.0",
+        "tailwindcss": "^4.0.9",
+        "vite": "^6.2.0"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.5.3"
     }
 }
