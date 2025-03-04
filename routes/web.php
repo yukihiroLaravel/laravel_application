@@ -15,8 +15,10 @@
 
 Route::get('tasks', 'TaskController@index')->name('tasks.index');
 Route::post('tasks', 'TaskController@store')->name('tasks.store');
-Route::delete('tasks/{id}', 'TaskController@destroy')->name('tasks.destroy');
-
+Route::put('tasks/{id}', 'TaskController@markAsDeleted')->name('tasks.markAsDeleted');
+Route::get('tasks/trash', 'TaskController@trash')->name('tasks.trash');
+Route::put('tasks/{id}/recover', 'TaskController@recover')->name('tasks.recover');
+Route::delete('tasks/trash', 'TaskController@deleteTrash')->name('tasks.deleteTrash');
 
 //動画では下記となっていた
 //Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
