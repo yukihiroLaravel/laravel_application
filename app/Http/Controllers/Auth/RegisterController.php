@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -64,10 +65,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // ユーザーをデータベースに作成
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * After registration, flash a success message and redirect.
+     *
+     * @param  Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function registered(Request $request, $user)
+    {
+        // セッションにフラッシュメッセージをセット
+        session()->flash('flashSuccess', 'ユーザー登録が完了しました。');
+
+        // ホーム画面にリダイレクト
+        return redirect($this->redirectTo);
+    }
 }
+

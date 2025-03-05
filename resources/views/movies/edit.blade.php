@@ -23,8 +23,12 @@
                 </label>
             </div>
             <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>
+            
+            <!-- フラッシュメッセージの表示 -->
+            @include('commons.flash_messages')  <!-- 共通のフラッシュメッセージビューを読み込む -->
         </div>
     </form>
+
     <h2 class="mt-5">あなたの登録済み動画</h2>
     @include('movies.movies', ['movies' => $movies])
 @endsection

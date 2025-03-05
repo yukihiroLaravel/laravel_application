@@ -6,5 +6,10 @@
         </div>
  </div>
     <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
+        @if (session('successMessage'))
+         <div class="alert alert-success text-center">
+           {{ session('successMessage') }}
+         </div> 
+        @endif
     @include('users.users', ['users' => $users])
 @endsection
