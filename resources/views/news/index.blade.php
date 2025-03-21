@@ -38,7 +38,10 @@
     <script>
       // キーワードが入力されていない場合、アラートを表示
       document.querySelector('form').addEventListener('submit', (event) => {
+        //event.preventDefault();
+      //console.log(document.querySelector('input[name="keyword"]'))　←console.log(event)からconsole.log(document.querySelector('input[name="keyword"]'))に試しに入力した
         const keyword = document.querySelector('input[name="keyword"]').value.trim();
+        //console.log(keyword)
         if (!keyword) {
           event.preventDefault();
           alert('キーワードを入力してください');
