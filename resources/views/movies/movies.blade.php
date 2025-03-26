@@ -22,13 +22,12 @@
                                 $videoTitle="※一時的な情報制限中です";
                             }
                         }
-
                     @endphp
                     <div class="text-right mb-2">いいね！
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                     </div>
                 
-                <div>
+                    <div>
                         @if ($movie)
                             <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
                         @else
@@ -38,14 +37,8 @@
                     <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
-                            @else
+                        @else
                             {{ $videoTitle }}
-                        @endif
-                    </p>
-
-                    <p>
-                        @if (isset($movie->comment))
-                            {{ $movie->comment }}
                         @endif
                     </p>
                     @include('favorite.favorite_button', ['movie' => $movie])

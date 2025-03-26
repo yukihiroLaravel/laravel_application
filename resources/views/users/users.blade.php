@@ -32,25 +32,23 @@
                 <div class="text-right">
                     <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
                 </div>
-
-                <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
-                    <div>
-                        @if ($movie)
-                            <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
-                        @else
-                            <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
-                        @endif
-                    </div>
-                    <p>
-                        @if (isset($movie->title))
-                            {{ $movie->title }}
-                         @else
-                            {{ $videoTitle }}
-
-                        @endif
-                    </p>
+            <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
+                <div>
+                    @if ($movie)
+                        <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
+                    @else
+                         <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
+                     @endif
                 </div>
+                <p>
+                    @if (isset($movie->title))
+                         {{ $movie->title }}
+                    @else
+                         {{ $videoTitle }}
+                    @endif
+                </p>
             </div>
+           </div>
     @endforeach
 </div>
 {{ $users->links('pagination::bootstrap-4') }}
