@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('chat_rooms')->group(function () {
+    Route::get('', 'ChatRoomController@index')->name('chat_rooms.index');
+    Route::post('', 'ChatRoomController@store')->name('chat_rooms.store');
+    Route::get('{chatRoom}', 'ChatRoomController@show')->name('chat_rooms.show');
+});
+
+
+Route::prefix('messages')->group(function () {
+    Route::post('', 'MessageController@store')->name('messages.store');
+    Route::get('{chatRoom}', 'MessageController@index')->name('messages.index');
 });

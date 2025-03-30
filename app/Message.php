@@ -7,6 +7,8 @@ use app\ChatRoom;
 
 class Message extends Model
 {
+    protected $table = 'chat_messages';
+
     public $fillable = [
         'chat_room_id',
         'nickname',
