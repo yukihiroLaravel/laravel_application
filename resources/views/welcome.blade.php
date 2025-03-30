@@ -7,4 +7,5 @@
     </div> <!>
 </div>
 <h5 class="description text-center">みんなのおすすめ動画を自由にシェアしよう</h5> 
+@include('users.users', ['users' => $users])
 @endsection  
