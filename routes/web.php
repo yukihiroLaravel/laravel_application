@@ -25,9 +25,9 @@ Route::get('/', 'UsersController@index');
 Route::group(['middlewere' => 'auth'], function () {
     //動画
     Route::prefix('movies')->group(function () {
-        Route::get('create', 'MoviesController@creat')->name('movie.create');
+        Route::get('create', 'MoviesController@create')->name('movie.create');
         Route::post('', 'MoviesController@store')->name('movie.store');
-        Route::delete('{id}', 'MoviesController@destroy')->name('movie,delete');   
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');   
     });
 });
 
