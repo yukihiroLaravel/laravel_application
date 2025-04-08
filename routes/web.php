@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@index'); //ユーザーがトップページにアクセスした時、UserControllerの中のindexメソッドを実行する
