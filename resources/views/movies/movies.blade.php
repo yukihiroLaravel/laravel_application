@@ -16,13 +16,8 @@
                     <p>
                         @if (isset($movie->title))
                             {{ $movie->title }}
-                        @endif
-                    </p>
-                    <p>
-                        @if (isset($movie->comment))
-                            {{ $movie->comment }}
-                        @endif
-                    </p>
+                        @endif        
+                　　</p>
                     @if (Auth::id() === $movie->user_id)
                         <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
                             @csrf
