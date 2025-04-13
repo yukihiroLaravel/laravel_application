@@ -20,3 +20,13 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index'); //ユーザーがトップページにアクセスした時、UserControllerの中のindexメソッドを実行する
+
+//ログイン後
+Route::group(['middleware' => 'auth'], function (){
+    //動画
+    Route::prefix('movies')->group(function (){
+        Route::get('create' , 'MoviesController@create')->name('movie.create'); //「/movies/create にGETアクセスが来たら、MoviesControllerのcreateメソッドを実行しなさい」そしてこのルートには movies.create って名前をつけてる
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');  //｛｝は変数化してる。動的なURL・idは数値が変わるため
+    });
+});
