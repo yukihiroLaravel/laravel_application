@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// 前半：Route::get or post('/',
+// 　　　条件＝こうしたら…
+// 　　　送信形式：get(見たい) or post(伝えたい)
+//       URL：住所
+// 後半：function ()
+// 　　　実行内容＝こうなる！
+// 　　　ファイル名＠アクション（関数）：どのファイルのどんな結果？
+
+Route::get('/', 'UsersController@index');
