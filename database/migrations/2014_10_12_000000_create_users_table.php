@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();  //ユーザー情報の削除時間（2種類あり、「物理削除」（データごと完全に削除してしまう）「論理削除」（表示はされないがデータは残しておく）softDelete=論理削除（優しい削除））
         });
     }
 
