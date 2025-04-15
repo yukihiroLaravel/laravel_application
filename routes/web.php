@@ -19,4 +19,8 @@
 // 　　　実行内容＝こうなる！
 // 　　　ファイル名＠アクション（関数）：どのファイルのどんな結果？
 
+// ユーザー新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 Route::get('/', 'UsersController@index');
