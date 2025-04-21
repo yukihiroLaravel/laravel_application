@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class UsersTableSeeder2 extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,11 +23,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'name' => 'test3',
-<<<<<<< HEAD
             'email' => 'test3@sample.com',
-=======
-            'email' => 'test3@test.com',
->>>>>>> feature/mitsunobu2.5/user_register_login
             'password' => bcrypt('test3')
         ]);
         DB::table('users')->insert([
