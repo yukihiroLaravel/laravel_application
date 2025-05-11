@@ -21,3 +21,18 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後（しか表示されない）
+// authはログインしているかを判定している。ミドルウェアを使うことで、ログインしているユーザだけがアクセスすることになる。
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    // prefixはURLの共通部分をまとめることができる。prefix('movies')は下のルーティングにおいて、URLの先頭に/moviesをつけている。
+    Route::prefix('movies')->group(function () {
+        // 動画新規登録
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        // 動画登録機能
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        //　動画削除機能
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
+});
