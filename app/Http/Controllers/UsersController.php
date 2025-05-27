@@ -34,4 +34,16 @@ class UsersController extends Controller
         // ユーザの詳細ページを表示するビューを返す
         return view('users.show',$data);
     }
+
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->favorites()->paginate(9);
+        $data=[
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
 }

@@ -36,9 +36,14 @@ class MoviesController extends Controller
     public function store(MovieRequest $request)
     {
         $movie = new Movie;
+        // リクエストから取得したyoutube_idとtitleをMovieモデルにセット
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
+        // user_idは、現在ログインしているユーザのIDをセット
         $movie->user_id = $request->user()->id;
+        // favorite_flagは、リクエストから取得した値を元に、1（true）または0（false）に変換してセット
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
+        // 動画の新規登録を行う
         $movie->save();
         // 動画の新規登録が成功したら、create.blade.phpにリダイレクト
         // リダイレクト先は、動画の一覧ページ（create.blade.php）にする
@@ -57,6 +62,36 @@ class MoviesController extends Controller
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
+        return back();
+    }
+    // 動画の編集画面を表示する
+    public function edit($id)
+    {
+        // 動画のIDを引数として受け取り、そのIDに対応する動画をデータベースから取得
+        // もし動画が存在し、かつその動画の所有者が現在ログインしているユーザと一致する場合のみ編集画面を表示
+        $user = \Auth::user();
+        $movie = Movie::findOrFail($id);
+        $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'movie' => $movie,
+            'movies' => $movies,
+        ];
+        return view('movies.edit', $data);
+    }
+    // 動画の更新処理
+    public function update(MovieRequest $request, $id)
+    {
+        // リクエストから取得したIDに対応する動画をデータベースから取得
+        // findOrFailメソッドは、指定したIDの動画が存在しない場合に404エラーを返す
+        $movie = Movie::findOrFail($id);
+        // 現在ログインしているユーザのIDと、動画の所有者のIDが一致する場合のみ更新を実行
+        $movie->youtube_id = $request->youtube_id;
+        $movie->title = $request->title;
+        $movie->user_id = $request->user()->id;
+        // リクエストから取得したfavorite_flagを元に、1（true）または0（false）に変換してセット
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
+        $movie->save();
         return back();
     }
 }

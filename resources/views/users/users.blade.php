@@ -3,6 +3,11 @@
     {{-- コントローラから受け取った変数「$users」から１人１人のユーザを取り出して繰り返す --}}
     @foreach ($users as $user)
         @php
+            $movies = $user->movies()->get();
+            $totalFavorites = 0;
+            foreach ($movies as $movie){
+                $totalFavorites += $movie->favoriteUsers()->count();
+            }
         // Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出し
             $movie = $user->movies->last();
         @endphp

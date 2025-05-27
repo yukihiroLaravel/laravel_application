@@ -16,10 +16,13 @@ class Controller extends BaseController
         // ユーザが投稿した動画の数をカウントする
         // $user->movies() は、User モデルに関連付けられた Movie モデルのリレーションを取得するメソッド
         $countMovies = $user->movies()->count();
+        $countFavorites = $user->favorites()->count();
+
         // ユーザが投稿した動画の数をカウントし、'countMovies'というキーで返す
         // ここでは、countMovies というキーで動画の数を返す
         return [
             'countMovies' => $countMovies,
+            'countFavorites' => $countFavorites,
         ];
     }
 }

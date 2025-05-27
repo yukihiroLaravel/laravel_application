@@ -1,28 +1,26 @@
 @extends('layouts.app')
 @section('content')
-    <h2 class="mt-5">動画を登録する</h2>
-    <form method="POST" action="{{ route('movie.store') }}">
-    {{-- CSRFトークンを埋め込む --}}
+    <h2 class="mt-5">動画を編集する</h2>
+    <form method="POST" action="{{ route('movie.update', $movie->id) }}">
         @csrf
+        @method('PUT')
         <div class="form-group mt-5">
             <div class="form-group">
                 <label for="youtube_id" class="text-success">新規登録YouTube動画 "ID" を入力する</label>
                 <p>例）登録したいYouTube動画のURLが?<span>https://www.youtube.com/watch?v=-bNMq1Nxn5o?なら</span>
                    <br>"v="の直後にある?"<span class="text-success">-bNMq1Nxn5o</span>"?を入力
                 </p>
-                {{-- old()関数は、フォーム送信時に入力した値を保持するための関数 --}}
-                <input id="youtube_id" type="text" class="form-control" name="youtube_id" value="{{ old('youtube_id') }}">
+                <input id="youtube_id" type="text" class="form-control" name="youtube_id" value="{{ old('youtube_id', $movie->youtube_id) }}">
             </div>
             <div class="form-group">
                 <label for="title" class="mt-3">動画タイトル(※任意)</label>
-                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
+                <input id="title" type="text" class="form-control" name="title" value="{{ old('title', $movie->title) }}">
             </div>
             <div class="form-group">
                 <label for="favorite_flag" class="mt-3">
                     {{-- old()関数を使用して、フォーム送信時に入力した値を保持 --}}
-                    {{-- チェックボックスの初期値は1（チェックあり）に設定 --}}
-                    {{-- チェックボックスがオンの場合はchecked属性を追加 --}}
-                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
+                    {{-- チェックボックスの初期値は動画のfavorite_flagを使用 --}}
+                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', $movie->favorite_flag) == 1 ? 'checked' : '' }}>
                     いいね！を許可する
                 </label>
             </div>
@@ -30,8 +28,5 @@
         </div>
     </form>
     <h2 class="mt-5">あなたの登録済み動画</h2>
-    {{-- コントローラから受け取った変数「$movies」から動画情報を取り出して表示 --}}
-    {{-- 動画が登録されていない場合はメッセージを表示 --}}
-    {{-- movies.blade.phpをmovies変数として渡す --}}
     @include('movies.movies', ['movies' => $movies])
 @endsection
