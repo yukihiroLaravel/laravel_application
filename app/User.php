@@ -43,4 +43,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(Movie::class);
     }
+
+    // ユーザーがいいね！した動画を取得することができるメソッド
+    public function favorites()
+    {
+        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
+    }
+
+    // 動画に関して実際にいいね！するメソッド
+    public function favorite($movieId)
+    {
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($movieId);
+            return true;
+        }
+    }
+
+    // 動画に関していいね！を解除するメソッド
+    public function unfavorite($movieId)
+    {
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            $this->favorites()->detach($movieId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isFavorite($movieId)
+    {
+        return $this->favorites()->where('movie_id', $movieId)->exists();
+    }
 }

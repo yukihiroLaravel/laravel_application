@@ -25,4 +25,17 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         return view('users.show',$data);
     }
+    
+    // web.phpから受け取ったidを引数に入れる
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->favorites()->paginate();
+        $data = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
+        }
 }

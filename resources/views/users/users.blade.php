@@ -2,6 +2,15 @@
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
+        //ユーザーが所有している動画を取得
+            $movies = $user->movies()->get();
+            // 動画数の初期値はゼロに設定 
+            $totalFavorites = 0;
+            //動画を繰り返し処理の中に入れる 
+            foreach ($movies as $movie){
+                // 動画をいいね！してるユーザーの数をカウントして、$totalFavoritesに足す 
+                $totalFavorites += $movie->favoriteUsers()->count();
+            }
             $movie = $user->movies->last();
         @endphp
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
@@ -10,6 +19,9 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
+                    <div class="text-right">
+                        <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
+                    </div>
                     <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
                     <div>
                         @if ($movie)
