@@ -11,7 +11,9 @@ class MovieRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    // ユーザがリクエストを行う権限があるかどうかを判断するメソッド
+    // このメソッドは、リクエストが許可されているかどうかを判断するために使用される
+     public function authorize()
     {
         return true;
     }
@@ -22,6 +24,7 @@ class MovieRequest extends FormRequest
      */
 
     // バリデーションルールを定義
+    // このメソッドは、リクエストのデータがどのように検証されるかを定義するために使用される
     public function rules()
     {
         return [
@@ -30,7 +33,8 @@ class MovieRequest extends FormRequest
         ];
     }
 
-    // attributesメソッドを追加して、エラーメッセージの日本語化
+    // attributesメソッドは、バリデーションエラーメッセージで使用される属性名を定義するために使用される
+    // このメソッドをオーバーライドすることで、バリデーションエラーメッセージで表示される属性名をカスタマイズできる
     public function attributes()
     {
         return [

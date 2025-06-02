@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,9 @@ class AddFavoriteFlagToMoviesTable extends Migration
     public function up()
     { 
         Schema::table('movies', function (Blueprint $table) {
+            // $table->boolean(‘favorite_flag’)で「favorite_flag」という、いいね許可カラムを
+            // 真偽値型で追加するという意味で、default(true)という記述で、
+            // 特に値が指定されていなければ初期値は「true」となるようにしている
             $table->boolean('favorite_flag')->default(true);
         });
     }
@@ -26,6 +30,7 @@ class AddFavoriteFlagToMoviesTable extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
+            // $table->dropColumn(‘favorite_flag’);で、カラム削除する関数
             $table->dropColumn('favorite_flag');
         });
     }

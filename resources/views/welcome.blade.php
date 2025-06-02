@@ -1,4 +1,7 @@
 @extends('layouts.app')
+{{-- Welcomeページのタイトル --}}
+@section('title', 'YouTubeまとめ × コミュニケーション')
+{{-- Welcomeページのメタディスクリプション --}}
 @section('content')
     <div class="center jumbotron bg-dark">
         <div class="text-center text-white mt-2 pt-1">

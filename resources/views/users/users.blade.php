@@ -3,12 +3,22 @@
     {{-- コントローラから受け取った変数「$users」から１人１人のユーザを取り出して繰り返す --}}
     @foreach ($users as $user)
         @php
+            // ユーザが所有している全ての動画情報を取得
+            // Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報を取得
             $movies = $user->movies()->get();
+            // ユーザが所有している動画情報のうち、いいね！を押したユーザ数をカウント
+            // $moviesはコレクションで、各動画に対してfavoriteUsers()関数を呼び出して、いいね！を押したユーザの数をカウント
+            //　初期値は０だよ
             $totalFavorites = 0;
+            // 各動画に対して、いいね！を押したユーザの数をカウント
+            // $moviesはコレクションで、各動画に対してfavoriteUsers()関数を呼び出して、いいね！を押したユーザの数をカウント
             foreach ($movies as $movie){
+                // 動画のいいね！を押したユーザ数をカウント
+                // 各動画に対してfavoriteUsers()関数を呼び出して、いいね！を押したユーザの数をカウント
+                // $totalFavoritesに加算
                 $totalFavorites += $movie->favoriteUsers()->count();
             }
-        // Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出し
+            // Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出し
             $movie = $user->movies->last();
         @endphp
         {{-- $loop->iteration とは、繰り返し処理中で使えるプロパティで、「今が何回目の繰り返しか？」と示してくれる --}}
@@ -20,7 +30,10 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
-                     <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}
+                    <div class="text-right">
+                        <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
+                    </div> 
+                <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}
                     <div>
                         {{-- 動画が存在する場合は動画を表示、存在しない場合は空のiframeを表示 --}}
                         {{-- $movieはUserモデルのmovies()関数で取得した動画情報のうち、最新のものを指す --}}

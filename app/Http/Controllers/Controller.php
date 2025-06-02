@@ -9,8 +9,12 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    // 追加: コントローラの基本クラス
+    // 追加: AuthorizesRequests, DispatchesJobs, ValidatesRequestsトレイトを使用して、リクエストの認可、ジョブのディスパッチ、バリデーションを行う
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    // ユーザが投稿した動画の数をカウントするメソッド
+    // このメソッドは、ユーザが投稿した動画の数をカウントし、'countMovies'というキーで返す
     public function userCounts($user)
     {
         // ユーザが投稿した動画の数をカウントする

@@ -21,7 +21,7 @@
                 <label for="favorite_flag" class="mt-3">
                     {{-- old()関数を使用して、フォーム送信時に入力した値を保持 --}}
                     {{-- チェックボックスの初期値は1（チェックあり）に設定 --}}
-                    {{-- チェックボックスがオンの場合はchecked属性を追加 --}}
+                    {{-- favorite_flagがtrueの場合はチェックボックスにチェックを追加 --}}
                     <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
                     いいね！を許可する
                 </label>
