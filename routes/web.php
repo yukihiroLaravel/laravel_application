@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// 前半：条件＝こうしたら…
+//         →送信形式：見たい（GET）or　伝えたい（POST）
+//         →URL：住所
+//         →Route::get('/',
+
+// 後半：実行内容＝こうなる！
+//      →ファイル名＠アクション（関数）：どのファイルのどんな結果？
+//          例）会えるのか、付き合えるのか、フラられるのか？
+// 　   →UsersController@index');
+
+
+// ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+Route::get('/', 'UsersController@index');
