@@ -20,6 +20,22 @@
             }
             // Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出し
             $movie = $user->movies->last();
+            
+            $videoTitle="※動画が未登録です";
+            if ($movie) {
+                $keyName = config('app.YouTubeDataApiKey');
+                $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+                $jsonData = file_get_contents($apiUrl);
+                if ($jsonData) {
+                    $decodedData = json_decode($jsonData, true);
+                    if ($decodedData['pageInfo']['totalResults'] !== 0){
+                        $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                    }
+                } else {
+                    $videoTitle="※一時的な情報制限中です";
+                }
+            }
+
         @endphp
         {{-- $loop->iteration とは、繰り返し処理中で使えるプロパティで、「今が何回目の繰り返しか？」と示してくれる --}}
         {{-- $loop->iteration % 3 === 1は、「３で割ったら余りが１」として3回目以降で行を分ける --}}
@@ -49,6 +65,8 @@
                         {{-- isset()関数は、変数が定義されているかどうかを確認する --}}
                         @if (isset($movie->title))
                             {{ $movie->title }}
+                        @else
+                            {{ $videoTitle }}
                         @endif
                     </p>
                 </div>

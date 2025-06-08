@@ -53,6 +53,7 @@ class User extends Authenticatable
     
     // ユーザは複数のお気に入り動画を持つことができる
     // つまり、UserモデルはMovieモデルと多対多のリレーションを持つ
+    //　いいねした動画一覧を簡単に取得するためのリレーションを定義
     public function favorites()
     {
         // ユーザと動画の多対多リレーションを定義

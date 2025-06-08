@@ -9,6 +9,20 @@
                     @php
                         // 動画がいいねされている場合は動画情報を取得
                         $countFavoriteUsers = $movie->favoriteUsers()->count();
+                        $videoTitle="※動画が未登録です";
+                        if ($movie) {
+                            $keyName = config('app.YouTubeDataApiKey');
+                            $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
+                            $jsonData = file_get_contents($apiUrl);
+                            if ($jsonData) {
+                                $decodedData = json_decode($jsonData, true);
+                                if ($decodedData['pageInfo']['totalResults'] !== 0){
+                                    $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                                }
+                            } else {
+                                $videoTitle="※一時的な情報制限中です";
+                            }
+                        }  
                     @endphp
                     <div class="text-right mb-2">いいね！
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>                    
@@ -24,6 +38,8 @@
                             {{-- 動画のタイトルが存在する場合はタイトルを表示 --}}
                             {{-- 動画のタイトルが存在しない場合は、YouTube動画IDを表示 --}}
                             {{ $movie->title }}
+                        @else
+                            {{ $videoTitle }}
                         @endif
                     </p>
                     {{--viewのfavorite_buttonに、@foreach ($movies as $movie)で取り出した動画の情報を渡す --}}

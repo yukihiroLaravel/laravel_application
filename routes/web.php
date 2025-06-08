@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     // ここでは、動画のIDをパラメータとして受け取り、いいねの登録と削除を行うルーティングを定義
     Route::group(['prefix' => 'movies/{id}'],function(){
         // URL movies/{id}/favoriteにPOSTリクエストを送ると、FavoriteControllerのstoreメソッドが呼び出される
+        // いいねを押したとき、いいねした動画のIDを受け取りコントローラーに実行される。
         Route::post('favorite','FavoriteController@store')->name('favorite');
         // URL movies/{id}/unfavoriteにDELETEリクエストを送ると、FavoriteControllerのdestroyメソッドが呼び出される
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
