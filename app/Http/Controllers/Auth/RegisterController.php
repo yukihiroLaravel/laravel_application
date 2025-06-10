@@ -22,6 +22,8 @@ class RegisterController extends Controller
     |
     */
 
+    // RegisterUsersトレイトを使用して、ユーザ登録の機能を提供
+    // Registercontrollerは、トレイトに内包されているユーザ登録の処理を行うためのコントローラ
     use RegistersUsers;
 
     /**
@@ -29,7 +31,9 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // ユーザ登録後のリダイレクト先
+    // ユーザ登録後は、トップページにリダイレクトされる
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,6 +53,9 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // ユーザ登録時のバリデーションルールを定義
+        // バリデーションとは、ユーザが入力したデータが正しいかどうかを確認するためのルール
+        // name, email, passwordの各フィールドに対して、必要なルールを指定
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

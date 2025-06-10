@@ -1,4 +1,3 @@
-{{-- app.blade.phpは、layoutsディレクトリにある --}}
 {{-- @extendsなので、welcome.blade.phpは、app.blade.phpを継承している --}}
 {{-- app.blade.phpの内容を、welcome.blade.phpで上書きする --}}
 {{-- つまり、app.blade.phpの内容が、welcome.blade.phpの内容に置き換わる --}}

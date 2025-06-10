@@ -11,4 +11,12 @@
 |
 */
 
+// ユーザ新規登録
+// Route::get(‘アドレス(○○/{パラメータ})’, ‘コントローラ名@アクション名’);
+// ユーザ新規登録 画面表示
+// signupのURLにアクセスすると、Authのディレクトリ下にあるRegisterControllerのshowRegistrationFormメソッドが呼び出される
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+// ユーザ新規登録 実行
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 Route::get('/', 'UsersController@index');
