@@ -19,4 +19,13 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 // ユーザ新規登録 実行
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ログイン
+// loginのURLにアクセスすると、Authのディレクトリ下にあるLoginControllerのshowLoginFormメソッドが呼び出される
+// ログイン画面表示
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+// ログイン実行
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+// ログアウト
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::get('/', 'UsersController@index');

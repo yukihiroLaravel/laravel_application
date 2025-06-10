@@ -12,9 +12,30 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">新規ユーザ登録</a></li>
-                <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
+                <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                {{-- Auth::check()は、ユーザがログインしているかどうかを確認するメソッド --}}
+                @if (Auth::check())
+                    {{-- ログインしている場合のナビゲーションメニュー --}}
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">マイページ</a></li>
+                @else
+                    {{-- ログインしていない場合のナビゲーションメニュー --}}
+                    {{-- route('login')は、web.phpで定義されたルートの名前を参照 --}}
+                    {{-- route('signup')は、新規ユーザ登録のルートを参照 --}}
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">新規ユーザ登録</a></li>
+                @endif
             </ul>
         </div>
     </nav>
 </header>
+{{-- ユーザがログインしている場合に、ユーザ名を表示 --}}
+{{-- Auth::check()は、ユーザがログインしているかどうかを確認するメソッド --}}
+{{-- Auth::user()は、現在ログインしているユーザの情報を取得するメソッド --}}
+{{-- ユーザ名は、Auth::user()->nameで取得できる --}}
+@if(Auth::check())
+    <p class="text-right mr-3 pb-3">
+        ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
+    </p>
+@endif
