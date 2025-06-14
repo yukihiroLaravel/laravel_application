@@ -38,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     public function movies()
+    {
+        // $thisはUserのインスタンスを指し、hasManyは１対多のリレーションを定義するメソッド
+        // Movie::classはMovieモデルを指し、Userモデルが複数のMovieを持つことを示す（Userは複数のMovieを持つことができる）
+        // これをすることで、ユーザー情報から動画情報を取得できるようになる
+        // また、$movie->user()->get();と書くだけで、動画情報からユーザ情報を取得できるようになる
+        return $this->hasMany(Movie::class);
+    }
 }
