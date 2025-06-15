@@ -1,0 +1,46 @@
+<h2 class="mt-5 mb-5">チャンネル一覧</h2>
+<div class="movies row mt-5 text-center">
+    {{-- foreachを使って、変数「$users」から１人１人のユーザを取り出して繰り返す --}}
+    @foreach ($users as $user)
+        @php
+            // $user->movies->last();はUserモデルに記述したmovies()関数を使い、
+            // ユーザが所有している動画情報のうち最も最近登録された動画のみを取得
+            $movie = $user->movies->last();
+        @endphp
+        {{-- 3人ごとに改行を入れる --}}
+        {{-- $loop->iterationはforeachのループの回数を表す変数 --}}
+        {{-- iteration % 3 === 1は、1人目、4人目、7人目...の時にtrueになる --}}
+        {{-- $loop->iteration !== 1は、1人目の時は改行しない --}}
+        {{-- 4人目、7人目、10人目...の時は改行しない --}}
+        @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
+            </div>
+            <div class="row text-center mt-3">
+        @endif
+            <div class="col-lg-4 mb-5">
+                <div class="movie text-left d-inline-block">
+                    ＠{{ $user->name }}
+                    <div>
+                        {{-- もし、ユーザが所有していれば、所有している動画のうち、最新の動画を表示 --}}
+                        {{-- <iframe>という画面に「Webページや動画を埋め込む」タグを使って、YouTube動画IDを変数としてURLの中に入れ込むことで、動画を表示させる --}}
+                        @if ($movie)
+                            <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
+                        {{-- もし動画がなければ、空のiframeを表示 --}}
+                        @else
+                            <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
+                        @endif
+                    </div>
+                    <p>
+                        {{-- ユーザが所有している動画のうち、最新の動画のタイトルを表示 --}}
+                        {{-- もし動画がなければ、空の文字列を表示 --}}
+                        @if (isset($movie->title))
+                            {{ $movie->title }}
+                        @endif
+                    </p>
+                </div>
+            </div>
+    @endforeach
+</div>
+
+{{-- ページ送り機能の次ページリンクをこの部分に挿入する --}}
+{{-- $usersは、UserControllerでpaginate()メソッドを使ってページネーションを設定した変数 --}}
+{{ $users->links('pagination::bootstrap-4') }}
