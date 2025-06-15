@@ -18,7 +18,10 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
-                    ＠{{ $user->name }}
+                    {{-- ユーザの名前を表示 --}}
+                    {{-- route('user.show', $user->id)は、ユーザの詳細ページへのリンク --}}
+                    {{-- ＠マークは、ユーザ名の前に付けて、Twitterのような表記にする --}}
+                    <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
                     <div>
                         {{-- もし、ユーザが所有していれば、所有している動画のうち、最新の動画を表示 --}}
                         {{-- <iframe>という画面に「Webページや動画を埋め込む」タグを使って、YouTube動画IDを変数としてURLの中に入れ込むことで、動画を表示させる --}}

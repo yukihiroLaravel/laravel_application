@@ -17,9 +17,9 @@
                 {{-- Auth::check()は、ユーザがログインしているかどうかを確認するメソッド --}}
                 @if (Auth::check())
                     {{-- ログインしている場合のナビゲーションメニュー --}}
-                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                     <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">マイページ</a></li>
+                    <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                 @else
                     {{-- ログインしていない場合のナビゲーションメニュー --}}
                     {{-- route('login')は、web.phpで定義されたルートの名前を参照 --}}
