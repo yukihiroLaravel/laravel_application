@@ -16,4 +16,16 @@ class Movie extends Model
         // また、$user->movies()->get();と書くだけで、ユーザ情報から動画情報を取得できるようになる
         return $this->belongsTo(User::class);
     }
+
+    // ユーザーがいいね！した動画を取得するためのリレーション
+    // belongsToManyは多対多のリレーションを定義するメソッドで関係性を構築
+    // belongsToMany(相手のモデル, ‘中間テーブル名’, ‘自モデルの外部キー名’, ‘相手モデルの外部キー名’)
+    // これをすることで、動画情報からユーザ情報を取得できるようになる
+    // $movie->favoriteUsers()->get();　で動画をいいね！したユーザ一覧を取得できるようになる
+   
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'movie_id', 'user_id')->withTimestamps();
+    }
+
 }

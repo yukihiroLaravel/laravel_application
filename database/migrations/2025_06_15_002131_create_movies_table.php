@@ -13,6 +13,9 @@ class CreateMoviesTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('movies')) {
+            return;
+        }
         Schema::create('movies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
