@@ -20,8 +20,12 @@ class Controller extends BaseController
         // ユーザが持っている動画の数をカウントする
         // $userは、Userモデルのインスタンスで、ユーザ情報を持っている
         $countMovies = $user->movies()->count();
+        // ユーザがいいね！した動画の数をカウントする
+        // $user->favorites()は、Userモデルのfavoritesリレーションを呼び出し、ユーザがいいね！した動画のコレクションを取得する
+        $countFavorites = $user->favorites()->count();
         return [
             'countMovies' => $countMovies,
+            'countFavorites' => $countFavorites,
         ];
     }
 }

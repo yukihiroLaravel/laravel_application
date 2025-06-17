@@ -6,6 +6,19 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
+
+                     <div class="col-lg-4 mb-5">
+                <div class="movie text-left d-inline-block">
+                    @php
+                        // 動画のいいね数を取得
+                        // $movie->favoriteUsers()は、動画にいいねをしたユーザの情報を取得するメソッド
+                        // count()メソッドを使って、いいねをしたユーザの数を取得
+                        // その数を$countFavoriteUsersに格納
+                        $countFavoriteUsers = $movie->favoriteUsers()->count();
+                    @endphp
+                    <div class="text-right mb-2">いいね！
+                        <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+                    </div>
                     <div>
                         @if ($movie)
                             <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
@@ -18,6 +31,10 @@
                             {{ $movie->title }}
                         @endif
                     </p>
+                    {{-- includeディレクティブを使用して、favorite_button.blade.phpを読み込む --}}
+                    {{-- このファイルは、動画のいいね！ボタンを表示するためのビュー --}}
+                    {{-- $movie変数を渡して、動画情報を取得 --}}
+                    @include('favorite.favorite_button', ['movie' => $movie])
                     {{--ログインしているユーザーが動画の持ち主のIDと一致しているか確認 --}}
                      @if (Auth::id() === $movie->user_id)
                         {{-- 動画の持ち主であれば、動画の編集と削除ボタンを表示 --}}

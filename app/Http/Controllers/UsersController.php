@@ -41,4 +41,27 @@ class UsersController extends Controller
         // 'users.show'は、resources/views/users/show.blade.phpを指す
         return view('users.show',$data);
     }
+
+    // ユーザがいいね！した動画一覧を表示するメソッド
+    // ルーティングweb.phpで指定されたユーザIDを引数として受け取り、そのユーザがいいね！した動画を取得する
+    public function favorites($id)
+    {
+        // ユーザの詳細情報を取得
+        // findOrFail()は、指定したIDのレコードを取得し、存在しない場合は404エラーを返すメソッド
+        $user = User::findOrFail($id);
+        // ユーザがいいね！した動画情報を取得し、最新の動画（降順）から9件ずつページ送りする
+        // ユーザがいいね！した動画情報を取得するために、Userモデルのfavorites()メソッドを使用
+        $movies = $user->favorites()->paginate(9);
+        // ビューに渡すデータを配列で定義
+        // 'user'はユーザ情報、'movies'はユーザがいいね！した動画一覧情報
+        $data=[
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        // ユーザの動画数をカウントするメソッドを呼び出し、+=することで、$dataに追加
+        // $thisはControllerのインスタンスを指し、userCounts()メソッドを呼び出す
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
 }

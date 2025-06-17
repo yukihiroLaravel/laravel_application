@@ -3,6 +3,20 @@
     {{-- foreachを使って、変数「$users」から１人１人のユーザを取り出して繰り返す --}}
     @foreach ($users as $user)
         @php
+            // $moviesは、ユーザが所有している全ての動画情報を取得するための変数
+            // $user->movies()は、Userモデルに定義されたmovies()メソッドを呼び出して、ユーザが所有している動画情報を全て取得
+            $movies = $user->movies()->get();
+            // ユーザが所有している動画のうち、いいね数の合計を計算する
+            // $totalFavoritesは、ユーザが所有している動画のうち、いいね数の合計を格納する変数
+            $totalFavorites = 0;
+            // foreachを使って、ユーザが所有している全ての動画情報から１つずつ取り出す
+            // $movieは、ユーザが所有している動画情報の１つを表す変数
+            foreach ($movies as $movie){
+                // $movie->favoriteUsers()は、動画にいいねをしたユーザの情報を取得するメソッド
+                // count()メソッドを使って、いいねをしたユーザの数を取得
+                // その数を$totalFavoritesに加算していく
+                $totalFavorites += $movie->favoriteUsers()->count();
+            }
             // $user->movies->last();はUserモデルに記述したmovies()関数を使い、
             // ユーザが所有している動画情報のうち最も最近登録された動画のみを取得
             $movie = $user->movies->last();
@@ -18,6 +32,12 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
+                    <div class="text-right">
+                        {{-- ユーザが所有している動画のうち、最新の動画のいいね数を表示 --}}
+                        {{-- $movie->favorites_countは、動画のいいね数を表すプロパティ --}}
+                        {{-- もし動画がなければ、0を表示 --}}
+                        <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
+                    </div>
                     {{-- ユーザの名前を表示 --}}
                     {{-- route('user.show', $user->id)は、ユーザの詳細ページへのリンク --}}
                     {{-- ＠マークは、ユーザ名の前に付けて、Twitterのような表記にする --}}

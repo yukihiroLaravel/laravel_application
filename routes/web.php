@@ -32,8 +32,11 @@ Route::get('/', 'UsersController@index');
 
 // ユーザ
 Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+    // ユーザがいいねしている動画一覧を表示する
+    // ここでは、UsersControllerのfavoritesメソッドが呼び出される
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
 
@@ -49,4 +52,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'MoviesController@store')->name('movie.store');
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
     });
+
+    // いいね
+    // prefixは、URLのプレフィックスを指定するためのメソッド
+    // ここでは、movies/{id}というプレフィックスを指定しているため、URLは/movies/{id}/favorite, /movies/{id}/unfavoriteとなる
+    Route::group(['prefix' => 'movies/{id}'],function(){
+        // いいね！をする
+        // favoriteのURLにアクセスすると、FavoriteControllerのstoreメソッドが呼び出される
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        // いいね！を解除する
+        // unfavoriteのURLにアクセスすると、FavoriteControllerのdestroyメソッドが呼び出される
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
+
 });
