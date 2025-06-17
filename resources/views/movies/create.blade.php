@@ -21,6 +21,18 @@
                 <label for="title" class="mt-3">動画タイトル(※任意)</label>
                 <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}">
             </div>
+            <div class="form-group">
+                <label for="favorite_flag" class="mt-3">
+                    {{-- old()は、フォームの入力値を保持するためのヘルパー関数 --}}
+                    {{-- old('favorite_flag', 1)は、favorite_flagの値が送信されていない場合、デフォルト値として1を使用 --}}
+                    {{-- 動画登録の画面にチェックボックスの初期状態を設定 --}}
+                    {{-- チェックボックスがオンの場合、1が送信され、オフの場合は何も送信されない --}}
+                    {{-- ここでは、いいね！を許可するかどうかのチェックボックスを表示 --}}
+                    {{-- チェックボックスの値は、1（オン）または0（オフ）で送信される --}}
+                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
+                    いいね！を許可する
+                </label>
+            </div>
             <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>
         </div>
     </form>

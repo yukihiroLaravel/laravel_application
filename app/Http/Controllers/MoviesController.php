@@ -29,6 +29,9 @@ class MoviesController extends Controller
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
+        // favorite_flagは、動画が「お気に入り」かどうかを示すフラグ
+        // リクエストからfavorite_flagを取得し、1（true）または0（false）に変換して保存
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
         // 動画登録後、動画一覧ページにリダイレクト
         // return back(); ー view() でviewを表示させる代わりに、
@@ -52,6 +55,41 @@ class MoviesController extends Controller
         
         // 動画削除後、動画一覧ページにリダイレクト
         // back()は、直前のリクエストのURLにリダイレクトするメソッド
+        return back();
+    }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        // 動画の詳細情報を取得
+        // findOrFail()は、指定したIDのレコードを取得し、存在しない場合は404エラーを返すメソッド
+        // 万一IDが存在しないレコードを検索した場合に「見つからない」旨のエラー画面を自動で表示してくれる.
+        $movie = Movie::findOrFail($id);
+        // 動画の所有者（user_id）が現在ログインしているユーザのIDと一致する場合のみ編集画面を表示
+        // 動画一覧を取得し、最新の動画（降順）から9件ずつページ送りする
+        $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'movie' => $movie,
+            'movies' => $movies,
+        ];
+        return view('movies.edit', $data);
+    }
+    public function update(MovieRequest $request, $id)
+    {
+        // 動画の更新処理
+        // findOrFail()は、指定したIDのレコードを取得し、存在しない場合は404エラーを返すメソッド
+        $movie = Movie::findOrFail($id);
+        // リクエスト（フォームに入力）から取得したYouTubeの動画IDを動画のYouTube IDとして設定
+        // ここでは、MovieRequestでバリデーション済みのyoutube_idを使用
+        $movie->youtube_id = $request->youtube_id;
+        // リクエストから取得したタイトルを動画のタイトルとして設定
+        $movie->title = $request->title;
+        // リクエストから取得したユーザIDを動画のユーザIDとして設定
+        $movie->user_id = $request->user()->id;
+        // リクエストから取得したfavorite_flagを動画のfavorite_flagとして設定
+        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
+        $movie->save();
         return back();
     }
 }
