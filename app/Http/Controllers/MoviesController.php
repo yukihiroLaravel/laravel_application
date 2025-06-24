@@ -4,13 +4,14 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Movie;
 use App\Http\Requests\MovieRequest; //
+use Illuminate\Support\Facades\Auth;
 
 class MoviesController extends Controller
 {
     public function create()
     {
         // ユーザがログインしているか確認
-        $user = \Auth::user();
+        $user = Auth::user();
         // ユーザーが持っている動画情報を取得し、最新の動画（降順）から9件ずつページ送りする
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
         // ビューに渡すデータを配列で定義　ビューに渡すデータが多い場合は、配列でまとめて渡す方が可読性が高くなる
@@ -75,6 +76,7 @@ class MoviesController extends Controller
         ];
         return view('movies.edit', $data);
     }
+
     public function update(MovieRequest $request, $id)
     {
         // 動画の更新処理

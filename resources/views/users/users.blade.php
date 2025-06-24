@@ -1,6 +1,18 @@
-<h2 class="mt-5 mb-5">チャンネル一覧</h2>
-<div class="movies row mt-5 text-center">
-    {{-- foreachを使って、変数「$users」から１人１人のユーザを取り出して繰り返す --}}
+<h2 class="mt-5 mb-5">ユーザ一覧</h2>
+        {{-- 検索機能ここから --}}
+    <div style="text-align: right;">
+        <form action="{{ route('search.get') }}" method="GET">
+            <div class="search-form-7">
+                <label>
+                    <input type="text" name="keyword" placeholder="動画の検索" style="width: 200px;">
+                </label>
+                <button type="submit">検索</button>
+            </div>
+        </form>
+    </div>
+        {{-- 検索機能ここまで --}}
+        {{-- foreachを使って、変数「$users」から１人１人のユーザを取り出して繰り返す --}}
+<div class="movies row mt-5 text-center"><br>
     @foreach ($users as $user)
         @php
             // $moviesは、ユーザが所有している全ての動画情報を取得するための変数

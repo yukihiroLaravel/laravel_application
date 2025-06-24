@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,9 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
+// 動画検索
+Route::get('search', 'SearchController@search')->name('search.get');
+
 
 // ログイン後
 // Route::groupとは、特定のミドルウェアを適用するためのグループ化を行う
@@ -68,5 +73,4 @@ Route::group(['middleware' => 'auth'], function () {
         // unfavoriteのURLにアクセスすると、FavoriteControllerのdestroyメソッドが呼び出される
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
-
 });
