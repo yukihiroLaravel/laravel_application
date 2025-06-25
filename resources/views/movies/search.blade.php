@@ -20,10 +20,8 @@
                 <div class="col-lg-4 mb-5">
                     <div class="movie text-left d-inline-block">
                         <div class="col-lg-4 mb-5">
-                            <div class="movie text-left d-inline-block">
-                            </div>
+                            <div class="movie text-left d-inline-block">        
                         </div>
-                        <div>
                             @if ($searchmovie)
                                 <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$searchmovie->youtube_id }}?controls=1&loop=1&playlist={{ $searchmovie->youtube_id }}" frameborder="0"></iframe>
                             @else
