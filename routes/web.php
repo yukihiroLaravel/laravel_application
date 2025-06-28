@@ -42,7 +42,7 @@ Route::group(['prefix' => 'users/{id}'],function(){
 });
 
 // 動画検索
-Route::get('search', 'SearchController@search')->name('search.get');
+Route::get('search', 'MoviesController@search')->name('search.get');
 
 
 // ログイン後
