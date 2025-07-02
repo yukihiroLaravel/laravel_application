@@ -20,11 +20,13 @@ class MoviesController extends Controller
 
     public function store(MovieRequest $request)
     {
+
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
         $movie->user_id = $request->user()->id;
         $movie->save();
+        
         return back();
     }
 
