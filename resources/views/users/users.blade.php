@@ -55,7 +55,6 @@
                     {{-- ＠マークは、ユーザ名の前に付けて、Twitterのような表記にする --}}
                     <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
                     <div>
-                        {{-- もし、ユーザが所有していれば、所有している動画のうち、最新の動画を表示 --}}
                         {{-- <iframe>という画面に「Webページや動画を埋め込む」タグを使って、YouTube動画IDを変数としてURLの中に入れ込むことで、動画を表示させる --}}
                         @if ($movie)
                             <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
@@ -64,13 +63,11 @@
                             <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
                         @endif
                     </div>
-                    <p>
-                        {{-- ユーザが所有している動画のうち、最新の動画のタイトルを表示 --}}
-                        {{-- もし動画がなければ、空の文字列を表示 --}}
                         @if (isset($movie->title))
-                            {{ $movie->title }}
+                                </div>
+                                <p><a href="{{ route('movie.show', $movie->id) }}">{{ $movie->title }}</a></p>
+                                <div>
                         @endif
-                    </p>
                 </div>
             </div>
     @endforeach

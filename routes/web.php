@@ -44,7 +44,6 @@ Route::group(['prefix' => 'users/{id}'],function(){
 // 動画検索
 Route::get('search', 'MoviesController@search')->name('search.get');
 
-
 // ログイン後
 // Route::groupとは、特定のミドルウェアを適用するためのグループ化を行う
 // ここでは、authミドルウェアを適用しているため、ログイン済みのユーザのみにget,post,deleteを表示する
@@ -56,13 +55,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('create', 'MoviesController@create')->name('movie.create');
         Route::post('', 'MoviesController@store')->name('movie.store');
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+        // 動画の詳細画面の表示
+        Route::get('{id}/show', 'MoviesController@show')->name('movie.show');
         // 動画の編集画面の表示
         Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
         // 動画の更新処理
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
+        
     });
 
-    // いいね
+    // いいね  
     // prefixは、URLのプレフィックスを指定するためのメソッド
     // ここでは、movies/{id}というプレフィックスを指定しているため、URLは/movies/{id}/favorite, /movies/{id}/unfavoriteとなる
     Route::group(['prefix' => 'movies/{id}'],function(){
@@ -72,5 +74,18 @@ Route::group(['middleware' => 'auth'], function () {
         // いいね！を解除する
         // unfavoriteのURLにアクセスすると、FavoriteControllerのdestroyメソッドが呼び出される
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
+
+    // コメント
+    // コメントの投稿と削除を行うためのルーティング
+    Route::group(['prefix' => 'comment/{id}'],function(){
+        Route::get('create', 'CommentsController@create')->name('comment.create');
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        // コメントの削除処理
+        Route::delete('delete', 'CommentsController@destroy')->name('comment.delete');
+        // コメントの編集画面の表示
+        Route::get('edit', 'CommentsController@edit')->name('comment.edit');
+        // コメントの更新処理
+        Route::put('update', 'CommentsController@update')->name('comment.update');
     });
 });

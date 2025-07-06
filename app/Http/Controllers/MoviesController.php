@@ -117,4 +117,18 @@ class MoviesController extends Controller
         // ビューに渡すデータを配列で定義
         return view('movies.search', $data);
     }
-}
+
+    public function show($id)
+    {
+        // ユーザの詳細情報を取得
+        // findOrFail()は、指定したIDのレコードを取得し、存在しない場合は404エラーを返すメソッド
+        $movie = Movie::findOrFail($id);
+        // 動画の所有者（user_id）が現在ログインしているユーザのIDと一致する場合のみ動画の詳細を表示
+        
+        // 動画の詳細情報をビューに渡す
+        // 'movies.show'は、resources/views/movies/show.blade.phpを指す
+        return view('movies.show')->with('movie',$movie);
+        // with()メソッドは、ビューにデータを渡すためのメソッドで、第一引数に変数名、第二引数に値を指定する
+        // ここでは、'movie'という変数名で動画の詳細情報をビューに渡す
+    }
+}   

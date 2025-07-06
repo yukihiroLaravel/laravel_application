@@ -26,8 +26,8 @@
                         @endif
                     </div>
                     <p>
-                        @if (isset($movie->title))
-                            {{ $movie->title }}
+                         @if (isset($movie->title))
+                         <a href="{{ route('movie.show', $movie->id) }}">{{ $movie->title }}</a>
                         @endif
                     </p>
                     {{-- includeディレクティブを使用して、favorite_button.blade.phpを読み込む --}}

@@ -16,5 +16,7 @@
         {{-- $countMoviesは、コントローラで計算された動画の数です --}}
         <li class="nav-item nav-link {{ Request::is('users/'. $user->id. '/favorites') ? 'active' : '' }}"><a href="{{ route('user.favorites', $user->id) }}">お気に入り<br><div class="badge badge-secondary">{{ $countFavorites }}</div></a></li>
     </ul>
+    {{-- ユーザが所有している動画のうち、最新の動画を表示 --}}
+    {{-- もし動画がなければ、空のiframeを表示 --}}
     @include('movies.movies', ['user' => $user, 'movies' => $movies])
 @endsection
