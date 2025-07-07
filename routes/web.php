@@ -11,6 +11,7 @@
 |
 */
 
+
 //ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -28,6 +29,9 @@ Route::group(['prefix' => 'users/{id}'],function(){
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 検索
+    Route::get('/search', 'MoviesController@search')->name('movies.search');
+    Route::get('/movies', 'MoviesController@index')->name('movies.index');
     // 動画
     Route::prefix('movies')->group(function () {
         Route::get('create', 'MoviesController@create')->name('movie.create');
@@ -35,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
         Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
-
+     
     });
 
      // いいね
@@ -43,6 +47,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
-
 
 });

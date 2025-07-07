@@ -15,8 +15,6 @@
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="movie text-left d-inline-block">
-                     <div class="col-lg-4 mb-5">
-                <div class="movie text-left d-inline-block">
                      <div class="text-right">
                         <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
                     </div>

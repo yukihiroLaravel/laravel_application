@@ -9,6 +9,31 @@
         </head>
     <body>
         @include('commons.header')
+        
+        {{-- ▼ 共通検索フォーム（右寄せ） --}}
+<div class="container mt-3">
+    <div class="d-flex justify-content-end">
+        <form action="{{ route('movies.search') }}" method="GET" class="form-inline">
+            <div class="input-group">
+                <input type="text" name="keyword" class="form-control" placeholder="動画タイトルを検索" value="{{ request('keyword') }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit">検索</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+        {{-- ▼ JavaScript：空欄なら送信させない --}}
+<script>
+function validateSearch() {
+    const input = document.getElementById('searchInput').value.trim();
+    if (input === '') {
+        alert('キーワードを入力してください');
+        return false; // 送信キャンセル
+    }
+    return true; // 通常通り送信
+}
+</script>
         <div class="container">
             @include('commons.error_messages')
             @yield('content')

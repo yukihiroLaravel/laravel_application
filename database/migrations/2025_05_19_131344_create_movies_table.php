@@ -18,6 +18,7 @@ class CreateMoviesTable extends Migration
             $table->string('title')->nullable();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('youtube_id');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
             // 外部キー制約

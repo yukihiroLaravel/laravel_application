@@ -64,6 +64,22 @@ class MoviesController extends Controller
         $movie->save();
         return back();
     }
+    //検索
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
 
+        // タイトルの部分一致検索
+        $movies = Movie::where('title', 'like', "%{$keyword}%")->get();
 
+        return view('movies.search_results', compact('movies', 'keyword'));
+    }
+
+    public function index()
+    {
+        $movies = Movie::all();
+        return view('movies.index', compact('movies'));
+    }
+
+    
 }
