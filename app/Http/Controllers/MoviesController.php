@@ -59,6 +59,35 @@ class MoviesController extends Controller
         $movie->save();
         return back();
     }
-}
 
-    
+    public function index()
+    {
+        // 全動画をページネーション
+        $movies = Movie::orderBy('id', 'desc')->paginate(10);
+
+        // ユーザ一覧
+        $users = User::paginate(6);
+
+        return view('welcome', [
+            'movies' => $movies,
+            'users'  => $users,
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword', '');
+
+        $movieQuery = Movie::query();
+        if (!empty($keyword)) {
+            $movieQuery->where('title', 'like', "%{$keyword}%")
+                    ->orWhere('youtube_id', 'like', "%{$keyword}%");
+        }
+        $movies = $movieQuery->paginate(6);
+
+        return view('movies.search', [
+            'movies'  => $movies,
+            'keyword' => $keyword,
+        ]);
+    }
+}
