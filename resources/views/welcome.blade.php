@@ -6,5 +6,12 @@
         </div>
     </div>
     <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
+
+     {{-- 検索フォームは /movies/search に飛ばす --}}
+    <form action="{{ route('movies.search') }}" method="GET">
+        <input type="text" name="keyword" value="" placeholder="キーワードを入力">
+        <button type="submit">検索</button>
+    </form>
+
     @include('users.users', ['users' => $users])
 @endsection

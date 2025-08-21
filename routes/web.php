@@ -18,9 +18,11 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+//検索機能
+Route::get('/movies/search', 'MoviesController@search')->name('movies.search');
 
 // ユーザ
-Route::get('/', 'UsersController@index');
+Route::get('/', 'MoviesController@index')->name('welcome');
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('favorites','UsersController@favorites')->name('user.favorites');
