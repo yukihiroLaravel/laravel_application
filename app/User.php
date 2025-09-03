@@ -2,45 +2,49 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use SoftDeletes;
+    use Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
+    protected $hidden = ['password', 'remember_token'];
+    protected $casts = ['email_verified_at' => 'datetime'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    
-     public function movies()
+    public function movies()
     {
         return $this->hasMany(Movie::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')
+                    ->withTimestamps();
+    }
+
+    public function favorite($movieId)
+    {
+        if (! $this->isFavorite($movieId)) { // 追加されていないときにだけ attach
+            $this->favorites()->attach($movieId);
+            return true;
+        }
+        return false;
+    }
+
+    public function unfavorite($movieId)
+    {
+        if ($this->isFavorite($movieId)) {
+            $this->favorites()->detach($movieId);
+            return true;
+        }
+        return false;
+    }
+
+    public function isFavorite($movieId)
+    {
+        return $this->favorites()->where('movie_id', $movieId)->exists();
     }
 }
