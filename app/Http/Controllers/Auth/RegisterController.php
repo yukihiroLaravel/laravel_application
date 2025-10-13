@@ -1,5 +1,5 @@
 <?php
-
+//名前空間は基本頭文字が大文字になっている。
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
