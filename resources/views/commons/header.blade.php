@@ -4,16 +4,30 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="nav-bar">
+            {{-- 左側の空スペース --}}
             <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">
-            @if (Auth::check())
-       <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
-       <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>
-       <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
-    @else
-        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">新規ユーザ登録</a></li>
-        <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">ログイン</a></li>
+
+            {{-- 右側メニュー --}}
+            <ul class="navbar-nav ml-auto">
+                @if (Auth::check())
+                    <li class="nav-item">
+                        <a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">ログアウト</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('signup') }}" class="btn btn-outline-light mr-2">新規ユーザ登録</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="btn btn-outline-light">ログイン</a>
+                    </li>
                 @endif
             </ul>
         </div>

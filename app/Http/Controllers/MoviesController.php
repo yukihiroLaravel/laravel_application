@@ -11,14 +11,13 @@ class MoviesController extends Controller
 {
     public function create()
     {
-        $user = \Auth::user();
+        $user = auth()->user();
         $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
-        $data = [
+
+        return view('movies.create', [
             'user' => $user,
             'movies' => $movies,
-        ];
-        
-        return view('movies.create', $data);
+        ]);
     }
 
     public function store(MovieRequest $request)
@@ -26,17 +25,19 @@ class MoviesController extends Controller
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
         $movie->title = $request->title;
-        $movie->user_id = $request->user()->id;
+        $movie->user_id = auth()->id();
         $movie->save();
-        return back();
+
+        return back()->with('success', '動画を登録しました！');
     }
 
     public function destroy($id)
     {
         $movie = Movie::findOrFail($id);
-        if (\Auth::id() === $movie->user_id) {
-            $movie->delete();
-        }
-        return back();
+        abort_unless(auth()->id() === $movie->user_id, 403);
+
+        $movie->delete();
+
+        return back()->with('success', '動画を削除しました！');
     }
 }

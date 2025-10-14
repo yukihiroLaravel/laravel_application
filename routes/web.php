@@ -34,3 +34,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
     });
 });
+
