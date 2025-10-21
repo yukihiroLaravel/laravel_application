@@ -25,6 +25,7 @@ class UsersController extends Controller
             'movies' => $movies,
         ];
         $data += $this->userCounts($user);
+        
         return view('users.show',$data);
     }
 
