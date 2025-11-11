@@ -8,9 +8,9 @@
                 <div class="movie text-left d-inline-block">
                     <div>
                         @if ($movie)
-                            <iframe width="290" heigth="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controller=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
+                            <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controller=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
                             @else
-                            <iframe width="290"height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>>
+                            <iframe width="290"height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
                             @endif
                             </div>
                             <p>
@@ -29,4 +29,4 @@
                     </div>
                 @endforeach
             </div>
-{{ $movies-> links('pagination::bootstrap-4') }}
+{{ $movies->links('pagination::bootstrap-4') }}
