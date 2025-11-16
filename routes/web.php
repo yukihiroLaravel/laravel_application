@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// ユーザ新規登録
+// ユーザ新規登録 　　getサイトを表示させる　postユーザー新規登録する時にregisterを通じて　名前、メールアドレス、パスワードなどを保存させる
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
