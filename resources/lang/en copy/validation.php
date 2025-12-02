@@ -13,7 +13,7 @@ return [
     |
     */
 
-     'accepted' => ':attributeを承認してください。',
+    'accepted' => ':attributeを承認してください。',
     'active_url' => ':attributeは、有効なURLではありません。',
     'after' => ':attributeには、:dateより後の日付を指定してください。',
     'after_or_equal' => ':attributeには、:date以降の日付を指定してください。',
@@ -127,13 +127,11 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -144,7 +142,6 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-    
     'attributes' => [
         'name' => '名前',
         'email' => 'メールアドレス',
