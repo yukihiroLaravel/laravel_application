@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'UsersController@index');
+
+// Route::get ー GET（取得）メソッドが実行されたときに、
+// 第２引数のコントローラのメソッドへ処理を送る
+// つまり、ブラウザ上でトップページ’/’へのアクセスすると、
+// Usersコントローラのindexメソッドを実行するという意味です！
+
