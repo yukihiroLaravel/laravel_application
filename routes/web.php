@@ -19,6 +19,13 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// 3-3_ログイン・ログアウト
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+// LoginControllerはあらかじめ用意されています。
+// app>Http>Controllers>Auth>LoginController.php内の「use AuthenticatesUsers;」部分
+
 // ->name() ー ルーティングに対して命名を行うことで、ルーティングを呼び出しやすくなります。
 // 今回であれば、signup や signup.post という名前でシンプルに各ルーティングを呼び出すことができます。
 

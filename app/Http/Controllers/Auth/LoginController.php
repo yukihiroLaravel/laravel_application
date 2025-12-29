@@ -26,7 +26,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
+    // ログインフォームの作り方は、ユーザ登録の際のフォームの作成方法と同じです。
+    // 以下のviewファイルを新規で作成します。
+    // resources/views/auth/login.blade.php
 
     /**
      * Create a new controller instance.
