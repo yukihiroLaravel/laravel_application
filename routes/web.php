@@ -23,44 +23,6 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-// LoginControllerはあらかじめ用意されています。
-// app>Http>Controllers>Auth>LoginController.php内の「use AuthenticatesUsers;」部分
-
-// ->name() ー ルーティングに対して命名を行うことで、ルーティングを呼び出しやすくなります。
-// 今回であれば、signup や signup.post という名前でシンプルに各ルーティングを呼び出すことができます。
-
-// HTTPリクエストの４メソッド（CRUD処理）
-// GETメソッド (Read)
-// POSTメソッド (Create)
-// PUTメソッド (Update)
-// DELETEメソッド (Delete)
-
-// // 詳細ページ表示
-// Route::get('movies/{id}', 'MoviesController@show');
-// // 新規登録を実行
-// Route::post('movies', 'MoviesController@store');
-// // 更新を実行
-// Route::put('movies/{id}', 'MoviesController@update');
-// // 削除を実行
-// Route::delete('movies/{id}', 'MoviesController@destroy');
-// ルーティングの基本の記述
-
-// Route::get(‘アドレス(○○/{パラメータ})’, ‘コントローラ名@アクション名’);
-// コントローラに続くメソッド（アクション）は主に show, store, update, destroy を使うことが多いです。
-// {パラメータ}はなぜ、付いていたり付いていなかったりするのでしょうか？考えてみましょう！
-// たとえば、showアクションを実行する場合なら、下記のアドレスにアクセスされることになります。
-// アドレス）https://gut-familie.com/movies/1
-// storeアクションは、新規の動画情報を作る前にアクセスされるURLなので、{id}はアクセスの時点では存在しないからです！
-
-// その他よく使う３つのルーティング
-// ルーティングの例
-// // 一覧ページ表示
-// Route::get('movies', 'MoviesController@index');
-// // 新規登録画面表示
-// Route::get('movies/create', 'MoviesController@create');
-// // 編集画面表示
-// Route::get('messages/{id}/edit', 'MoviesController@edit');
-// コントローラに続くメソッド（アクション）は主に index, create, edit を使うことが多いです。
 
 // 3-1_トップページを表示させる
 Route::get('/', 'UsersController@index');
@@ -69,4 +31,22 @@ Route::get('/', 'UsersController@index');
 // 第２引数のコントローラのメソッドへ処理を送る
 // つまり、ブラウザ上でトップページ’/’へのアクセスすると、
 // Usersコントローラのindexメソッドを実行するという意味です！
+
+// 4-3_動画登録・ユーザー一覧
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 「middleware」は備え付けの機能で、コントローラーに入る直前の処理
+    // （'auth'にログインしてるかどうかの判定。ログインしていたら、以下行える）
+    // 動画　（「prefix」はルーティングのアドレス（movies/）を省略できる機能）
+    Route::prefix('movies')->group(function () {
+        // 動画の新規登録画面表示（create）
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        // 動画の登録機能（store）
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        // 動画の削除機能（destroy）
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
+});
+
+
 
