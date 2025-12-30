@@ -38,4 +38,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 動画登録実装（4章）のため、追記
+     * このメソッドによって、ユーザ情報のインスタンスから簡単に動画情報を取得することができます。
+     * 下記のコードを書くだけで、ユーザ情報から動画情報を取得できます。
+     *   $user->movies()->get();
+     */
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
+
 }
