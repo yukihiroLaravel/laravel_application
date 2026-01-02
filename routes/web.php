@@ -27,6 +27,12 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // 3-1_トップページを表示させる
 Route::get('/', 'UsersController@index');
 
+// 4-4_ユーザ詳細（今後も増えていくので'prefix'(接頭辞)でグループ化してる）
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+            // 'users.{id}'が、グループ化されてるので、'{id}'となっている
+});
+
 // Route::get ー GET（取得）メソッドが実行されたときに、
 // 第２引数のコントローラのメソッドへ処理を送る
 // つまり、ブラウザ上でトップページ’/’へのアクセスすると、
