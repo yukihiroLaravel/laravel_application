@@ -9,6 +9,7 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="" class="nav-link">マイページ</a></li>
+                    <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                     
                 @else
