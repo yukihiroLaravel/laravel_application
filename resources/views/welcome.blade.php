@@ -7,4 +7,9 @@
     </div>
 </div>
 <h5 class="description text-center">みんなの"オススメ"動画を自由にシェアしよう</h5>
+
+<!-- usersフォルダの中のusers.blade.phpを表示させる -->
+<!-- usersという変数を配列の形で渡す -->
+@include('users.users', ['users' => $users ])
+
 @endsection

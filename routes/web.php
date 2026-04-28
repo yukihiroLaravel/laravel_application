@@ -21,3 +21,21 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後にしかアクセスできない
+// Route::group ルーティングのグループを作成
+// middleware:controllerに行く直前に必ず通る処理
+// ログインしているかを判定
+Route::group(['middleware' => 'auth'], function () {
+
+    // 動画
+    // prefix: ルーティング（movies.○○）を省略する
+    Route::prefix('movies')->group(function () {
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        // 動画の登録機能
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        // 動画の削除機能
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+
+    });
+});
