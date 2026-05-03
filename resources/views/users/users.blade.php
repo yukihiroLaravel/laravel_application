@@ -3,7 +3,7 @@
     @foreach ($users as $user)
 
     <!-- phpを記述する宣言 -->
-    <!-- 最新の動画だけ表示 -->
+    <!-- 最新の動画だけ表示 Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出 -->
     @php
     $movie = $user->movies->last();
     @endphp
@@ -14,7 +14,8 @@
     @endif
     <div class="col-lg-4 mb-5">
         <div class="movie text-left d-inline-block">
-            ＠{{ $user->name }}
+            <!-- ＠{{ $user->name }} -->
+            <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
             <div>
                 <!-- ユーザーが動画を持っている場合、動画を埋め込む -->
                 <!-- ユーザーが動画を持っていない場合、真っ暗な画面が表示される -->

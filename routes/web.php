@@ -20,12 +20,17 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// ユーザーコントローラ
 Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
-// ログイン後にしかアクセスできない
+// ['middleware' => 'auth'] ログイン後にしかアクセスできない
 // Route::group ルーティングのグループを作成
 // middleware:controllerに行く直前に必ず通る処理
 // ログインしているかを判定
+
 Route::group(['middleware' => 'auth'], function () {
 
     // 動画
@@ -36,6 +41,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'MoviesController@store')->name('movie.store');
         // 動画の削除機能
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
-
     });
 });
