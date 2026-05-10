@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// getリクエストで [/(root)]にアクセスした場合、UsersControllerのindexメソッドを実行する
+Route::get('/', 'UsersController@index');
