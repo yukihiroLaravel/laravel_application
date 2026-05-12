@@ -22,6 +22,7 @@ class RegisterController extends Controller
     |
     */
 
+    // RegistersUsersトレイトを使用することで、ユーザ登録に必要な機能を簡単に実装できる
     use RegistersUsers;
 
     /**
@@ -29,7 +30,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // トップページに遷移するように設定
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.

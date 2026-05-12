@@ -15,5 +15,10 @@
 //     return view('welcome');
 // });
 
+// ユーザ新規登録
+// showRegistrationFormメソッド、registerメソッドは、traitで定義されている
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // getリクエストで [/(root)]にアクセスした場合、UsersControllerのindexメソッドを実行する
 Route::get('/', 'UsersController@index');
