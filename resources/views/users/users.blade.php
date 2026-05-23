@@ -12,7 +12,9 @@
             if ($movie) {
                 $keyName = config('app.YouTubeDataApiKey');
                 $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$movie->youtube_id}&key={$keyName}&part=snippet";
-                $jsonData = file_get_contents($apiUrl);
+                $client = new \GuzzleHttp\Client();
+                $response = $client->request('GET', $apiUrl);
+                $jsonData = $response->getBody()->getContents();
                 if ($jsonData) {
                     $decodedData = json_decode($jsonData, true);
                     if ($decodedData['pageInfo']['totalResults'] !== 0){
