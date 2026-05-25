@@ -12,3 +12,4 @@ class UsersController extends Controller
         return view('welcome');
     }
 }
+    

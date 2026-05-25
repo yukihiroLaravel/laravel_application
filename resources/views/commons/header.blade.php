@@ -16,7 +16,6 @@
                 @endif
             </ul>
         </div>
-    </nav>
 </header>
 <!-- ログインしていれば、ユーザー名を表示 -->
 @if(Auth::check())
