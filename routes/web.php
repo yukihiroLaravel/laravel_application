@@ -25,8 +25,13 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// ユーザ
 // getリクエストで [/(root)]にアクセスした場合、UsersControllerのindexメソッドを実行する
 Route::get('/', 'UsersController@index');
+// ユーザ詳細
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // ログイン後の処理
 Route::group(['middleware' => 'auth'], function () {
