@@ -29,4 +29,8 @@
             </div>
     @endforeach
 </div>
-{{ $movies->links('pagination::bootstrap-4') }}
+@if (request()->routeIs('movie.search') && request()->filled('keyword'))
+    {{ $movies->appends(['keyword' => request('keyword')])->links('pagination::bootstrap-4') }}
+@else
+    {{ $movies->links('pagination::bootstrap-4') }}
+@endif

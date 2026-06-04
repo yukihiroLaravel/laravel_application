@@ -25,6 +25,9 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
+//検索
+Route::get('movies/search', 'MoviesController@search')->name('movie.search');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 動画
