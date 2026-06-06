@@ -29,7 +29,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // 登録後にトップページの画面に遷移
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -47,6 +48,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    // バリデーション機能(検証機能)
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -62,6 +64,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    // 新規登録の簡単な記述方法(例)
     protected function create(array $data)
     {
         return User::create([
