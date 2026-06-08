@@ -1,3 +1,5 @@
+<!-- 動画登録画面のviewファイル -->
+
 @extends('layouts.app')
 @section('content')
     <h2 class="mt-5">動画を登録する</h2>

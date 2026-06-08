@@ -27,6 +27,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //トップページ表示(ユーザー一覧画面)
 Route::get('/', 'UsersController@index');
+// ユーザ詳細画面の表示
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
