@@ -43,8 +43,14 @@
                         @endif
                     </div>
                     <p>
-                        @if (isset($movie->title))
-                            {{ $movie->title }}
+                        @if ($movie)
+                            <a href="{{ route('movie.show', $movie->id) }}">
+                                @if (isset($movie->title))
+                                    {{ $movie->title }}
+                                @else
+                                    {{ $videoTitle }}
+                                @endif
+                            </a>
                         @else
                             {{ $videoTitle }}
                         @endif

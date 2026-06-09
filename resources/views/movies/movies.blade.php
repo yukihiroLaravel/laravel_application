@@ -36,11 +36,13 @@
                         @endif
                     </div>
                     <p>
-                        @if (isset($movie->title))
-                            {{ $movie->title }}
-                        @else
-                            {{ $videoTitle }}
-                        @endif
+                        <a href="{{ route('movie.show', $movie->id) }}">
+                            @if (isset($movie->title))
+                                {{ $movie->title }}
+                            @else
+                                {{ $videoTitle }}
+                            @endif
+                        </a>
                     </p>
                     @include('favorite.favorite_button', ['movie' => $movie])
                     @if (Auth::id() === $movie->user_id)

@@ -20,6 +20,20 @@ class MoviesController extends Controller
         return view('movies.create', $data);
     }
 
+    public function show($id)
+    {
+        $movie = Movie::findOrFail($id);
+
+        $comments = $movie->comments()
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+        
+        return view('movies.show', [
+            'movie' => $movie,
+            'comments' => $comments,
+        ]);        
+    }
+
     public function search(Request $request)
     {
         // $request->validate([
