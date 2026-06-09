@@ -22,28 +22,23 @@ class MoviesController extends Controller
 
     public function search(Request $request)
     {
-        $request->validate([
-            'keyword' => 'nullable|string|max:255',
-        ]);
+        // $request->validate([
+        //     'keyword' => 'nullable|string|max:255',
+        // ]);
         
         $keyword = trim($request->input('keyword'));
 
         if (empty($keyword)) {
-            return view('movies.search', [
-                'keyword' => $keyword,
-                'movies' => null,
-                'message' => '検索窓に値が入力されていません。'
-            ]);
+            $movies = Movie::orderBy('id', 'desc')->paginate(9);
+        } else {
+            $movies = Movie::where('title', 'like', '%' . $keyword . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(9);
         }
-
-        $movies = Movie::where('title', 'like', '%' . $keyword . '%')
-            ->orderBy('id', 'desc')
-            ->paginate(9);
 
         return view('movies.search', [
             'keyword' => $keyword,
             'movies' => $movies,
-            'message' => null,
         ]);
     }
 
