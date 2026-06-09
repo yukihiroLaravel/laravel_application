@@ -6,15 +6,12 @@ use Illuminate\Http\Request;
 use App\Movie;
 use App\Comment;
 use Auth;
+use App\Http\Requests\CommentRequest;
 
 class CommentsController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(CommentRequest $request, $id)
     {
-        $request->validate([
-            'content' => 'required|string|max:1000',
-        ]);
-
         $movie = Movie::findOrFail($id);
 
         $comment = new Comment();
@@ -54,12 +51,8 @@ class CommentsController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, $id)
     {
-        $request->validate([
-            'content' => 'required|string|max:1000',
-        ]);
-
         $comment = Comment::findOrFail($id);
 
         if (Auth::id() !== $comment->user_id) {
