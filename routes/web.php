@@ -32,9 +32,6 @@ Route::group(['prefix' => 'users/{id}'],function(){
 //検索
 Route::get('movies/search', 'MoviesController@search')->name('movie.search');
 
-// 動画詳細
-Route::get('movies/{id}', 'MoviesController@show')->name('movie.show');
-
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 動画
@@ -46,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'MoviesController@update')->name('movie.update');
     });
 
-// コメント
+    // コメント
     // コメント投稿
     Route::post('movies/{id}/comments', 'CommentsController@store')->name('comment.store');
     // コメント編集
@@ -61,3 +58,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 });
+
+// 動画詳細
+Route::get('movies/{id}', 'MoviesController@show')
+    ->where('id', '[0-9]+')
+    ->name('movie.show');

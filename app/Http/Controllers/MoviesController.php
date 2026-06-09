@@ -56,23 +56,45 @@ class MoviesController extends Controller
         ]);
     }
 
+    private function getYoutubeTitle($youtubeId)
+    {
+        $videoTitle = null;
+
+        if (!empty($youtubeId)) {
+            $keyName = config('app.YouTubeDataApiKey');
+            $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id={$youtubeId}&key={$keyName}&part=snippet";
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', $apiUrl);
+            $jsonData = $response->getBody()->getContents();
+
+            if ($jsonData) {
+                $decodedData = json_decode($jsonData, true);
+
+                if ($decodedData['pageInfo']['totalResults'] !== 0) {
+                    $videoTitle = $decodedData['items']['0']['snippet']['title'];
+                }
+            }
+        }
+
+        return $videoTitle;
+    }
+
     public function store(MovieRequest $request)
     {
         $movie = new Movie;
         $movie->youtube_id = $request->youtube_id;
-        $movie->title = $request->title;
+
+        if (!empty($request->title)) {
+            $movie->title = $request->title;
+        } else {
+            $movie->title = $this->getYoutubeTitle($request->youtube_id);
+        }
+
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
-        return back();
-    }
 
-    public function destroy($id)
-    {
-        $movie = Movie::findOrFail($id);
-        if (\Auth::id() === $movie->user_id) {
-            $movie->delete();
-        }
         return back();
     }
 
@@ -93,10 +115,17 @@ class MoviesController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $movie->youtube_id = $request->youtube_id;
-        $movie->title = $request->title;
+
+        if (!empty($request->title)) {
+            $movie->title = $request->title;
+        } else {
+            $movie->title = $this->getYoutubeTitle($request->youtube_id);
+        }
+
         $movie->user_id = $request->user()->id;
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
+
         return back();
     }
 }
