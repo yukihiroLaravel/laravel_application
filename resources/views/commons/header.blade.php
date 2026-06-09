@@ -1,6 +1,18 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">YouTubeまとめ<br>&ensp;×コミュニケーション</a>
+
+        <form class="form-inline movie-search-form my-2 my-lg-0 ml-3" method="GET" action="{{ route('movie.search') }}">
+            <input
+                class="form-control movie-search-input mr-sm-2"
+                type="search"
+                name="keyword"
+                placeholder="キーワードを入力"
+                value="{{ request('keyword') }}"
+            >
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">検索</button>
+        </form>
+        
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>

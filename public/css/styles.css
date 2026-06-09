@@ -5,3 +5,47 @@
 .button {
   width: 290px;
 }
+
+@media (max-width: 575.98px) {
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .navbar-brand {
+        order: 1;
+        margin-right: auto;
+    }
+
+    .navbar-toggler {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .movie-search-form {
+        order: 3;
+        width: 100%;
+        margin-left: 0 !important;
+        margin-top: 0.75rem !important;
+        margin-bottom: 0.25rem !important;
+        display: flex !important;
+        flex-wrap: nowrap;
+    }
+
+    .movie-search-input {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: auto;
+    }
+
+    .movie-search-form button {
+        flex: 0 0 auto;
+        margin-left: 0.5rem;
+    }
+
+    .navbar-collapse {
+        order: 4;
+        width: 100%;
+    }
+}

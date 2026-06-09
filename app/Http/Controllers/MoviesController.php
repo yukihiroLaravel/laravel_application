@@ -20,6 +20,28 @@ class MoviesController extends Controller
         return view('movies.create', $data);
     }
 
+    public function search(Request $request)
+    {
+        // $request->validate([
+        //     'keyword' => 'nullable|string|max:255',
+        // ]);
+        
+        $keyword = trim($request->input('keyword'));
+
+        if (empty($keyword)) {
+            $movies = Movie::orderBy('id', 'desc')->paginate(9);
+        } else {
+            $movies = Movie::where('title', 'like', '%' . $keyword . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(9);
+        }
+
+        return view('movies.search', [
+            'keyword' => $keyword,
+            'movies' => $movies,
+        ]);
+    }
+
     public function store(MovieRequest $request)
     {
         $movie = new Movie;
