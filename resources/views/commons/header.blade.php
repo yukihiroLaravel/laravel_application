@@ -2,9 +2,9 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">YouTubeまとめ<br>&ensp;×コミュニケーション</a>
 
-        <form class="form-inline my-2 my-lg-0 ml-3" method="GET" action="{{ route('movie.search') }}">
+        <form class="form-inline movie-search-form my-2 my-lg-0 ml-3" method="GET" action="{{ route('movie.search') }}">
             <input
-                class="form-control mr-sm-2"
+                class="form-control movie-search-input mr-sm-2"
                 type="search"
                 name="keyword"
                 placeholder="キーワードを入力"
