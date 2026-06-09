@@ -23,6 +23,20 @@ class CommentsController extends Controller
         return redirect()->route('movie.show', $movie->id);
     }
 
+    public function storeReply(CommentRequest $request, $id)
+    {
+        $parentComment = Comment::findOrFail($id);
+
+        $reply = new Comment();
+        $reply->content = $request->content;
+        $reply->movie_id = $parentComment->movie_id;
+        $reply->user_id = Auth::id();
+        $reply->parent_id = $parentComment->id;
+        $reply->save();
+
+        return redirect()->route('movie.show', $parentComment->movie_id);
+    }
+
     public function destroy($id)
     {
         $comment = Comment::findOrFail($id);

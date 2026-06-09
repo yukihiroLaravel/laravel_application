@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
     // コメント
     // コメント投稿
     Route::post('movies/{id}/comments', 'CommentsController@store')->name('comment.store');
+    // コメント返信
+    Route::post('comments/{id}/replies', 'CommentsController@storeReply')->name('comment.reply');
     // コメント編集
     Route::get('comments/{id}/edit', 'CommentsController@edit')->name('comment.edit');
     Route::put('comments/{id}', 'CommentsController@update')->name('comment.update');

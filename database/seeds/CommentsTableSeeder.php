@@ -13,16 +13,25 @@ class CommentsTableSeeder extends Seeder
         $user = User::first();
 
         if ($movie && $user) {
-            Comment::create([
-                'content' => 'これはテストコメントです。',
+            $parentComment = Comment::create([
+                'content' => 'これは親コメントです。',
                 'movie_id' => $movie->id,
                 'user_id' => $user->id,
+                'parent_id' => null,
+            ]);
+
+            $reply = Comment::create([
+                'content' => 'これは親コメントへの返信です。',
+                'movie_id' => $movie->id,
+                'user_id' => $user->id,
+                'parent_id' => $parentComment->id,
             ]);
 
             Comment::create([
-                'content' => '動画詳細ページのコメント表示確認用です。',
+                'content' => 'これは返信への返信です。',
                 'movie_id' => $movie->id,
                 'user_id' => $user->id,
+                'parent_id' => $reply->id,
             ]);
         }
     }

@@ -25,6 +25,7 @@ class MoviesController extends Controller
         $movie = Movie::findOrFail($id);
 
         $comments = $movie->comments()
+            ->whereNull('parent_id') // parent_id が Null、つまり親コメントだけに絞る
             ->orderBy('id', 'desc')
             ->paginate(10);
         
