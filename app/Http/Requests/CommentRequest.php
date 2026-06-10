@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CommentRequest extends FormRequest
 {
@@ -26,5 +28,16 @@ class CommentRequest extends FormRequest
         return [
             'content' => 'required|string|max:1000',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('comment_error_target', $this->input('comment_error_target'))
+        );
     }
 }

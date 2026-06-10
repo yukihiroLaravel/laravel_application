@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Movie;
 use App\Comment;
 use Auth;
@@ -34,7 +33,9 @@ class CommentsController extends Controller
         $reply->parent_id = $parentComment->id;
         $reply->save();
 
-        return redirect()->route('movie.show', $parentComment->movie_id);
+        return redirect()
+            ->route('movie.show', $parentComment->movie_id)
+            ->with('open_comment_id', $reply->id);
     }
 
     public function destroy($id)
@@ -76,6 +77,9 @@ class CommentsController extends Controller
         $comment->content = $request->content;
         $comment->save();
 
-        return redirect()->route('movie.show', $comment->movie_id);
+        return redirect()
+            ->route('movie.show', $parentComment->movie_id)
+            ->with('open_comment_id', $reply->id)
+            ->with('success', '返信を投稿しました。');
     }
 }

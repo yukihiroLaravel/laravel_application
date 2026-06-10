@@ -71,3 +71,18 @@
     @include('comments.form', ['movie' => $movie])
     @include('comments.comments', ['comments' => $comments])
 @endsection
+
+@if (session('open_comment_id'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const target = document.getElementById('comment-{{ session('open_comment_id') }}');
+
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+    </script>
+@endif

@@ -128,8 +128,9 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'content' => [
+            'required' => 'コメント本文を入力してください。',
+            'max' => 'コメント本文は:max文字以内で入力してください。',
         ],
     ],
     /*
@@ -146,6 +147,7 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'content' => 'コメント本文',
     ],
 
 ];

@@ -1,4 +1,29 @@
-<div class="card mb-2">
+@php
+    $commentErrorTarget = session('comment_error_target');
+
+    $targetReplyId = null;
+
+    if (is_string($commentErrorTarget) && strpos($commentErrorTarget, 'reply_') === 0) {
+        $targetReplyId = (int) str_replace('reply_', '', $commentErrorTarget);
+    }
+
+    $hasReplyError = $targetReplyId === (int) $comment->id && $errors->has('content');
+
+    $openCommentId = session('open_comment_id');
+
+    $shouldOpenReplies = (
+        $targetReplyId && (
+            (int) $comment->id === $targetReplyId ||
+            $comment->hasDescendant($targetReplyId)
+        )
+    ) || (
+        $openCommentId && $comment->hasDescendant($openCommentId)
+    );
+
+    $isOpenedComment = $openCommentId && (int) $comment->id === (int) $openCommentId;
+@endphp
+
+<div id="comment-{{ $comment->id }}" class="card mb-2 {{ $isOpenedComment ? 'alert-info border-info' : '' }}">
     <div class="card-body">
         <p>{{ $comment->content }}</p>
 
@@ -14,7 +39,7 @@
                     type="button"
                     data-toggle="collapse"
                     data-target="#reply-form-{{ $comment->id }}"
-                    aria-expanded="false"
+                    aria-expanded="{{ $hasReplyError ? 'true' : 'false' }}"
                     aria-controls="reply-form-{{ $comment->id }}">
                     返信する
                 </button>
@@ -26,7 +51,7 @@
                     type="button"
                     data-toggle="collapse"
                     data-target="#replies-{{ $comment->id }}"
-                    aria-expanded="false"
+                    aria-expanded="{{ $shouldOpenReplies ? 'true' : 'false' }}"
                     aria-controls="replies-{{ $comment->id }}">
                     返信を表示 {{ $comment->replies->count() }}件
                 </button>
@@ -46,9 +71,11 @@
         </div>
 
         @if (Auth::check())
-            <div class="collapse mt-3" id="reply-form-{{ $comment->id }}">
+            <div class="collapse mt-3 {{ $hasReplyError ? 'show' : '' }}" id="reply-form-{{ $comment->id }}">
                 <form method="POST" action="{{ route('comment.reply', $comment->id) }}">
                     @csrf
+
+                    <input type="hidden" name="comment_error_target" value="reply_{{ $comment->id }}">
 
                     <div class="form-group">
                         <textarea
@@ -59,9 +86,11 @@
                             placeholder="返信を入力してください"
                         >{{ old('content') }}</textarea>
 
-                        <small class="form-text text-muted">
-                            最大1000文字まで入力できます。
-                        </small>
+                        @if ($hasReplyError)
+                            <div class="alert alert-danger mt-2">
+                                {{ $errors->first('content') }}
+                            </div>
+                        @endif
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-sm">返信する</button>
@@ -70,7 +99,7 @@
         @endif
 
         @if ($comment->replies->count() > 0)
-            <div class="collapse ml-4 mt-3" id="replies-{{ $comment->id }}">
+            <div class="collapse ml-4 mt-3 {{ $shouldOpenReplies ? 'show' : '' }}" id="replies-{{ $comment->id }}">
                 @foreach ($comment->replies as $reply)
                     @include('comments.comment', ['comment' => $reply])
                 @endforeach

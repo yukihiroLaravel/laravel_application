@@ -33,6 +33,21 @@ class Comment extends Model
 
     public function replies() // このコメントに対する返信一覧
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id')->orderBy('id', 'asc');
+    }
+
+    public function hasDescendant($commentId)
+    {
+        foreach ($this->replies as $reply) {
+            if ((int) $reply->id === (int) $commentId) {
+                return true;
+            }
+
+            if ($reply->hasDescendant($commentId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
