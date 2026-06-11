@@ -78,8 +78,8 @@ class CommentsController extends Controller
         $comment->save();
 
         return redirect()
-            ->route('movie.show', $parentComment->movie_id)
-            ->with('open_comment_id', $reply->id)
+            ->route('movie.show', $comment->movie_id)
+            ->with('open_comment_id', $comment->id)
             ->with('success', '返信を投稿しました。');
     }
 }
