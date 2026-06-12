@@ -96,7 +96,7 @@ class MoviesController extends Controller
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
 
-        return back();
+        return back()->with('success', __('messages.movie_created'));
     }
 
     public function edit($id)
@@ -127,7 +127,7 @@ class MoviesController extends Controller
         $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
         $movie->save();
 
-        return back();
+        return back()->with('success', __('messages.movie_updated'));
     }
 
     public function destroy($id)
@@ -140,6 +140,6 @@ class MoviesController extends Controller
 
         $movie->delete();
 
-        return back();
+        return back()->with('success', __('messages.movie_deleted'));
     }
 }

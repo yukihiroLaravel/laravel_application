@@ -10,6 +10,7 @@
     <body>
         @include('commons.header')
         <div class="container">
+            @include('commons.flash_messages')
             @include('commons.error_messages')
             @yield('content')
         </div>

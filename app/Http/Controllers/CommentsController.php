@@ -19,7 +19,9 @@ class CommentsController extends Controller
         $comment->user_id = Auth::id();
         $comment->save();
 
-        return redirect()->route('movie.show', $movie->id);
+        return redirect()
+            ->route('movie.show', $movie->id)
+            ->with('success', __('messages.comment_created'));
     }
 
     public function storeReply(CommentRequest $request, $id)
@@ -35,7 +37,8 @@ class CommentsController extends Controller
 
         return redirect()
             ->route('movie.show', $parentComment->movie_id)
-            ->with('open_comment_id', $reply->id);
+            ->with('open_comment_id', $reply->id)
+            ->with('success', __('messages.reply_created'));
     }
 
     public function destroy($id)
@@ -50,7 +53,9 @@ class CommentsController extends Controller
 
         $comment->delete();
 
-        return redirect()->route('movie.show', $movieId);
+        return redirect()
+            ->route('movie.show', $movieId)
+            ->with('success', __('messages.comment_deleted'));
     }
 
     public function edit($id)
@@ -80,6 +85,6 @@ class CommentsController extends Controller
         return redirect()
             ->route('movie.show', $comment->movie_id)
             ->with('open_comment_id', $comment->id)
-            ->with('success', '返信を投稿しました。');
+            ->with('success', __('messages.comment_updated'));
     }
 }

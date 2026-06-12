@@ -9,11 +9,12 @@ class FavoriteController extends Controller
     public function store($id)
     {
         \Auth::user()->favorite($id);
-        return back();
+        return back()->with('success', __('messages.favorite_created'));
     }
+    
     public function destroy($id)
     {
         \Auth::user()->unfavorite($id);
-        return back();
+        return back()->with('success', __('messages.favorite_deleted'));
     }
 }
