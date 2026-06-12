@@ -129,4 +129,17 @@ class MoviesController extends Controller
 
         return back();
     }
+
+    public function destroy($id)
+    {
+        $movie = Movie::findOrFail($id);
+
+        if (\Auth::id() !== $movie->user_id) {
+            abort(403);
+        }
+
+        $movie->delete();
+
+        return back();
+    }
 }
