@@ -1,10 +1,18 @@
+<!-- ユーザー一覧を3列で表示し、各ユーザーの最新動画と総いいね数を表示するテンプレート -->
 <h2 class="mt-5 mb-5">チャンネル一覧</h2>
 <div class="movies row mt-5 text-center">
     @foreach ($users as $user)
 
-    <!-- phpを記述する宣言 -->
-    <!-- 最新の動画だけ表示 Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出 -->
+    <!-- 各ユーザーの動画一覧から、総いいね数と最新動画を取得する -->
+    <!-- 最新の動画だけ表示 Userモデルに記述したmovies()関数を使い、ユーザが所有している動画情報のうち最も最近登録された動画のみを抜き出し、 -->
+    <!-- 各動画のいいね！数を足していく -->
     @php
+    $movies = $user->movies()->get();
+    $totalFavorites = 0;
+    foreach ($movies as $movie) {
+    $totalFavorites += $movie->favoriteUsers()->count();
+    }
+
     $movie = $user->movies->last();
     @endphp
     <!-- iteration:何回目の繰り返しか  -->
@@ -12,9 +20,14 @@
 </div>
 <div class="row text-center mt-3">
     @endif
+    <!-- 各ユーザーの動画情報を表示する-->
     <div class="col-lg-4 mb-5">
         <div class="movie text-left d-inline-block">
-            <!-- ＠{{ $user->name }} -->
+            <!-- いいね！数のバッジを各動画右上に追加 -->
+            <div class="text-right">
+                <span class="badge badge-pill badge-success">{{ $totalFavorites }} いいね!</span>
+            </div>
+
             <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}</a>
             <div>
                 <!-- ユーザーが動画を持っている場合、動画を埋め込む -->

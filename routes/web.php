@@ -12,34 +12,42 @@
 */
 
 // ユーザ新規登録
+// showRegistrationFormメソッド、registerメソッドは、traitで定義されている
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// ログイン
+/* ログイン */
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ユーザーコントローラ
-Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+// ユーザ(ログイン前)
+Route::get('/', 'UsersController@index')->name('users');
+// ユーザ詳細
+Route::group(['prefix' => 'users/{id}'], function () {
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('favorites', 'UsersController@favorites')->name('user.favorites');
 });
 
-// ['middleware' => 'auth'] ログイン後にしかアクセスできない
-// Route::group ルーティングのグループを作成
-// middleware:controllerに行く直前に必ず通る処理
-// ログインしているかを判定
-
+// ユーザ（ログイン後の処理）
 Route::group(['middleware' => 'auth'], function () {
+    // ログインしているか判定し、ログインしていたら処理
 
     // 動画
-    // prefix: ルーティング（movies.○○）を省略する
     Route::prefix('movies')->group(function () {
         Route::get('create', 'MoviesController@create')->name('movie.create');
-        // 動画の登録機能
         Route::post('', 'MoviesController@store')->name('movie.store');
-        // 動画の削除機能
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+
+        // 編集画面の表示
+        Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
+        // 更新処理の実行
+        Route::put('{id}', 'MoviesController@update')->name('movie.update');
+    });
+
+    // いいね！機能
+    Route::group(['prefix' => 'movies/{id}'], function () {
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
 });

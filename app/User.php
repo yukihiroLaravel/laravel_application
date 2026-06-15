@@ -18,7 +18,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -27,7 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -42,5 +45,40 @@ class User extends Authenticatable
     public function movies()
     {
         return $this->hasMany(Movie::class);
+    }
+
+    public function favorites()
+    {
+        // 多対多を定義 いいね！した一覧を取得
+        return $this->belongsToMany(Movie::class, 'favorites', 'user_id', 'movie_id')->withTimestamps();
+    }
+    public function favorite($movieId)
+    {
+        // 動画に対して、いいね！を実行する関数
+        // すでにいいね！されていればfalse
+        // されていなければ、いいね！を実行してtrueを返す
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($movieId);
+            return true;
+        }
+    }
+    public function unfavorite($movieId)
+    {
+        // いいね！をはずす関数
+        $exist = $this->isFavorite($movieId);
+        if ($exist) {
+            $this->favorites()->detach($movieId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isFavorite($movieId)
+    {
+        // ユーザーがいいね！しているかどうかを判定
+        return $this->favorites()->where('movie_id', $movieId)->exists();
     }
 }
