@@ -6,4 +6,4 @@
         <li class="nav-item nav-link><a href="">お気に入り<br><div class="badge badge-secondary"></div></a></li>
     </ul>
     @include('movies.movies', ['user' => $user, 'movies' => $movies])
-@endsection
+@endsections
