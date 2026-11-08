@@ -20,3 +20,13 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'UsersController@index');
+
+// ログイン後　['middleware' => 'auth']でログインしているか？していないか？の判定をする
+Route::group(['middleware' => 'auth'], function () { //この行でログイン後にcreate、store、deleteにアクセスできる。
+    // 動画
+    Route::prefix('movies')->group(function () { 
+        Route::get('create', 'MoviesController@create')->name('movie.create'); // create 新規登録画面の表示
+        Route::post('', 'MoviesController@store')->name('movie.store');// store 動画の登録機能
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');//delete 動画の削除機能
+    });
+});
