@@ -33,7 +33,7 @@ class MoviesController extends Controller
 
     public function destroy($id)
     {
-        $movie = Movie::findOrFail($id);
+        $movie = Movie::findOrFail($id);// findOrFail idが存在しなかった場合でもエラーにならず「エラーです」と表示させてくれるlaravelに備え付けの関数
         if (\Auth::id() === $movie->user_id) {
             $movie->delete();
         }
